@@ -1,0 +1,15 @@
+name: crygen
+version: 0.1.0
+
+authors:
+  - tamdaz <tamda.zohir.pro@gmail.com>
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+  cruml:
+    github: tamdaz/cruml
+
+crystal: '>= 1.14.0'
+
+license: MIT
