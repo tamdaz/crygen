@@ -29,6 +29,17 @@ module Project
 
   class_person = CGT::Class.new("Person")
   class_person.add_method(method_full_name)
+
+  puts class_person
+end
+```
+
+After code generation : 
+```crystal
+class Person
+  # Gets the person's full name.
+  def full_name : String
+  end
 end
 ```
 
