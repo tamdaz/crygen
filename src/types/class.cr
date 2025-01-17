@@ -21,7 +21,8 @@ class Crygen::Types::Class
       str << class_type
       generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
       @methods.each do |method|
-        method.generate.each_line { |line| str << "  " + line }
+        str << method.generate_abstract_method if @type == :abstract
+        str << method.generate if @type == :normal
       end
       str << "end"
     end

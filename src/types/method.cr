@@ -24,4 +24,13 @@ class Crygen::Types::Method
       str << "end"
     end
   end
+
+  # Generates the abstract methods
+  protected def generate_abstract_method : String
+    String.build do |str|
+      @comments.each { |comment| str << "# #{comment}\n" }
+      str << @scope.to_s + " " unless @scope == :public
+      str << "  def #{@name}#{generate_args} : #{@return_type}\n"
+    end
+  end
 end
