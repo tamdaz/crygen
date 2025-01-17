@@ -9,6 +9,20 @@ describe Crygen::Types::Method do
     CRYSTAL
   end
 
+  it "creates a method with body" do
+    method_type = CGT::Method.new("full_name", "String")
+    method_type.add_body(<<-CRYSTAL)
+    # This comment is in method body
+    "John Doe"
+    CRYSTAL
+    method_type.generate.should eq(<<-CRYSTAL)
+    def full_name : String
+      # This comment is in method body
+      "John Doe"
+    end
+    CRYSTAL
+  end
+
   it "creates a protected method" do
     method_type = CGT::Method.new("date_birth", "String")
     method_type.as_protected
