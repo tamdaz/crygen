@@ -44,7 +44,7 @@ end
 ```
 
 # Todos
-- [ ] : Add an instance var
+- [x] : Add an instance var
 - [ ] : Add a class var
 - [ ] : Add a block
 - [ ] : Add an enum
