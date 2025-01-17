@@ -2,6 +2,7 @@ require "./../modules/*"
 
 class Crygen::Types::Class
   include Crygen::Modules::Comment
+  include Crygen::Modules::InstanceVar
   include Crygen::Modules::Method
 
   @type : Symbol = :normal
@@ -18,6 +19,7 @@ class Crygen::Types::Class
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
       str << class_type
+      generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
       @methods.each do |method|
         method.generate.each_line { |line| str << "  " + line }
       end
