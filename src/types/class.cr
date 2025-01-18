@@ -20,9 +20,18 @@ class Crygen::Types::Class
       @comments.each { |comment| str << "# #{comment}\n" }
       str << class_type
       generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
+      can_add_whitespace = false
       @methods.each do |method|
-        str << method.generate_abstract_method if @type == :abstract
-        str << method.generate if @type == :normal
+        str << "\n" if can_add_whitespace == true
+
+        case @type
+        when :normal   then str << method.generate.each_line { |line| str << "  " + line + "\n" }
+        when :abstract then str << method.generate_abstract_method
+        end
+
+        if can_add_whitespace == false && @type == :normal
+          can_add_whitespace = true
+        end
       end
       str << "end"
     end
