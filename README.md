@@ -26,8 +26,10 @@ require "crygen"
 module Project
   method_full_name = CGT::Method.new("full_name", "String")
   method_full_name.add_comment("Gets the person's full name.")
+  method_full_name.add_body("John Doe".dump)
 
   class_person = CGT::Class.new("Person")
+  class_person.add_comment("This is a class called Person.")
   class_person.add_method(method_full_name)
 
   puts class_person
@@ -36,9 +38,11 @@ end
 
 After code generation : 
 ```crystal
+# This is a class called Person.
 class Person
   # Gets the person's full name.
   def full_name : String
+    "John Doe"
   end
 end
 ```
