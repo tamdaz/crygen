@@ -33,4 +33,42 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
   end
+
+  it "creates a class with one method" do
+    method_type = CGT::Method.new("full_name", "String")
+    method_type.add_body("John Doe".dump)
+    class_type = test_person_class()
+    class_type.add_method(method_type)
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      def full_name : String
+        "John Doe"
+      end
+    end
+    CRYSTAL
+  end
+
+  it "creates a class with many methods" do
+    method_first_name = CGT::Method.new("first_name", "String")
+    method_first_name.add_body("John".dump)
+
+    method_last_name = CGT::Method.new("last_name", "String")
+    method_last_name.add_body("Doe".dump)
+
+    class_type = test_person_class()
+    class_type.add_method(method_first_name)
+    class_type.add_method(method_last_name)
+
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      def first_name : String
+        "John"
+      end
+
+      def last_name : String
+        "Doe"
+      end
+    end
+    CRYSTAL
+  end
 end
