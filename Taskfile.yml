@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  format:
+    cmds:
+      - crystal tool format
+      - bin/ameba
+  test:
+    cmd: crystal spec -p --verbose
