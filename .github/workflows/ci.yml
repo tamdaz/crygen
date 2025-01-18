@@ -6,13 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: crystallang/crystal:latest
+      image: crystallang/crystal
     steps:
-      - name: Download source
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install Crystal
-        uses: crystal-lang/install-crystal@v1
+        uses: shards install
       - name: Check formatting
-        run: crystal tool format --check
+        run: ./bin/ameba
       - name: Run tests
         run: crystal spec
