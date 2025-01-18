@@ -1,17 +1,18 @@
 on:
   push:
   pull_request:
-    branches: [master]
+    branches: [ "main" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
       image: crystallang/crystal
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Crystal
-        uses: shards install
-      - name: Check formatting
-        run: ./bin/ameba
-      - name: Run tests
-        run: crystal spec
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: shards install
+    - name: Check format
+      run: ./bin/ameba
+    - name: Run tests
+      run: crystal spec
