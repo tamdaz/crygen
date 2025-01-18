@@ -55,6 +55,7 @@ end
 - [ ] : Add a constant
 - [ ] : Add a macro
 - [ ] : Add a lib (C binding)
+- [ ] : Add attributes for class (`setter`, `property` and `getter`)
 
 Check out the references : https://crystal-lang.org/reference/1.15/syntax_and_semantics/index.html
 
