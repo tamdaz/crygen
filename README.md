@@ -32,7 +32,7 @@ module Project
   class_person.add_comment("This is a class called Person.")
   class_person.add_method(method_full_name)
 
-  puts class_person
+  puts class_person.generate
 end
 ```
 
