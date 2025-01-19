@@ -156,7 +156,7 @@ This library can be used to save time. In particular, the frameworks have featur
 - [x] : Add an annotation
 - [ ] : Add a module
 - [ ] : Add a generic for class
-- [ ] : Add a struct
+- [x] : Add a struct
 - [ ] : Add a constant
 - [ ] : Add a macro
 - [ ] : Add a lib (C binding)
