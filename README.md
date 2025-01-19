@@ -151,16 +151,14 @@ This library can be used to save time. In particular, the frameworks have featur
 # Todos
 - [x] : Add an instance var
 - [x] : Add a class var
-- [ ] : Add a block
+- [ ] : Add attributes for class (`setter`, `property` and `getter`)
 - [x] : Add an enum
 - [x] : Add an annotation
 - [ ] : Add a module
 - [ ] : Add a generic for class
 - [x] : Add a struct
-- [ ] : Add a constant
 - [ ] : Add a macro
 - [ ] : Add a lib (C binding)
-- [ ] : Add attributes for class (`setter`, `property` and `getter`)
 
 Once the todos have been checked, this library will be released.
 
