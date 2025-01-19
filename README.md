@@ -13,6 +13,9 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Instance variables](#instance-variables)
   - [Class variables](#class-variables)
   - [Abstract class](#abstract-class)
+  - [Enum](#enum)
+  - [Annotation](#annotation)
+  - [Struct](#struct)
 
 ## Installation
 
