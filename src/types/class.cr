@@ -3,6 +3,7 @@ require "./../modules/*"
 class Crygen::Types::Class
   include Crygen::Modules::Comment
   include Crygen::Modules::InstanceVar
+  include Crygen::Modules::ClassVar
   include Crygen::Modules::Method
 
   @type : Symbol = :normal
@@ -20,6 +21,7 @@ class Crygen::Types::Class
       @comments.each { |comment| str << "# #{comment}\n" }
       str << class_type
       generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
+      generate_class_vars.each_line { |line| str << "  " + line + "\n" }
       can_add_whitespace = false
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
