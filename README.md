@@ -152,7 +152,7 @@ This library can be used to save time. In particular, the frameworks have featur
 - [x] : Add an instance var
 - [x] : Add a class var
 - [ ] : Add a block
-- [ ] : Add an enum
+- [x] : Add an enum
 - [ ] : Add an annotation
 - [ ] : Add a module
 - [ ] : Add a generic for class
