@@ -53,12 +53,14 @@ end
 ```
 
 > [!TIP]
-> You can add new lines of comments and code to the method by calling the `add_comment` and `add_body` methods several times.
+> You can add new lines of comments and code to the method by calling the
+> `add_comment` and `add_body` methods several times.
 
 
 ### Class
 
-In addition to creating methods, you can add them to a class using the `add_method` method of the `CGT::Class` class.
+In addition to creating methods, you can add them to a class using the `add_method`
+method of the `CGT::Class` class.
 
 ```crystal
 # Create a method with one comment and a body.
@@ -142,11 +144,138 @@ end
 > [!NOTE]  
 > If you add code to an abstract method, only the method signature will be generated.
 
+### Enum
+
+```crystal
+enum_type = CGT::Enum.new("Person")
+
+enum_type.add_constant("Employee")
+enum_type.add_constant("Student")
+enum_type.add_constant("Intern")
+
+puts enum_type.generate
+```
+
+Once the code is generated, the enum will look like this : 
+
+```crystal
+enum Person
+  Employee
+  Student
+  Intern
+end
+```
+
+In addition to this, you can specify the types of constants by passing the type as
+a second argument, as well as defining default values for any constant.
+
+```crystal
+enum_type = CGT::Enum.new("Person", "Int32")
+enum_type.add_constant("Employee", "1")
+enum_type.add_constant("Student", "2")
+enum_type.add_constant("Intern", "3")
+
+puts enum_type.generate
+```
+
+```crystal
+enum Person : Int32
+  Employee = 1
+  Student = 2
+  Intern = 3
+end
+```
+
+### Annotation
+
+```crystal
+annotation_type = CGT::Annotation.new("MyAnnotation")
+
+puts annotation_type.generate
+```
+
+Output : 
+```crystal
+@[MyAnnotation]
+```
+
+With the annotation, you can add it to the method or class that allows to add metadata.
+
+```crystal
+class_type = test_person_class()
+class_type.add_annotation(CGT::Annotation.new("Experimental"))
+puts class_type.generate
+
+method_type = CGT::Method.new("full_name", "String")
+method_type.add_annotation(CGT::Annotation.new("MyAnnotation"))
+puts method_type.generate
+
+class_type.add_method(method_type)
+puts class_type.generate
+```
+
+Output : 
+```crystal
+# Annotation on class
+@[Experimental]
+class Person
+end
+
+# Annotation on method
+@[Experimental]
+def full_name : String
+  "John Doe"
+end
+
+# Annotation on class and method.
+@[Experimental]
+class Person
+  @[Experimental]
+  def full_name : String
+    "John Doe"
+  end
+end
+```
+
+> [!TIP]
+> You can add many annotations as you want thanks to the `add_annotation` method.
+
+### Struct
+
+```crystal
+method_first_name = CGT::Method.new("first_name", "String")
+method_first_name.add_body("John".dump)
+
+method_last_name = CGT::Method.new("last_name", "String")
+method_last_name.add_body("Doe".dump)
+
+struct_type = CGT::Struct.new("Point")
+struct_type.add_method(method_first_name)
+struct_type.add_method(method_last_name)
+
+puts struct_type.generate
+```
+Output : 
+```crystal
+struct Point
+  def first_name : String
+    "John"
+  end
+
+  def last_name : String
+    "Doe"
+  end
+end
+```
+
 > More examples will be added soon.
 
 ## Usage
 
-This library can be used to save time. In particular, the frameworks have features for generating code more easily, without having to rewrite everything by hand. For example, frameworks such as Adonis, Laravel and Symfony include features for generating classes.
+This library can be used to save time. In particular, the frameworks have features
+for generating code more easily, without having to rewrite everything by hand.
+For example, frameworks such as Adonis, Laravel and Symfony include features
+for generating classes.
 
 # Todos
 - [x] : Add an instance var
@@ -163,7 +292,7 @@ Once the todos have been checked, this library will be released.
 
 _Check out the references : https://crystal-lang.org/reference/1.15/syntax_and_semantics/index.html_
 
-If there's something missing from the todo, don't hesitate to add it to this project.
+If there's something missing from the todo, don't hesitate to add it.
 
 ## Contributing
 
