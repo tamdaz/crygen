@@ -30,7 +30,7 @@ class Crygen::Types::Method
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
       str << @scope.to_s + " " unless @scope == :public
-      str << "  def #{@name}#{generate_args} : #{@return_type}\n"
+      str << "  abstract def #{@name}#{generate_args} : #{@return_type}\n"
     end
   end
 end

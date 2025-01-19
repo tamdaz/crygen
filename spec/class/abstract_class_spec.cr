@@ -17,7 +17,7 @@ describe Crygen::Types::Class do
       class_type.add_method(CGT::Method.new("full_name", "String"))
       class_type.generate.should eq(<<-CRYSTAL)
       abstract class Person
-        def full_name : String
+        abstract def full_name : String
       end
       CRYSTAL
     end
@@ -30,9 +30,9 @@ describe Crygen::Types::Class do
       class_type.add_method(CGT::Method.new("full_name", "String"))
       class_type.generate.should eq(<<-CRYSTAL)
       abstract class Person
-        def first_name : String
-        def last_name : String
-        def full_name : String
+        abstract def first_name : String
+        abstract def last_name : String
+        abstract def full_name : String
       end
       CRYSTAL
     end
