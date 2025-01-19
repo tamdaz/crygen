@@ -9,6 +9,28 @@ describe Crygen::Types::Class do
     CRYSTAL
   end
 
+  it "creates a class with one annotation" do
+    class_type = test_person_class()
+    class_type.add_annotation(CGT::Annotation.new("Experimental"))
+    class_type.generate.should eq(<<-CRYSTAL)
+    @[Experimental]
+    class Person
+    end
+    CRYSTAL
+  end
+
+  it "creates a class with many annotations" do
+    class_type = test_person_class()
+    class_type.add_annotation(CGT::Annotation.new("Experimental"))
+    class_type.add_annotation(CGT::Annotation.new("MyAnnotation"))
+    class_type.generate.should eq(<<-CRYSTAL)
+    @[Experimental]
+    @[MyAnnotation]
+    class Person
+    end
+    CRYSTAL
+  end
+
   it "creates a class with one line comment" do
     class_type = test_person_class()
     class_type.add_comment("This is an example class concerning a person.")

@@ -9,6 +9,28 @@ describe Crygen::Types::Method do
     CRYSTAL
   end
 
+  it "creates a method with an annotation" do
+    method_type = CGT::Method.new("full_name", "String")
+    method_type.add_annotation(CGT::Annotation.new("Experimental"))
+    method_type.generate.should eq(<<-CRYSTAL)
+    @[Experimental]
+    def full_name : String
+    end
+    CRYSTAL
+  end
+
+  it "creates a method with more annotations" do
+    method_type = CGT::Method.new("full_name", "String")
+    method_type.add_annotation(CGT::Annotation.new("Experimental"))
+    method_type.add_annotation(CGT::Annotation.new("MyAnnotation"))
+    method_type.generate.should eq(<<-CRYSTAL)
+    @[Experimental]
+    @[MyAnnotation]
+    def full_name : String
+    end
+    CRYSTAL
+  end
+
   it "creates a method with body" do
     method_type = CGT::Method.new("full_name", "String")
     method_type.add_body(<<-CRYSTAL)

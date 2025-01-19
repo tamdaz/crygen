@@ -8,7 +8,14 @@ class Crygen::Types::Class
 
   @type : Symbol = :normal
 
-  def initialize(@name : String); end
+  def initialize(@name : String)
+    @annotations = [] of Crygen::Types::Annotation
+  end
+
+  # Adds an annotation on a class.
+  def add_annotation(annotation_type : Crygen::Types::Annotation) : Nil
+    @annotations << annotation_type
+  end
 
   # Set as an abstract class.
   def as_abstract : Nil
@@ -19,6 +26,7 @@ class Crygen::Types::Class
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
+      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
       str << class_type
       generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
       generate_class_vars.each_line { |line| str << "  " + line + "\n" }
