@@ -1,4 +1,5 @@
 require "./../modules/method.cr"
+require "./../interfaces/generator"
 
 class Crygen::Types::Enum
   include Crygen::Modules::Method

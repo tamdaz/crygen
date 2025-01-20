@@ -1,6 +1,7 @@
 require "./../modules/arg"
+require "./../interfaces/generator"
 
-class Crygen::Types::Annotation
+class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # Tuple => {name, value}
   @args = [] of Tuple(String | Nil, String)
 

@@ -1,6 +1,7 @@
 require "./../modules/*"
+require "./../interfaces/generator"
 
-class Crygen::Types::Method
+class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Comment
   include Crygen::Modules::Scope
   include Crygen::Modules::Arg
