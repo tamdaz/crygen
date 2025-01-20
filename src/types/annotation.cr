@@ -1,21 +1,53 @@
 require "./../modules/arg"
 require "./../interfaces/generator"
 
+# A class that allows to generate an annotation.
+# ```
+# class_type = test_person_class()
+# class_type.add_annotation(CGT::Annotation.new("Experimental"))
+# puts class_type.generate
+# ```
+# Output :
+# ```
+# @[Experimental]
+# class Person
+# end
+# ```
 class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # Tuple => {name, value}
   @args = [] of Tuple(String | Nil, String)
 
+  # When instantiating the `Crygen::Types::Annotation` class,
+  # only the name must be passed as a parameter.
   def initialize(@name : String); end
 
+  # Adds only a value into the argument.
+  # ```
+  # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
+  # annotation_type.add_arg("true")
+  # ```
+  # Output :
+  # ```
+  # @[MyAnnotation(true)]
+  # ```
   def add_arg(value : String) : Nil
     @args << {nil, value}
   end
 
+  # Adds a name and value into the argument.
+  # ```
+  # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
+  # annotation_type.add_arg("name", "John Doe".dump)
+  # ```
+  # Output :
+  # ```
+  # @[MyAnnotation(name: "John Doe")]
+  # ```
   def add_arg(name : String, value : String) : Nil
     @args << {name, value}
   end
 
-  # Generates a Crystal code.
+  # Generates an annotation.
   def generate : String
     String.build do |str|
       str << "@[#{@name}"

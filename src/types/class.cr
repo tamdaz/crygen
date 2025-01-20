@@ -1,6 +1,23 @@
 require "./../modules/*"
 require "./../interfaces/generator"
 
+# A class that allows to generate a class.
+# ```
+# class_person = CGT::Class.new("Person")
+# class_person.add_comment("This is a class called Person.")
+# class_person.add_method(method_full_name)
+# puts class_person.generate
+# ```
+# Output :
+# ```
+# # This is a class called Person.
+# class Person
+#   # Gets the person's full name.
+#   def full_name : String
+#     "John Doe"
+#   end
+# end
+# ```
 class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Comment
   include Crygen::Modules::InstanceVar
@@ -9,11 +26,18 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
 
   @type : Symbol = :normal
 
+  # When instantiating the `Crygen::Types::Class` class, only the name must
+  # be passed as a parameter.
   def initialize(@name : String)
     @annotations = [] of Crygen::Types::Annotation
   end
 
-  # Adds an annotation on a class.
+  # Adds annotation(s) on a class.
+  # ```
+  # class_type = CGT::Class.new("Person")
+  # class_type.add_annotation(CGT::Annotation.new("Experimental"))
+  # class_type.add_annotation(CGT::Annotation.new("AnotherAnnotation"))
+  # ```
   def add_annotation(annotation_type : Crygen::Types::Annotation) : Nil
     @annotations << annotation_type
   end
@@ -34,12 +58,10 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
       can_add_whitespace = false
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
-
         case @type
         when :normal   then str << method.generate.each_line { |line| str << "  " + line + "\n" }
         when :abstract then str << method.generate_abstract_method
         end
-
         if can_add_whitespace == false && @type == :normal
           can_add_whitespace = true
         end
