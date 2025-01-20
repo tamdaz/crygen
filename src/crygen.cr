@@ -7,6 +7,6 @@ module Crygen
   # Library version
   VERSION = "0.1.0"
 
-  # CGT is a alias of "**C**ry**G**en **T**ypes", it simplifies the name.
+  # CGT is an alias of "**C**ry**G**en **T**ypes".
   alias ::CGT = Crygen::Types
 end
