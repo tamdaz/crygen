@@ -1,5 +1,5 @@
-# A class that is considered as a type must always have a "generate" method.
+# Classes located in the `src/types` folder must always have a public method named `generate`.
 abstract class Crygen::Abstract::GeneratorInterface
-  # This method allows to generate a class.
+  # This method generates a class.
   abstract def generate : String
 end

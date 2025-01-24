@@ -3,7 +3,7 @@ require "./../interfaces/generator"
 
 # A class that allows to generate an annotation.
 # ```
-# class_type = test_person_class()
+# class_type = CGT::Class.new("Person")
 # class_type.add_annotation(CGT::Annotation.new("Experimental"))
 # puts class_type.generate
 # ```
@@ -37,11 +37,11 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # Adds a name and value into the argument.
   # ```
   # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
-  # annotation_type.add_arg("name", "John Doe".dump)
+  # annotation_type.add_arg("full_name", "John Doe".dump)
   # ```
   # Output :
   # ```
-  # @[MyAnnotation(name: "John Doe")]
+  # @[MyAnnotation(full_name: "John Doe")]
   # ```
   def add_arg(name : String, value : String) : Nil
     @args << {name, value}

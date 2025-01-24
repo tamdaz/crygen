@@ -1,7 +1,7 @@
 require "./../modules/*"
 require "./../interfaces/generator"
 
-# A class that allows to generate a class.
+# A class that generates a class.
 # ```
 # class_person = CGT::Class.new("Person")
 # class_person.add_comment("This is a class called Person.")
@@ -43,6 +43,10 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   end
 
   # Set as an abstract class.
+  # ```
+  # class_type = CGT::Class.new("Person")
+  # class_type.as_abstract
+  # ```
   def as_abstract : Nil
     @type = :abstract
   end

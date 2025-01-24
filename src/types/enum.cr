@@ -1,19 +1,44 @@
 require "./../modules/method.cr"
 require "./../interfaces/generator"
 
+# A class that generates an enumeration (enum).
+# ```
+# enum_type = Crygen::Types::Enum.new("Person")
+# enum_type.add_constant("Employee")
+# enum_type.add_constant("Student")
+# enum_type.add_constant("Intern")
+# puts enum_type.generate
+# ```
+# Output :
+# ```
+# enum Person
+#   Employee
+#   Student
+#   Intern
+# end
+# ```
 class Crygen::Types::Enum
   include Crygen::Modules::Method
 
+  # Array of constants (name and value).
   @constants = [] of Tuple(String, String | Nil)
 
   def initialize(@name : String, @type : String | Nil = nil); end
 
   # Adds a constant into enum (name only).
+  # ```
+  # enum_type = Crygen::Types::Enum.new("Person")
+  # enum_type.add_constant("Employee")
+  # ```
   def add_constant(name : String) : Nil
     @constants << {name, nil}
   end
 
   # Adds a constant into enum (name and value).
+  # ```
+  # enum_type = Crygen::Types::Enum.new("Person")
+  # enum_type.add_constant("Employee", 1)
+  # ```
   def add_constant(name : String, value : String) : Nil
     @constants << {name, value}
   end
