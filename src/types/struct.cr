@@ -20,6 +20,7 @@ require "./../interfaces/generator"
 # ```
 class Crygen::Types::Struct < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Comment
+  include Crygen::Modules::Property
   include Crygen::Modules::InstanceVar
   include Crygen::Modules::ClassVar
   include Crygen::Modules::Method
@@ -45,6 +46,7 @@ class Crygen::Types::Struct < Crygen::Abstract::GeneratorInterface
       @comments.each { |comment| str << "# #{comment}\n" }
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
       str << "struct #{@name}\n"
+      generate_properties.each_line { |line| str << "  " + line + "\n" }
       generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
       generate_class_vars.each_line { |line| str << "  " + line + "\n" }
       can_add_whitespace = false

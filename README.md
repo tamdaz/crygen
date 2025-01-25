@@ -17,6 +17,10 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Annotation](#annotation)
   - [Struct](#struct)
   - [Module](#module)
+- [Usage](#usage)
+- [Todos](#todos)
+- [Contributing](#contributing)
+- [Contributors](#contributors)
 
 ## Installation
 
@@ -92,6 +96,33 @@ class Person
   end
 end
 ```
+
+You can add properties in the class, for example : 
+
+```crystal
+# Create a class with one comment and a method.
+class_person = CGT::Class.new("Person")
+class_person.add_comment("This is a class called Person.")
+class_type.add_property(:property, "full_name", "String")
+class_type.add_property(:getter, "first_name", "String")
+class_type.add_property(:setter, "last_name", "String")
+
+# Print the generated code.
+puts class_person.generate
+```
+
+Output :
+
+```crystal
+class Person
+  property full_name : String
+  getter first_name : String
+  setter last_name : String
+end
+```
+
+> [!INFO]
+> Nullable properties and scope properties will be available in the next version.
 
 ### Instance variables
 
@@ -309,7 +340,7 @@ for generating classes.
 # Todos
 - [x] : Add an instance var
 - [x] : Add a class var
-- [ ] : Add attributes for class (`setter`, `property` and `getter`)
+- [x] : Add properties for class (`setter`, `property` and `getter`)
 - [x] : Add an enum
 - [x] : Add an annotation
 - [x] : Add a module

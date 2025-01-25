@@ -93,4 +93,19 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
   end
+
+  it "creates a struct with properties" do
+    struct_type = test_point_struct()
+    struct_type.add_property(:property, "x", "Int32")
+    struct_type.add_property(:getter, "y", "Int32")
+    struct_type.add_property(:setter, "z", "Int32")
+
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      property x : Int32
+      getter y : Int32
+      setter z : Int32
+    end
+    CRYSTAL
+  end
 end

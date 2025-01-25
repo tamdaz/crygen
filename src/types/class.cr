@@ -20,6 +20,7 @@ require "./../interfaces/generator"
 # ```
 class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Comment
+  include Crygen::Modules::Property
   include Crygen::Modules::InstanceVar
   include Crygen::Modules::ClassVar
   include Crygen::Modules::Method
@@ -61,6 +62,7 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
       else
         "class #{@name}\n"
       end
+      generate_properties.each_line { |line| str << "  " + line + "\n" }
       generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
       generate_class_vars.each_line { |line| str << "  " + line + "\n" }
       can_add_whitespace = false
