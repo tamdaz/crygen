@@ -10,6 +10,10 @@ development_dependencies:
   cruml:
     github: tamdaz/cruml
 
+targets:
+  console:
+    main: src/console.cr
+
 crystal: '>= 1.14.0'
 
 license: MIT
