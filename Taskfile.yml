@@ -6,4 +6,4 @@ tasks:
       - crystal tool format
       - bin/ameba
   test:
-    cmd: crystal spec -p --verbose
+    cmd: crystal spec -p
