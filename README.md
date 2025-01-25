@@ -16,6 +16,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Enum](#enum)
   - [Annotation](#annotation)
   - [Struct](#struct)
+  - [Module](#module)
 
 ## Installation
 
@@ -271,6 +272,31 @@ struct Point
 end
 ```
 
+### Module
+
+```crystal
+enum_type = Crygen::Types::Enum.new("Role", "Int8")
+enum_type.add_constant("Member", "1")
+enum_type.add_constant("Moderator", "2")
+enum_type.add_constant("Administrator", "3")
+
+module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
+module_type.add_object(enum_type)
+```
+
+```crystal
+module Folder::Sub::Folder
+  enum Role : Int8
+    Member        = 1
+    Moderator     = 2
+    Administrator = 3
+  end
+end
+```
+
+> [!TIP]
+> You can add many objects as you want into that module, thanks to `add_object` method.
+
 > More examples will be added soon.
 
 ## Usage
@@ -286,7 +312,7 @@ for generating classes.
 - [ ] : Add attributes for class (`setter`, `property` and `getter`)
 - [x] : Add an enum
 - [x] : Add an annotation
-- [ ] : Add a module
+- [x] : Add a module
 - [x] : Add a struct
 - [ ] : Add a macro
 - [ ] : Add a lib (C binding)
