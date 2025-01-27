@@ -32,7 +32,7 @@ describe Crygen::Types::LibC do
   it "creates a C library with one function and more parameters" do
     args = [
       {"arg", "String"},
-      {"value", "Int32"}
+      {"value", "Int32"},
     ]
 
     libc_type = Crygen::Types::LibC.new("C")
