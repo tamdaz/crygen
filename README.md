@@ -21,6 +21,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
 - [Todos](#todos)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
+- [Lib C-binding](#lib-c-binding)
 
 ## Installation
 
@@ -330,6 +331,42 @@ end
 
 > More examples will be added soon.
 
+### Lib C-binding
+
+```crystal
+libc_type = CGT::LibC.new("C")
+libc_type.add_function("getch", "Int32", [{"arg", "Int32"}])
+libc_type.add_function("getpid", "Int32")
+libc_type.add_struct("TimeZone", [
+  {"field_one", "Int32"},
+  {"field_two", "Int32"},
+])
+libc_type.add_union("IntOrFloat", [
+  {"some_int", "Int32"},
+  {"some_float", "Float64"},
+])
+puts libc_type.generate
+```
+
+Output : 
+
+```crystal
+lib C
+  struct TimeZone
+    field_one : Int32
+    field_two : Int32
+  end
+
+  union IntOrFloat
+    some_int : Int32
+    some_float : Float64
+  end
+
+  fun getch(arg : Int32) : Int32
+  fun getpid : Int32
+end
+```
+
 ## Usage
 
 This library can be used to save time. In particular, the frameworks have features
@@ -346,7 +383,7 @@ for generating classes.
 - [x] : Add a module
 - [x] : Add a struct
 - [ ] : Add a macro
-- [ ] : Add a lib (C binding)
+- [x] : Add a lib (C binding)
 
 Once the todos have been checked, this library will be released.
 
