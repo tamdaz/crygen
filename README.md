@@ -22,6 +22,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Lib C-binding](#lib-c-binding)
+- [Macro](#macro)
 
 ## Installation
 
@@ -329,8 +330,6 @@ end
 > [!TIP]
 > You can add many objects as you want into that module, thanks to `add_object` method.
 
-> More examples will be added soon.
-
 ### Lib C-binding
 
 ```crystal
@@ -367,25 +366,39 @@ lib C
 end
 ```
 
+### Macro
+
+```crystal
+macro_type = Crygen::Types::Macro.new("example")
+macro_type.add_arg("name")
+macro_type.add_arg("value")
+macro_type.body = <<-CRYSTAL
+{% for i in 1..10 %}
+  puts {{ name }}
+  puts {{ value }}
+  puts {{ "Hello world" }}
+{% end %}
+CRYSTAL
+
+puts macro_type.generate
+```
+
+Output : 
+
+```crystal
+macro example(name, value)
+  {% for i in 1..10 %}
+    puts {{ "Hello world" }}
+  {% end %}
+end
+```
+
 ## Usage
 
 This library can be used to save time. In particular, the frameworks have features
 for generating code more easily, without having to rewrite everything by hand.
 For example, frameworks such as Adonis, Laravel and Symfony include features
 for generating classes.
-
-# Todos
-- [x] : Add an instance var
-- [x] : Add a class var
-- [x] : Add properties for class (`setter`, `property` and `getter`)
-- [x] : Add an enum
-- [x] : Add an annotation
-- [x] : Add a module
-- [x] : Add a struct
-- [ ] : Add a macro
-- [x] : Add a lib (C binding)
-
-Once the todos have been checked, this library will be released.
 
 _Check out the references : https://crystal-lang.org/reference/1.15/syntax_and_semantics/index.html_
 
