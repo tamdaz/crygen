@@ -22,6 +22,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Lib C-binding](#lib-c-binding)
+- [Macro](#macro)
 
 ## Installation
 
@@ -329,8 +330,6 @@ end
 > [!TIP]
 > You can add many objects as you want into that module, thanks to `add_object` method.
 
-> More examples will be added soon.
-
 ### Lib C-binding
 
 ```crystal
@@ -367,6 +366,33 @@ lib C
 end
 ```
 
+### Macro
+
+```crystal
+macro_type = Crygen::Types::Macro.new("example")
+macro_type.add_arg("name")
+macro_type.add_arg("value")
+macro_type.body = <<-CRYSTAL
+{% for i in 1..10 %}
+  puts {{ name }}
+  puts {{ value }}
+  puts {{ "Hello world" }}
+{% end %}
+CRYSTAL
+
+puts macro_type.generate
+```
+
+Output : 
+
+```crystal
+macro example(name, value)
+  {% for i in 1..10 %}
+    puts {{ "Hello world" }}
+  {% end %}
+end
+```
+
 ## Usage
 
 This library can be used to save time. In particular, the frameworks have features
@@ -382,7 +408,7 @@ for generating classes.
 - [x] : Add an annotation
 - [x] : Add a module
 - [x] : Add a struct
-- [ ] : Add a macro
+- [x] : Add a macro
 - [x] : Add a lib (C binding)
 
 Once the todos have been checked, this library will be released.
