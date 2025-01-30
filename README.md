@@ -400,19 +400,6 @@ for generating code more easily, without having to rewrite everything by hand.
 For example, frameworks such as Adonis, Laravel and Symfony include features
 for generating classes.
 
-# Todos
-- [x] : Add an instance var
-- [x] : Add a class var
-- [x] : Add properties for class (`setter`, `property` and `getter`)
-- [x] : Add an enum
-- [x] : Add an annotation
-- [x] : Add a module
-- [x] : Add a struct
-- [x] : Add a macro
-- [x] : Add a lib (C binding)
-
-Once the todos have been checked, this library will be released.
-
 _Check out the references : https://crystal-lang.org/reference/1.15/syntax_and_semantics/index.html_
 
 If there's something missing from the todo, don't hesitate to add it.
