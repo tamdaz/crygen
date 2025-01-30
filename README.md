@@ -388,6 +388,8 @@ Output :
 ```crystal
 macro example(name, value)
   {% for i in 1..10 %}
+    puts {{ name }}
+    puts {{ value }}
     puts {{ "Hello world" }}
   {% end %}
 end
