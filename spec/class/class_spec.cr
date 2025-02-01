@@ -96,9 +96,9 @@ describe Crygen::Types::Class do
 
   it "creates a class with properties" do
     class_type = test_person_class()
-    class_type.add_property(:property, "full_name", "String")
-    class_type.add_property(:getter, "first_name", "String")
-    class_type.add_property(:setter, "last_name", "String")
+    class_type.add_property(CGE::PropVisibility::Property, "full_name", "String")
+    class_type.add_property(CGE::PropVisibility::Getter, "first_name", "String")
+    class_type.add_property(CGE::PropVisibility::Setter, "last_name", "String")
 
     class_type.generate.should eq(<<-CRYSTAL)
     class Person
