@@ -7,11 +7,11 @@ assignees: ''
 
 ---
 
-**Description**
+## Description
 A clear and concise description of what the bug is.
 
-** Library version **
-Please give the library version.
+## Library version
+Please provide the library version (e.g : 0.y.z).
 
-** Crystal version **
-Please give the Crystal version.
+## Crystal version
+Please provide the Crystal version (e.g : 1.15.0).
