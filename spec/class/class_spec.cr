@@ -107,5 +107,18 @@ describe Crygen::Types::Class do
       setter last_name : String
     end
     CRYSTAL
+
+    class_type = test_person_class()
+    class_type.add_property(:property, "full_name", "String")
+    class_type.add_property(:getter, "first_name", "String")
+    class_type.add_property(:setter, "last_name", "String")
+
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      property full_name : String
+      getter first_name : String
+      setter last_name : String
+    end
+    CRYSTAL
   end
 end
