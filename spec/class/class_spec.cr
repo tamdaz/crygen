@@ -2,8 +2,7 @@ require "./../spec_helper"
 
 describe Crygen::Types::Class do
   it "creates a class" do
-    class_type = test_person_class()
-    class_type.generate.should eq(<<-CRYSTAL)
+    test_person_class().generate.should eq(<<-CRYSTAL)
     class Person
     end
     CRYSTAL

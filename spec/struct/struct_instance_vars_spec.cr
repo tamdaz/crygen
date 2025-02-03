@@ -3,9 +3,7 @@ require "./../spec_helper"
 describe Crygen::Types::Struct do
   describe "(instance vars only)" do
     it "creates a struct with one instance var" do
-      struct_type = test_point_struct()
-      struct_type.add_instance_var("full_name", "String")
-      struct_type.generate.should eq(<<-CRYSTAL)
+      test_point_struct().add_instance_var("full_name", "String").generate.should eq(<<-CRYSTAL)
       struct Point
         @full_name : String
       end
@@ -13,9 +11,7 @@ describe Crygen::Types::Struct do
     end
 
     it "creates a struct with one instance var with the default value" do
-      struct_type = test_point_struct()
-      struct_type.add_instance_var("full_name", "String", "John Doe")
-      struct_type.generate.should eq(<<-CRYSTAL)
+      test_point_struct().add_instance_var("full_name", "String", "John Doe").generate.should eq(<<-CRYSTAL)
       struct Point
         @full_name : String = "John Doe"
       end

@@ -2,17 +2,14 @@ require "./../spec_helper"
 
 describe Crygen::Types::Struct do
   it "creates a class" do
-    struct_type = test_point_struct()
-    struct_type.generate.should eq(<<-CRYSTAL)
+    test_point_struct().generate.should eq(<<-CRYSTAL)
     struct Point
     end
     CRYSTAL
   end
 
   it "creates a class with one annotation" do
-    struct_type = test_point_struct()
-    struct_type.add_annotation(CGT::Annotation.new("Experimental"))
-    struct_type.generate.should eq(<<-CRYSTAL)
+    test_point_struct().add_annotation(CGT::Annotation.new("Experimental")).generate.should eq(<<-CRYSTAL)
     @[Experimental]
     struct Point
     end
@@ -32,9 +29,7 @@ describe Crygen::Types::Struct do
   end
 
   it "creates a class with one line comment" do
-    struct_type = test_point_struct()
-    struct_type.add_comment("This is an example class concerning a person.")
-    struct_type.generate.should eq(<<-CRYSTAL)
+    test_point_struct().add_comment("This is an example class concerning a person.").generate.should eq(<<-CRYSTAL)
     # This is an example class concerning a person.
     struct Point
     end

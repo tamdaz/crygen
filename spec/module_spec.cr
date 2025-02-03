@@ -2,16 +2,14 @@ require "./spec_helper"
 
 describe Crygen::Types::Module do
   it "creates a module with simple name" do
-    module_type = Crygen::Types::Module.new("Folder")
-    module_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::Module.new("Folder").generate.should eq(<<-CRYSTAL)
     module Folder
     end
     CRYSTAL
   end
 
   it "creates a module with long name" do
-    module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::Module.new("Folder::Sub::Folder").generate.should eq(<<-CRYSTAL)
     module Folder::Sub::Folder
     end
     CRYSTAL
