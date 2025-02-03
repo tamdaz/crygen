@@ -1,16 +1,17 @@
+require "./../enums/property_visibility"
 require "./scope"
 
 module Crygen::Modules::Property
   @properties = [] of Hash(Symbol, String | Symbol | Nil)
 
   # Adds a property into object (visibility, name and type)
-  def add_property(visibility : Symbol, name : String, type : String) : Nil
-    @properties << {:scope => :public, :visibility => visibility, :name => name, :type => type, :value => nil}
+  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String) : Nil
+    @properties << {:scope => :public, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => nil}
   end
 
   # Adds a property into object (visibility, name, type and value)
-  def add_property(visibility : Symbol, name : String, type : String, value : String) : Nil
-    @properties << {:scope => :public, :visibility => visibility, :name => name, :type => type, :value => value}
+  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String) : Nil
+    @properties << {:scope => :public, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => value}
   end
 
   # Generates the properties.

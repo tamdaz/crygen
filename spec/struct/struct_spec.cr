@@ -96,6 +96,19 @@ describe Crygen::Types::Struct do
 
   it "creates a struct with properties" do
     struct_type = test_point_struct()
+    struct_type.add_property(CGE::PropVisibility::Property, "x", "Int32")
+    struct_type.add_property(CGE::PropVisibility::Getter, "y", "Int32")
+    struct_type.add_property(CGE::PropVisibility::Setter, "z", "Int32")
+
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      property x : Int32
+      getter y : Int32
+      setter z : Int32
+    end
+    CRYSTAL
+
+    struct_type = test_point_struct()
     struct_type.add_property(:property, "x", "Int32")
     struct_type.add_property(:getter, "y", "Int32")
     struct_type.add_property(:setter, "z", "Int32")

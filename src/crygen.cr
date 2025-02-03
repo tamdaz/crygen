@@ -9,4 +9,7 @@ module Crygen
 
   # CGT is an alias of "**C**ry**G**en **T**ypes".
   alias ::CGT = Crygen::Types
+
+  # CGE is an alias of "**C**ry**G**en **E**nums".
+  alias ::CGE = Crygen::Enums
 end
