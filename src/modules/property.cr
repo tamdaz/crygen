@@ -1,4 +1,4 @@
-require "./../enums/property_visibility"
+require "./../enums/prop_visibility"
 require "./scope"
 
 module Crygen::Modules::Property
