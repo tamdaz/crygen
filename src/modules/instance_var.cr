@@ -2,17 +2,19 @@ module Crygen::Modules::InstanceVar
   @instance_vars = [] of Tuple(String, String, String | Nil)
 
   # Add an argument with no default value.
-  def add_instance_var(name : String, type : String) : Nil
+  def add_instance_var(name : String, type : String) : self
     @instance_vars << {name, type, nil}
+    self
   end
 
   # Add an argument with default value.
-  def add_instance_var(name : String, type : String, value : String) : Nil
+  def add_instance_var(name : String, type : String, value : String) : self
     if type == "String"
       @instance_vars << {name, type, value.dump}
     else
       @instance_vars << {name, type, value}
     end
+    self
   end
 
   # Generate the instance_vars
