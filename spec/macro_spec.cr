@@ -2,17 +2,14 @@ require "./spec_helper"
 
 describe Crygen::Types::Macro do
   it "creates a macro" do
-    macro_type = Crygen::Types::Macro.new("example")
-    macro_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::Macro.new("example").generate.should eq(<<-CRYSTAL)
     macro example
     end
     CRYSTAL
   end
 
   it "creates a macro with one arg" do
-    macro_type = Crygen::Types::Macro.new("example")
-    macro_type.add_arg("name")
-    macro_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::Macro.new("example").add_arg("name").generate.should eq(<<-CRYSTAL)
     macro example(name)
     end
     CRYSTAL

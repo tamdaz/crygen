@@ -2,25 +2,19 @@ require "./spec_helper"
 
 describe Crygen::Types::Enum do
   it "creates an annotation" do
-    annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
-
-    annotation_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::Annotation.new("MyAnnotation").generate.should eq(<<-CRYSTAL)
     @[MyAnnotation]
     CRYSTAL
   end
 
   it "creates an annotation with one parameter (value only)" do
-    annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
-    annotation_type.add_arg("true")
-    annotation_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::Annotation.new("MyAnnotation").add_arg("true").generate.should eq(<<-CRYSTAL)
     @[MyAnnotation(true)]
     CRYSTAL
   end
 
   it "creates an annotation with one parameter (name and value)" do
-    annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
-    annotation_type.add_arg("is_cool", "true")
-    annotation_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::Annotation.new("MyAnnotation").add_arg("is_cool", "true").generate.should eq(<<-CRYSTAL)
     @[MyAnnotation(is_cool: true)]
     CRYSTAL
   end

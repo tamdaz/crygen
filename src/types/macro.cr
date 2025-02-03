@@ -20,18 +20,21 @@ class Crygen::Types::Macro < Crygen::Abstract::GeneratorInterface
   def initialize(@name : String); end
 
   # Adds an argument to the macro.
-  def add_arg(arg : String) : Nil
+  def add_arg(arg : String) : self
     @args << arg
+    self
   end
 
   # Adds a new line into the macro body.
-  def add_body(line : String) : Nil
+  def add_body(line : String) : self
     @body += line + "\n"
+    self
   end
 
   # Write the macro body.
-  def body=(body : String) : Nil
+  def body=(body : String) : self
     @body = body
+    self
   end
 
   # Generates the macro.

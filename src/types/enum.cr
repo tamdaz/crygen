@@ -30,8 +30,9 @@ class Crygen::Types::Enum
   # enum_type = Crygen::Types::Enum.new("Person")
   # enum_type.add_constant("Employee")
   # ```
-  def add_constant(name : String) : Nil
+  def add_constant(name : String) : self
     @constants << {name, nil}
+    self
   end
 
   # Adds a constant into enum (name and value).
@@ -39,8 +40,9 @@ class Crygen::Types::Enum
   # enum_type = Crygen::Types::Enum.new("Person")
   # enum_type.add_constant("Employee", 1)
   # ```
-  def add_constant(name : String, value : String) : Nil
+  def add_constant(name : String, value : String) : self
     @constants << {name, value}
+    self
   end
 
   # Generates an enum.

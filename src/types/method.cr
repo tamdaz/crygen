@@ -30,8 +30,9 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   # method_type = CGT::Method.new("full_name", "String")
   # method_type.add_annotation(CGT::Annotation.new("Experimental"))
   # ```
-  def add_annotation(annotation_type : Crygen::Types::Annotation) : Nil
+  def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
+    self
   end
 
   # Add a code into method.
@@ -39,8 +40,9 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   # method_type = CGT::Method.new("full_name", "String")
   # method_type.add_body("Hello world".dump)
   # ```
-  def add_body(body : String) : Nil
+  def add_body(body : String) : self
     @body += body
+    self
   end
 
   # Generates the methods.

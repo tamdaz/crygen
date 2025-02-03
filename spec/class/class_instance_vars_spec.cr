@@ -3,9 +3,7 @@ require "./../spec_helper"
 describe Crygen::Types::Class do
   describe "(instance vars only)" do
     it "creates a class with one instance var" do
-      class_type = test_person_class()
-      class_type.add_instance_var("full_name", "String")
-      class_type.generate.should eq(<<-CRYSTAL)
+      test_person_class().add_instance_var("full_name", "String").generate.should eq(<<-CRYSTAL)
       class Person
         @full_name : String
       end
@@ -13,9 +11,7 @@ describe Crygen::Types::Class do
     end
 
     it "creates a class with one instance var with the default value" do
-      class_type = test_person_class()
-      class_type.add_instance_var("full_name", "String", "John Doe")
-      class_type.generate.should eq(<<-CRYSTAL)
+      test_person_class().add_instance_var("full_name", "String", "John Doe").generate.should eq(<<-CRYSTAL)
       class Person
         @full_name : String = "John Doe"
       end

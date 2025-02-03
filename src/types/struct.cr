@@ -36,8 +36,9 @@ class Crygen::Types::Struct < Crygen::Abstract::GeneratorInterface
   # struct_type = CGT::Struct.new("Point")
   # struct_type.add_annotation(CGT::Annotation.new("Experimental"))
   # ```
-  def add_annotation(annotation_type : Crygen::Types::Annotation) : Nil
+  def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
+    self
   end
 
   # Generates a struct.

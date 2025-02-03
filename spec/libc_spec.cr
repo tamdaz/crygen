@@ -2,17 +2,14 @@ require "./spec_helper"
 
 describe Crygen::Types::LibC do
   it "creates a C library" do
-    libc_type = Crygen::Types::LibC.new("C")
-    libc_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::LibC.new("C").generate.should eq(<<-CRYSTAL)
     lib C
     end
     CRYSTAL
   end
 
   it "creates a C library with one function" do
-    libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_function("getch", "Int32")
-    libc_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::LibC.new("C").add_function("getch", "Int32").generate.should eq(<<-CRYSTAL)
     lib C
       fun getch : Int32
     end
@@ -20,9 +17,7 @@ describe Crygen::Types::LibC do
   end
 
   it "creates a C library with one function and a parameter" do
-    libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_function("getch", "Int32", [{"arg", "String"}])
-    libc_type.generate.should eq(<<-CRYSTAL)
+    Crygen::Types::LibC.new("C").add_function("getch", "Int32", [{"arg", "String"}]).generate.should eq(<<-CRYSTAL)
     lib C
       fun getch(arg : String) : Int32
     end

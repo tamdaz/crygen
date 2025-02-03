@@ -30,8 +30,9 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # ```
   # @[MyAnnotation(true)]
   # ```
-  def add_arg(value : String) : Nil
+  def add_arg(value : String) : self
     @args << {nil, value}
+    self
   end
 
   # Adds a name and value into the argument.
@@ -43,8 +44,9 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # ```
   # @[MyAnnotation(full_name: "John Doe")]
   # ```
-  def add_arg(name : String, value : String) : Nil
+  def add_arg(name : String, value : String) : self
     @args << {name, value}
+    self
   end
 
   # Generates an annotation.
