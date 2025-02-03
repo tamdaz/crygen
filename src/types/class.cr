@@ -39,8 +39,9 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   # class_type.add_annotation(CGT::Annotation.new("Experimental"))
   # class_type.add_annotation(CGT::Annotation.new("AnotherAnnotation"))
   # ```
-  def add_annotation(annotation_type : Crygen::Types::Annotation) : Nil
+  def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
+    self
   end
 
   # Set as an abstract class.
@@ -48,8 +49,9 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   # class_type = CGT::Class.new("Person")
   # class_type.as_abstract
   # ```
-  def as_abstract : Nil
+  def as_abstract : self
     @type = :abstract
+    self
   end
 
   # Generates a Crystal code.

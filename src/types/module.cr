@@ -33,8 +33,9 @@ class Crygen::Types::Module < Crygen::Abstract::GeneratorInterface
   def initialize(@name : String); end
 
   # Adds an object into the module.
-  def add_object(object_type : ObjectType)
+  def add_object(object_type : ObjectType) : self
     @objects << object_type
+    self
   end
 
   # Generates a module.

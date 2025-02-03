@@ -22,22 +22,25 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   def initialize(@name : String); end
 
   # Adds a C function (name and return type).
-  def add_function(name : String, return_type : String, args : Array(Tuple(String, String)) | Nil = nil) : Nil
+  def add_function(name : String, return_type : String, args : Array(Tuple(String, String)) | Nil = nil) : self
     @functions << {
       :name        => name,
       :args        => !args.nil? ? generate_args(args) : "",
       :return_type => return_type,
     }
+    self
   end
 
   # Adds a struct.
-  def add_struct(name : String, fields : FieldArray) : Nil
+  def add_struct(name : String, fields : FieldArray) : self
     @objects << {name, :struct, fields}
+    self
   end
 
   # Adds an union.
-  def add_union(name : String, fields : FieldArray) : Nil
+  def add_union(name : String, fields : FieldArray) : self
     @objects << {name, :union, fields}
+    self
   end
 
   # Generates a C lib.
