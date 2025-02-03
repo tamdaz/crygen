@@ -123,7 +123,7 @@ class Person
 end
 ```
 
-> [!INFO]
+> [!NOTE]
 > Nullable properties and scope properties will be available in the next version.
 
 ### Instance variables
