@@ -120,4 +120,19 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
   end
+
+  it "creates a class with scoped properties" do
+    class_type = test_person_class()
+    class_type.add_property(:property, "full_name", "String")
+    class_type.add_property(:getter, "first_name", "String", :protected)
+    class_type.add_property(:setter, "last_name", "String", :private)
+
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      property full_name : String
+      protected getter first_name : String
+      private setter last_name : String
+    end
+    CRYSTAL
+  end
 end

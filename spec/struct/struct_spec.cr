@@ -116,4 +116,19 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
   end
+
+  it "creates a struct with scoped properties" do
+    struct_type = test_point_struct()
+    struct_type.add_property(:property, "x", "Int32")
+    struct_type.add_property(:getter, "y", "Int32", :protected)
+    struct_type.add_property(:setter, "z", "Int32", :private)
+
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      property x : Int32
+      protected getter y : Int32
+      private setter z : Int32
+    end
+    CRYSTAL
+  end
 end
