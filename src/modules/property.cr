@@ -1,18 +1,31 @@
 require "./../enums/prop_visibility"
+require "./../enums/prop_scope"
 require "./scope"
 
 module Crygen::Modules::Property
-  @properties = [] of Hash(Symbol, String | Symbol | Nil)
+  @properties = [] of Hash(Symbol, String | Nil)
 
   # Adds a property into object (visibility, name and type)
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String) : self
-    @properties << {:scope => :public, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => nil}
+    @properties << {:scope => "public", :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => nil}
+    self
+  end
+
+  # Adds a property into object (visibility, name, type and scope).
+  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, scope : Crygen::Enums::PropScope = :public) : self
+    @properties << {:scope => scope.to_s.downcase, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => nil}
     self
   end
 
   # Adds a property into object (visibility, name, type and value)
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String) : self
-    @properties << {:scope => :public, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => value}
+    @properties << {:scope => "public", :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => value}
+    self
+  end
+
+  # Adds a property into object (visibility, name, type, value and scope)
+  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String, scope : Crygen::Enums::PropScope = :public) : self
+    @properties << {:scope => scope.to_s.downcase, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => value}
     self
   end
 
@@ -20,6 +33,10 @@ module Crygen::Modules::Property
   protected def generate_properties : String
     String.build do |str|
       @properties.each do |prop|
+        unless prop[:scope] == "public"
+          str << prop[:scope]
+          str << ' '
+        end
         str << "#{prop[:visibility]} #{prop[:name]}"
         str << " : #{prop[:type]}" if prop[:visibility]
         str << " = #{prop[:value]}" if prop[:value]
