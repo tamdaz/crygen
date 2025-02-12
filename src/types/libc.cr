@@ -1,5 +1,5 @@
-require "./../interfaces/generator"
 require "./../types/*"
+require "./../interfaces/generator_interface"
 
 # A class that generates a C library.
 # ```

@@ -1,5 +1,5 @@
-require "./../interfaces/generator"
 require "./../modules/arg"
+require "./../interfaces/generator_interface"
 
 # A class that generates a macro
 # ```
