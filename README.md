@@ -19,10 +19,10 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Module](#module)
 - [Usage](#usage)
 - [Todos](#todos)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
 - [Lib C-binding](#lib-c-binding)
 - [Macro](#macro)
+- [Contributing](#contributing)
+- [Contributors](#contributors)
 
 ## Installation
 
