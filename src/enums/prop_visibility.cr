@@ -1,4 +1,4 @@
-# An enum that identifies the property visibility like getter, property and setter.
+# Enum that identifies the property visibility such as `getter`, `property` and `setter`.
 @[Flags]
 enum Crygen::Enums::PropVisibility
   Getter
