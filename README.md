@@ -38,7 +38,7 @@ dependencies:
 
 ## Examples usage
 
-To generate code, you can find classes in the `CGT` module (`Crygen::Types`)
+To generate code, you can find classes in the `CGT` module (`Crygen::Types`).
 
 ### Method
 
@@ -53,7 +53,7 @@ method_type.add_body("a + b")
 puts method_type.generate
 ```
 
-Once the method is generated, it will look like this : 
+Once the method is generated, it will look like this:
 
 ```crystal
 # Adds the two numbers.
@@ -69,8 +69,7 @@ end
 
 ### Class
 
-In addition to creating methods, you can add them to a class using the `add_method`
-method of the `CGT::Class` class.
+In addition to creating methods, you can add them to a class using the `add_method` method of the `CGT::Class` class.
 
 ```crystal
 # Create a method with one comment and a body.
@@ -87,7 +86,7 @@ class_person.add_method(method_full_name)
 puts class_person.generate
 ```
 
-Once the code is generated, the code will look like this : 
+Once the code is generated, the code will look like this:
 
 ```crystal
 # This is a class called Person.
@@ -99,7 +98,7 @@ class Person
 end
 ```
 
-You can add properties in the class, for example : 
+You can add properties in the class, for example:
 
 ```crystal
 # Create a class with one comment and a method.
@@ -129,12 +128,15 @@ end
 ### Instance variables
 
 In a class, instance variables can be added.
+
 ```crystal
 class_person = CGT::Class.new("Person")
 class_type.add_instance_var("first_name", "String", "John")
 class_type.add_instance_var("last_name", "String", "Doe")
 puts class_person.generate
 ```
+
+Output:
 
 ```crystal
 class Person
@@ -146,11 +148,14 @@ end
 ### Class variables
 
 In addition of instance variables, class variables can also be added.
+
 ```crystal
 class_person = CGT::Class.new("Person")
 class_type.add_class_var("count", "Int32", "0")
 puts class_person.generate
 ```
+
+Output:
 
 ```crystal
 class Person
@@ -159,6 +164,7 @@ end
 ```
 
 ### Abstract class
+
 Abstract class can be generated.
 
 ```crystal
@@ -169,6 +175,8 @@ class_type.add_method(CGT::Method.new("last_name", "String"))
 class_type.add_method(CGT::Method.new("full_name", "String"))
 puts class_person.generate
 ```
+
+Output:
 
 ```crystal
 abstract class Person
@@ -185,15 +193,13 @@ end
 
 ```crystal
 enum_type = CGT::Enum.new("Person")
-
 enum_type.add_constant("Employee")
 enum_type.add_constant("Student")
 enum_type.add_constant("Intern")
-
 puts enum_type.generate
 ```
 
-Once the code is generated, the enum will look like this : 
+Once the code is generated, the enum will look like this:
 
 ```crystal
 enum Person
@@ -211,9 +217,10 @@ enum_type = CGT::Enum.new("Person", "Int32")
 enum_type.add_constant("Employee", "1")
 enum_type.add_constant("Student", "2")
 enum_type.add_constant("Intern", "3")
-
 puts enum_type.generate
 ```
+
+Output:
 
 ```crystal
 enum Person : Int32
@@ -227,16 +234,16 @@ end
 
 ```crystal
 annotation_type = CGT::Annotation.new("MyAnnotation")
-
 puts annotation_type.generate
 ```
 
-Output : 
+Output:
+
 ```crystal
 @[MyAnnotation]
 ```
 
-With the annotation, you can add it to the method or class that allows to add metadata.
+With the annotation, you can add it to the method or class to add the metadata.
 
 ```crystal
 class_type = test_person_class()
@@ -251,7 +258,8 @@ class_type.add_method(method_type)
 puts class_type.generate
 ```
 
-Output : 
+Output:
+
 ```crystal
 # Annotation on class
 @[Experimental]
@@ -292,7 +300,9 @@ struct_type.add_method(method_last_name)
 
 puts struct_type.generate
 ```
-Output : 
+
+Output:
+
 ```crystal
 struct Point
   def first_name : String
@@ -316,6 +326,8 @@ enum_type.add_constant("Administrator", "3")
 module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
 module_type.add_object(enum_type)
 ```
+
+Output:
 
 ```crystal
 module Folder::Sub::Folder
@@ -347,7 +359,7 @@ libc_type.add_union("IntOrFloat", [
 puts libc_type.generate
 ```
 
-Output : 
+Output:
 
 ```crystal
 lib C
@@ -383,7 +395,7 @@ CRYSTAL
 puts macro_type.generate
 ```
 
-Output : 
+Output:
 
 ```crystal
 macro example(name, value)
