@@ -1,13 +1,25 @@
+# Module that is used to store class variables.
 module Crygen::Modules::ClassVar
   @class_vars = [] of Tuple(String, String, String | Nil)
 
   # Adds a class var with no default value.
+  # Parameters:
+  # - name : String
+  # - type : String
+  # Returns:
+  # an object class itself.
   def add_class_var(name : String, type : String) : self
     @class_vars << {name, type, nil}
     self
   end
 
   # Adds a class var with default value.
+  # Parameters:
+  # - name : String
+  # - type : String
+  # - value : String
+  # Returns:
+  # an object class itself.
   def add_class_var(name : String, type : String, value : String) : self
     if type == "String"
       @class_vars << {name, type, value.dump}
@@ -17,7 +29,8 @@ module Crygen::Modules::ClassVar
     self
   end
 
-  # Generate the class_vars
+  # Generate the class_vars.
+  # Returns: String.
   def generate_class_vars : String
     String.build do |str|
       @class_vars.each do |instance_var|
