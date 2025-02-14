@@ -1,4 +1,4 @@
-# An enum that identifies the property scope like public, protected and private.
+# Enum that identifies the property scope such as `public`, `protected` and `private`.
 @[Flags]
 enum Crygen::Enums::PropScope
   Public

@@ -7,7 +7,7 @@ require "./../interfaces/generator_interface"
 # libc_type.add_function("getch", "Int32")
 # libc_type.generate
 # ```
-# Output :
+# Output:
 # ```
 # lib C
 #   fun getch : Int32
@@ -21,7 +21,19 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
 
   def initialize(@name : String); end
 
-  # Adds a C function (name and return type).
+  # Adds a C function (name, return type, and optional arguments).
+  # ```
+  # libc_type = Crygen::Types::LibC.new("C")
+  # libc_type.add_function("getch", "Int32", [{"arg1", "Int32"}, {"arg2", "Int32"}])
+  # ```
+  # Output:
+  # ```
+  # lib C
+  #   fun getch(arg1 : Int32, arg2 : Int32) : Int32
+  # end
+  # ```
+  # Returns:
+  # an object class itself.
   def add_function(name : String, return_type : String, args : Array(Tuple(String, String)) | Nil = nil) : self
     @functions << {
       :name        => name,
@@ -32,18 +44,49 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   end
 
   # Adds a struct.
+  # ```
+  # libc_type = Crygen::Types::LibC.new("C")
+  # libc_type.add_struct("Person", [{"name", "String"}, {"age", "Int32"}])
+  # ```
+  # Output:
+  # ```
+  # lib C
+  #   struct Person
+  #     name : String
+  #     age : Int32
+  #   end
+  # end
+  # ```
+  # Returns:
+  # an object class itself.
   def add_struct(name : String, fields : FieldArray) : self
     @objects << {name, :struct, fields}
     self
   end
 
   # Adds an union.
+  # ```
+  # libc_type = Crygen::Types::LibC.new("C")
+  # libc_type.add_union("Person", [{"name", "String"}, {"age", "Int32"}])
+  # ```
+  # Output:
+  # ```
+  # lib C
+  #   union Person
+  #     name : String
+  #     age : Int32
+  #   end
+  # end
+  # ```
+  # Returns:
+  # an object class itself.
   def add_union(name : String, fields : FieldArray) : self
     @objects << {name, :union, fields}
     self
   end
 
   # Generates a C lib.
+  # Returns: String
   def generate : String
     String.build do |str|
       str << "lib #{@name}\n"
@@ -70,6 +113,9 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   end
 
   # Generate the args.
+  # Parameters:
+  # - args : Array(Tuple(String, String))
+  # Returns: String
   private def generate_args(args : Array(Tuple(String, String))) : String
     String.build do |str|
       str << '('

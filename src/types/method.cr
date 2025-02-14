@@ -7,7 +7,7 @@ require "./../interfaces/generator_interface"
 # method_type.add_arg("age", "Int8", "22")
 # method_type.add_body("Hello world".dump)
 # ```
-# Output :
+# Output:
 # ```
 # def major?(age : Int8 = 22) : Bool
 #   "Hello world"
@@ -30,6 +30,16 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   # method_type = CGT::Method.new("full_name", "String")
   # method_type.add_annotation(CGT::Annotation.new("Experimental"))
   # ```
+  # Output:
+  # ```
+  # @[Experimental]
+  # def full_name : String
+  # end
+  # ```
+  # Parameters:
+  # - annotation_type : Crygen::Types::Annotation
+  # Returns:
+  # an object class itself.
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
     self
@@ -40,12 +50,23 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   # method_type = CGT::Method.new("full_name", "String")
   # method_type.add_body("Hello world".dump)
   # ```
+  # Output:
+  # ```
+  # def full_name : String
+  #   "Hello world"
+  # end
+  # ```
+  # Parameters:
+  # - body : String
+  # Returns:
+  # an object class itself.
   def add_body(body : String) : self
     @body += body
     self
   end
 
   # Generates the methods.
+  # Returns: String
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
@@ -58,6 +79,7 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   end
 
   # Generates the abstract methods.
+  # Returns: String
   protected def generate_abstract_method : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }

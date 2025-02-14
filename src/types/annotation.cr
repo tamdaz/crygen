@@ -7,18 +7,15 @@ require "./../interfaces/generator_interface"
 # class_type.add_annotation(CGT::Annotation.new("Experimental"))
 # puts class_type.generate
 # ```
-# Output :
+# Output:
 # ```
 # @[Experimental]
 # class Person
 # end
 # ```
 class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
-  # Tuple => {name, value}
   @args = [] of Tuple(String | Nil, String)
 
-  # When instantiating the `Crygen::Types::Annotation` class,
-  # only the name must be passed as a parameter.
   def initialize(@name : String); end
 
   # Adds only a value into the argument.
@@ -26,10 +23,12 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
   # annotation_type.add_arg("true")
   # ```
-  # Output :
+  # Output:
   # ```
   # @[MyAnnotation(true)]
   # ```
+  # Returns:
+  # an object class itself.
   def add_arg(value : String) : self
     @args << {nil, value}
     self
@@ -40,16 +39,19 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
   # annotation_type.add_arg("full_name", "John Doe".dump)
   # ```
-  # Output :
+  # Output:
   # ```
   # @[MyAnnotation(full_name: "John Doe")]
   # ```
+  # Returns:
+  # an object class itself.
   def add_arg(name : String, value : String) : self
     @args << {name, value}
     self
   end
 
   # Generates an annotation.
+  # Returns: String
   def generate : String
     String.build do |str|
       str << "@[#{@name}"
@@ -59,6 +61,7 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   end
 
   # Generates args for an annotation.
+  # Returns: String
   private def generate_args : String
     String.build do |str|
       str << '(' unless @args.empty?
