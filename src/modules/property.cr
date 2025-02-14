@@ -80,9 +80,9 @@ module Crygen::Modules::Property
   # Returns: String
   private def string_visibility(visibility : Crygen::Enums::PropVisibility) : String
     case visibility
-      when .nil_getter? then "getter?"
-      when .nil_property? then "property?"
-      else visibility.to_s.downcase
+    when .nil_getter?   then "getter?"
+    when .nil_property? then "property?"
+    else                     visibility.to_s.downcase
     end
   end
 end

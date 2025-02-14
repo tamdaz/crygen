@@ -156,7 +156,6 @@ describe Crygen::Types::Struct do
     CRYSTAL
   end
 
-
   it "creates a class with nilable scoped properties" do
     struct_type = test_point_struct()
     struct_type.add_property(:nil_property, "x", "Int32", :private)
