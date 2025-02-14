@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.3.0](https://github.com/tamdaz/cruml/releases/tag/v0.3.0) - 15-02-2025
+
+## Added
+- Add nullable properties by (@tamdaz)(#15)
+
+## Changed
+- Rename file name for the `Crygen::Abstract::GeneratorInterface` interface (@tamdaz)(#2).
+- Update documentation by (@tamdaz)(#13)
+- Improve the README by (@tamdaz)(#14)
+
 ## [v0.2.0](https://github.com/tamdaz/cruml/releases/tag/v0.2.0) - 04-02-2025
 
 ### Added
