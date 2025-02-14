@@ -122,8 +122,27 @@ class Person
 end
 ```
 
-> [!NOTE]
-> Nullable properties and scope properties will be available in the next version.
+Also, you can create the nullable properties.
+
+```crystal
+# Create a class with one comment and a method.
+class_klass = CGT::Class.new("Klass")
+class_klass.add_comment("This is a class called Person.")
+class_type.add_property(:nil_property, "a", "String")
+class_type.add_property(:nil_getter, "b", "String")
+
+# Print the generated code.
+puts class_klass.generate
+```
+
+Output :
+
+```crystal
+class Klass
+  property? a : String
+  getter? b : String
+end
+```
 
 ### Instance variables
 
