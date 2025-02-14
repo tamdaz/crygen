@@ -13,7 +13,7 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String) : self
-    @properties << {:scope => "public", :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => nil}
+    @properties << {:scope => "public", :visibility => string_visibility(visibility), :name => name, :type => type, :value => nil}
     self
   end
 
@@ -26,7 +26,7 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, scope : Crygen::Enums::PropScope = :public) : self
-    @properties << {:scope => scope.to_s.downcase, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => nil}
+    @properties << {:scope => scope.to_s.downcase, :visibility => string_visibility(visibility), :name => name, :type => type, :value => nil}
     self
   end
 
@@ -39,7 +39,7 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String) : self
-    @properties << {:scope => "public", :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => value}
+    @properties << {:scope => "public", :visibility => string_visibility(visibility), :name => name, :type => type, :value => value}
     self
   end
 
@@ -53,7 +53,7 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String, scope : Crygen::Enums::PropScope = :public) : self
-    @properties << {:scope => scope.to_s.downcase, :visibility => visibility.to_s.downcase, :name => name, :type => type, :value => value}
+    @properties << {:scope => scope.to_s.downcase, :visibility => string_visibility(visibility), :name => name, :type => type, :value => value}
     self
   end
 
@@ -71,6 +71,18 @@ module Crygen::Modules::Property
         str << " = #{prop[:value]}" if prop[:value]
         str << "\n"
       end
+    end
+  end
+
+  # Gets the property visibility.
+  # Parameters:
+  # - visibility : Crygen::Enums::PropVisibility
+  # Returns: String
+  private def string_visibility(visibility : Crygen::Enums::PropVisibility) : String
+    case visibility
+    when .nil_getter?   then "getter?"
+    when .nil_property? then "property?"
+    else                     visibility.to_s.downcase
     end
   end
 end

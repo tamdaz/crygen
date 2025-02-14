@@ -117,6 +117,30 @@ describe Crygen::Types::Struct do
     CRYSTAL
   end
 
+  it "creates a struct with nilable properties" do
+    struct_type = test_point_struct()
+    struct_type.add_property(CGE::PropVisibility::NilProperty, "x", "Int32")
+    struct_type.add_property(CGE::PropVisibility::NilGetter, "y", "Int32")
+
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      property? x : Int32
+      getter? y : Int32
+    end
+    CRYSTAL
+
+    struct_type = test_point_struct()
+    struct_type.add_property(:nil_property, "x", "Int32")
+    struct_type.add_property(:nil_getter, "y", "Int32")
+
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      property? x : Int32
+      getter? y : Int32
+    end
+    CRYSTAL
+  end
+
   it "creates a struct with scoped properties" do
     struct_type = test_point_struct()
     struct_type.add_property(:property, "x", "Int32")
@@ -128,6 +152,19 @@ describe Crygen::Types::Struct do
       property x : Int32
       protected getter y : Int32
       private setter z : Int32
+    end
+    CRYSTAL
+  end
+
+  it "creates a class with nilable scoped properties" do
+    struct_type = test_point_struct()
+    struct_type.add_property(:nil_property, "x", "Int32", :private)
+    struct_type.add_property(:nil_getter, "y", "Int32", :protected)
+
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      private property? x : Int32
+      protected getter? y : Int32
     end
     CRYSTAL
   end

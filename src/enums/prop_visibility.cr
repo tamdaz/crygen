@@ -2,6 +2,8 @@
 @[Flags]
 enum Crygen::Enums::PropVisibility
   Getter
+  NilGetter
   Property
+  NilProperty
   Setter
 end
