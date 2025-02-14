@@ -8,7 +8,7 @@ require "./../interfaces/generator"
 # class_person.add_method(method_full_name)
 # puts class_person.generate
 # ```
-# Output :
+# Output:
 # ```
 # # This is a class called Person.
 # class Person
@@ -26,11 +26,9 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Method
 
   @type : Symbol = :normal
+  @annotations = [] of Crygen::Types::Annotation
 
-  # When instantiating the `Crygen::Types::Class` class, only the name must
-  # be passed as a parameter.
   def initialize(@name : String)
-    @annotations = [] of Crygen::Types::Annotation
   end
 
   # Adds annotation(s) on a class.
@@ -39,6 +37,15 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   # class_type.add_annotation(CGT::Annotation.new("Experimental"))
   # class_type.add_annotation(CGT::Annotation.new("AnotherAnnotation"))
   # ```
+  # Output:
+  # ```
+  # @[Experimental]
+  # @[AnotherAnnotation]
+  # class Person
+  # end
+  # ```
+  # Returns:
+  # an object class itself.
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
     self
@@ -49,12 +56,20 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   # class_type = CGT::Class.new("Person")
   # class_type.as_abstract
   # ```
+  # Output:
+  # ```
+  # abstract class Person
+  # end
+  # ```
+  # Returns:
+  # an object class itself.
   def as_abstract : self
     @type = :abstract
     self
   end
 
   # Generates a Crystal code.
+  # Returns: String
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
