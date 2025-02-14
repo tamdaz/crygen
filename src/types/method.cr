@@ -1,5 +1,5 @@
 require "./../modules/*"
-require "./../interfaces/generator"
+require "./../interfaces/generator_interface"
 
 # A class that generates a method.
 # ```

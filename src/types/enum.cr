@@ -1,5 +1,5 @@
 require "./../modules/method.cr"
-require "./../interfaces/generator"
+require "./../interfaces/generator_interface"
 
 # A class that generates an enumeration (enum).
 # ```

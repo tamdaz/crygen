@@ -1,6 +1,6 @@
-require "./../interfaces/generator"
-require "./../modules/*"
 require "./../types/*"
+require "./../modules/*"
+require "./../interfaces/generator_interface"
 
 # A class thar generates a module.
 # A module can include any objects, like classes, structs, enums and modules itselves.

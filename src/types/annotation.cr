@@ -1,5 +1,5 @@
 require "./../modules/arg"
-require "./../interfaces/generator"
+require "./../interfaces/generator_interface"
 
 # A class that allows to generate an annotation.
 # ```
