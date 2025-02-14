@@ -33,7 +33,7 @@ class Crygen::Types::Enum
   # Output:
   # ```
   # enum Person
-  #  Employee
+  #   Employee
   # end
   # ```
   # Returns:
