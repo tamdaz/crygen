@@ -24,30 +24,9 @@ class Crygen::Types::Struct < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::InstanceVar
   include Crygen::Modules::ClassVar
   include Crygen::Modules::Method
-
-  @annotations = [] of Crygen::Types::Annotation
+  include Crygen::Modules::Annotation
 
   def initialize(@name : String); end
-
-  # Adds an annotation onto a class.
-  # ```
-  # struct_type = CGT::Struct.new("Point")
-  # struct_type.add_annotation(CGT::Annotation.new("Experimental"))
-  # ```
-  # Output:
-  # ```
-  # @[Experimental]
-  # struct Point
-  # end
-  # ```
-  # Parameters:
-  # - annotation_type : Crygen::Types::Annotation
-  # Returns:
-  # an object class itself.
-  def add_annotation(annotation_type : Crygen::Types::Annotation) : self
-    @annotations << annotation_type
-    self
-  end
 
   # Generates a struct.
   # Returns: String
