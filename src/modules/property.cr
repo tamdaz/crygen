@@ -13,7 +13,13 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String) : self
-    @properties << {:scope => "public", :visibility => string_visibility(visibility), :name => name, :type => type, :value => nil}
+    @properties << {
+      :scope      => "public",
+      :visibility => string_visibility(visibility),
+      :name       => name,
+      :type       => type,
+      :value      => nil,
+    }
     self
   end
 
@@ -26,7 +32,13 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, scope : Crygen::Enums::PropScope = :public) : self
-    @properties << {:scope => scope.to_s.downcase, :visibility => string_visibility(visibility), :name => name, :type => type, :value => nil}
+    @properties << {
+      :scope      => scope.to_s.downcase,
+      :visibility => string_visibility(visibility),
+      :name       => name,
+      :type       => type,
+      :value      => nil,
+    }
     self
   end
 
@@ -39,7 +51,13 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String) : self
-    @properties << {:scope => "public", :visibility => string_visibility(visibility), :name => name, :type => type, :value => value}
+    @properties << {
+      :scope      => "public",
+      :visibility => string_visibility(visibility),
+      :name       => name,
+      :type       => type,
+      :value      => value,
+    }
     self
   end
 
@@ -53,7 +71,13 @@ module Crygen::Modules::Property
   # Returns:
   # an object class itself.
   def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String, scope : Crygen::Enums::PropScope = :public) : self
-    @properties << {:scope => scope.to_s.downcase, :visibility => string_visibility(visibility), :name => name, :type => type, :value => value}
+    @properties << {
+      :scope      => scope.to_s.downcase,
+      :visibility => string_visibility(visibility),
+      :name       => name,
+      :type       => type,
+      :value      => value,
+    }
     self
   end
 
