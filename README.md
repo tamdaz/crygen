@@ -1,8 +1,7 @@
 # crygen
 
 ![GitHub Release](https://img.shields.io/github/v/release/tamdaz/crygen)
-[![ci](https://github.com/tamdaz/crygen/actions/workflows/crystal.yml/badge.svg?branch=main)](https://github.com/tamdaz/crygen/actions/workflows/crystal.yml)
-[![ci-docs](https://github.com/tamdaz/crygen/actions/workflows/ci-docs.yml/badge.svg)](https://github.com/tamdaz/crygen/actions/workflows/ci-docs.yml)
+![ci](https://github.com/tamdaz/crygen/actions/workflows/ci.yml/badge.svg?branch=main)
 
 > [!WARNING]
 > This library is under development, it is not completely finished.
