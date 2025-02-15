@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.1](https://github.com/tamdaz/cruml/releases/tag/v0.3.1) - 15-02-2025
+
+## Fixed
+
+- Update the config by (@tamdaz)(#16)
+- Add the `Crygen::Modules::Annotation` module. by (@tamdaz)(#17)
+- Format the hashes by (@tamdaz)(#18)
+
 ## [v0.3.0](https://github.com/tamdaz/cruml/releases/tag/v0.3.0) - 15-02-2025
 
 ## Added

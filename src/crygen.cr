@@ -5,7 +5,7 @@ require "./modules/**"
 # library : [nette/php-generator](https://github.com/nette/php-generator).
 module Crygen
   # Library version
-  VERSION = "0.3.0"
+  VERSION = "0.3.1"
 
   # CGT is an alias of "**C**ry**G**en **T**ypes".
   alias ::CGT = Crygen::Types
