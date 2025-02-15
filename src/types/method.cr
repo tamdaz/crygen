@@ -17,13 +17,12 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Comment
   include Crygen::Modules::Scope
   include Crygen::Modules::Arg
+  include Crygen::Modules::Annotation
 
   # Body content.
   @body : String = ""
 
-  def initialize(@name : String, @return_type : String)
-    @annotations = [] of Crygen::Types::Annotation
-  end
+  def initialize(@name : String, @return_type : String); end
 
   # Adds an annotation on a class.
   # ```

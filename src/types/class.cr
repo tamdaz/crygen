@@ -24,32 +24,11 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::InstanceVar
   include Crygen::Modules::ClassVar
   include Crygen::Modules::Method
+  include Crygen::Modules::Annotation
 
   @type : Symbol = :normal
-  @annotations = [] of Crygen::Types::Annotation
 
-  def initialize(@name : String)
-  end
-
-  # Adds annotation(s) on a class.
-  # ```
-  # class_type = CGT::Class.new("Person")
-  # class_type.add_annotation(CGT::Annotation.new("Experimental"))
-  # class_type.add_annotation(CGT::Annotation.new("AnotherAnnotation"))
-  # ```
-  # Output:
-  # ```
-  # @[Experimental]
-  # @[AnotherAnnotation]
-  # class Person
-  # end
-  # ```
-  # Returns:
-  # an object class itself.
-  def add_annotation(annotation_type : Crygen::Types::Annotation) : self
-    @annotations << annotation_type
-    self
-  end
+  def initialize(@name : String); end
 
   # Set as an abstract class.
   # ```
