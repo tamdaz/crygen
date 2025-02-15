@@ -1,11 +1,5 @@
----
-name: Feature request
-about: Add a feature for this project
-title: ''
-labels: ''
-assignees: ''
-
----
+> [!NOTE]
+> If this PR is intended to resolve an issue, please indicate the issue reference.
 
 ## Description
 Please give more details about this PR and explain why have you made these changes.
