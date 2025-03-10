@@ -18,6 +18,7 @@ require "./../interfaces/generator_interface"
 # end
 # ```
 class Crygen::Types::Enum
+  include Crygen::Modules::Comment
   include Crygen::Modules::Method
 
   # Array of constants (name and value).
@@ -59,6 +60,7 @@ class Crygen::Types::Enum
   # Returns: String
   def generate : String
     String.build do |str|
+      @comments.each { |comment| str << "# #{comment}\n" }
       if @type
         str << "enum #{@name} : #{@type}\n"
       else
