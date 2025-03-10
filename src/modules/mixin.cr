@@ -1,15 +1,19 @@
+# Module that is used to store and add the mixins (includes and extends).
 module Crygen::Modules::Mixin
   @includes = [] of String
   @extends = [] of String
 
-  def add_include(name : String)
+  # Adds an include into object.
+  def add_include(name : String) : self
     @includes << name
   end
 
-  def add_extend(name : String)
+  # Adds an extend into object
+  def add_extend(name : String) : self
     @extends << name
   end
 
+  # Generate the mixins.
   protected def generate_mixins : String
     String.build do |str|
       @includes.each do |inc|
