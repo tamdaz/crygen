@@ -40,7 +40,7 @@ module Crygen::Modules::Property
     String.build do |str|
       @properties.each do |prop|
         if comment = prop[:comment]
-          str << "# #{comment}\n"
+          comment.each_line { |line| str << "# #{line}\n" }
         end
         unless prop[:scope] == "public"
           str << prop[:scope]
