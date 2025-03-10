@@ -47,7 +47,7 @@ module Crygen::Modules::Property
           str << ' '
         end
         str << "#{prop[:visibility]} #{prop[:name]}"
-        str << " : #{prop[:type]}" if prop[:visibility]
+        str << " : #{prop[:type]}" if prop[:type]
         str << " = #{prop[:value]}" if prop[:value]
         str << "\n"
       end
