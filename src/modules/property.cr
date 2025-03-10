@@ -5,62 +5,6 @@ require "./scope"
 module Crygen::Modules::Property
   @properties = [] of Hash(Symbol, String | Nil)
 
-  # Adds a property into object (visibility, name and type).
-  # Parameters:
-  # - visibility : Crygen::Enums::PropVisibility
-  # - name : String
-  # - type : String
-  # Returns:
-  # an object class itself.
-  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String) : self
-    @properties << {
-      :scope      => "public",
-      :visibility => string_visibility(visibility),
-      :name       => name,
-      :type       => type,
-      :value      => nil,
-    }
-    self
-  end
-
-  # Adds a property into object (visibility, name, type and scope).
-  # Parameters:
-  # - visibility : Crygen::Enums::PropVisibility
-  # - name : String
-  # - type : String
-  # - scope : Crygen::Enums::PropScope = :public
-  # Returns:
-  # an object class itself.
-  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, scope : Crygen::Enums::PropScope = :public) : self
-    @properties << {
-      :scope      => scope.to_s.downcase,
-      :visibility => string_visibility(visibility),
-      :name       => name,
-      :type       => type,
-      :value      => nil,
-    }
-    self
-  end
-
-  # Adds a property into object (visibility, name, type and value).
-  # Parameters:
-  # - visibility : Crygen::Enums::PropVisibility
-  # - name : String
-  # - type : String
-  # - value : String
-  # Returns:
-  # an object class itself.
-  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String) : self
-    @properties << {
-      :scope      => "public",
-      :visibility => string_visibility(visibility),
-      :name       => name,
-      :type       => type,
-      :value      => value,
-    }
-    self
-  end
-
   # Adds a property into object (visibility, name, type, value and scope).
   # Parameters:
   # - visibility : Crygen::Enums::PropVisibility
@@ -70,14 +14,23 @@ module Crygen::Modules::Property
   # - scope : Crygen::Enums::PropScope = :public
   # Returns:
   # an object class itself.
-  def add_property(visibility : Crygen::Enums::PropVisibility, name : String, type : String, value : String, scope : Crygen::Enums::PropScope = :public) : self
+  def add_property(
+    visibility : Crygen::Enums::PropVisibility,
+    name : String,
+    type : String,
+    *,
+    value : String? = nil,
+    scope : Crygen::Enums::PropScope = :public,
+    comment : String? = nil,
+  ) : self
     @properties << {
       :scope      => scope.to_s.downcase,
       :visibility => string_visibility(visibility),
       :name       => name,
       :type       => type,
       :value      => value,
-    }
+      :comment    => comment,
+    } of Symbol => String?
     self
   end
 
@@ -86,6 +39,9 @@ module Crygen::Modules::Property
   protected def generate_properties : String
     String.build do |str|
       @properties.each do |prop|
+        if comment = prop[:comment]
+          str << "# #{comment}\n"
+        end
         unless prop[:scope] == "public"
           str << prop[:scope]
           str << ' '
