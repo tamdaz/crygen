@@ -7,3 +7,5 @@ tasks:
       - bin/ameba
   test:
     cmd: crystal spec -p
+  pull:
+    cmd: git pull origin main --ff-only
