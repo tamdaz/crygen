@@ -25,6 +25,7 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::ClassVar
   include Crygen::Modules::Method
   include Crygen::Modules::Annotation
+  include Crygen::Modules::Mixin
 
   @type : Symbol = :normal
 
@@ -58,6 +59,7 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
       else
         "class #{@name}\n"
       end
+      generate_mixins.each_line { |line| str << "  " + line + "\n" }
       generate_properties.each_line { |line| str << "  " + line + "\n" }
       generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
       generate_class_vars.each_line { |line| str << "  " + line + "\n" }
