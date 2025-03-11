@@ -19,6 +19,7 @@ require "./../interfaces/generator_interface"
 # ```
 class Crygen::Types::Enum
   include Crygen::Modules::Method
+  include Crygen::Modules::Annotation
 
   # Array of constants (name and value).
   @constants = [] of Tuple(String, String | Nil)
@@ -59,6 +60,7 @@ class Crygen::Types::Enum
   # Returns: String
   def generate : String
     String.build do |str|
+      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
       if @type
         str << "enum #{@name} : #{@type}\n"
       else
