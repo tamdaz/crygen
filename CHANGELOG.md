@@ -1,6 +1,25 @@
 # Changelog
 
-## [v0.3.1](https://github.com/tamdaz/cruml/releases/tag/v0.3.1) - 15-02-2025
+## [v0.4.0](https://github.com/tamdaz/cruml/releases/tag/v0.4.0) - 12-03-2025
+
+## Added
+
+* Add aliases, mixins, simplify `add_property`, fix bugs. (@nobodywasishere)(#19)
+* Add `pull` cmd and `cruml` dependency. Ignore `/out` directory. (@tamdaz)(#21)
+* Add docs and example for alias. (@tamdaz)(#24)
+* Setup helpers for annotations. (@tamdaz)(#25)
+* Test helpers for annotations. (@tamdaz)(#26)
+
+## Changed
+
+* Improve alias spec. (@tamdaz)(#22)
+
+## Removed
+
+* Delete redudant params and returns. (@tamdaz)(#20)
+* Delete the `build` step. (@tamdaz)(#23)
+
+## [v0.3.1](https://github.com/tamdaz/cruml/releases/tag/v0.3.1) - 2025-02-15
 
 ## Fixed
 
