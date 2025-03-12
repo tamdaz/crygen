@@ -20,6 +20,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Annotation](#annotation)
   - [Struct](#struct)
   - [Module](#module)
+  - [Alias](#alias)
 - [Usage](#usage)
 - [Todos](#todos)
 - [Lib C-binding](#lib-c-binding)
@@ -427,6 +428,19 @@ macro example(name, value)
     puts {{ "Hello world" }}
   {% end %}
 end
+```
+
+## Alias
+
+```
+alias_type = CGT::Alias.new("MyAlias", %w[Foo Bar])
+puts alias_type.generate
+```
+
+Output:
+
+```
+alias MyAlias = Foo | Bar
 ```
 
 ## Usage
