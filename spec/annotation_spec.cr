@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe Crygen::Types::Enum do
+describe Crygen::Types::Annotation do
   it "creates an annotation" do
     Crygen::Types::Annotation.new("MyAnnotation").generate.should eq(<<-CRYSTAL)
     @[MyAnnotation]
@@ -37,5 +37,51 @@ describe Crygen::Types::Enum do
     annotation_type.generate.should eq(<<-CRYSTAL)
     @[MyAnnotation(is_cool: true, number: 1, text: "Hello World")]
     CRYSTAL
+  end
+
+  describe "annotation helpers" do
+    it "#as_deprecated" do
+      Crygen::Types::Class.new("AnnotationTest").as_deprecated.generate.should eq(<<-CRYSTAL)
+      @[Deprecated]
+      class AnnotationTest
+      end
+      CRYSTAL
+
+      Crygen::Types::Class.new("AnnotationTest").as_deprecated("Use something instead").generate.should eq(<<-CRYSTAL)
+      @[Deprecated("Use something instead")]
+      class AnnotationTest
+      end
+      CRYSTAL
+    end
+
+    it "#as_experimental" do
+      Crygen::Types::Class.new("AnnotationTest").as_experimental.generate.should eq(<<-CRYSTAL)
+      @[Experimental]
+      class AnnotationTest
+      end
+      CRYSTAL
+
+      Crygen::Types::Class.new("AnnotationTest").as_experimental("Lorem ipsum").generate.should eq(<<-CRYSTAL)
+      @[Experimental("Lorem ipsum")]
+      class AnnotationTest
+      end
+      CRYSTAL
+    end
+
+    it "#as_flags" do
+      Crygen::Types::Enum.new("AnnotationTest").as_flags.generate.should eq(<<-CRYSTAL)
+      @[Flags]
+      enum AnnotationTest
+      end
+      CRYSTAL
+    end
+
+    it "#as_link" do
+      Crygen::Types::LibC.new("AnnotationTest").add_link("musl").generate.should eq(<<-CRYSTAL)
+      @[Link("musl")]
+      lib AnnotationTest
+      end
+      CRYSTAL
+    end
   end
 end
