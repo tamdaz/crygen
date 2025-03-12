@@ -19,9 +19,7 @@ class Crygen::Types::Alias < Crygen::Abstract::GeneratorInterface
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
-      str << "alias "
-      str << @name
-      str << " = "
+      str << "alias " << @name << " = "
       types_count = @types.size
       @types.each_with_index do |type, idx|
         str << type
