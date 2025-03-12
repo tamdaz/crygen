@@ -1,5 +1,8 @@
 # crygen
 
+![GitHub Release](https://img.shields.io/github/v/release/tamdaz/crygen)
+![ci](https://github.com/tamdaz/crygen/actions/workflows/ci.yml/badge.svg?branch=main)
+
 > [!WARNING]
 > This library is under development, it is not completely finished.
 
@@ -17,6 +20,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Annotation](#annotation)
   - [Struct](#struct)
   - [Module](#module)
+  - [Alias](#alias)
 - [Usage](#usage)
 - [Todos](#todos)
 - [Lib C-binding](#lib-c-binding)
@@ -205,7 +209,7 @@ abstract class Person
 end
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > If you add code to an abstract method, only the method signature will be generated.
 
 ### Enum
@@ -424,6 +428,19 @@ macro example(name, value)
     puts {{ "Hello world" }}
   {% end %}
 end
+```
+
+## Alias
+
+```
+alias_type = CGT::Alias.new("MyAlias", %w[Foo Bar])
+puts alias_type.generate
+```
+
+Output:
+
+```
+alias MyAlias = Foo | Bar
 ```
 
 ## Usage

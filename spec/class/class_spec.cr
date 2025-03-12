@@ -163,12 +163,14 @@ describe Crygen::Types::Class do
 
   it "creates a class with nilable scoped properties" do
     class_type = test_person_class()
-    class_type.add_property(:nil_property, "last_name", "String", :private)
-    class_type.add_property(:nil_getter, "first_name", "String", :protected)
+    class_type.add_property(:nil_property, "last_name", "String", comment: "My comment", scope: :private)
+    class_type.add_property(:nil_getter, "first_name", "String", comment: "My other comment", scope: :protected)
 
     class_type.generate.should eq(<<-CRYSTAL)
     class Person
+      # My comment
       private property? last_name : String
+      # My other comment
       protected getter? first_name : String
     end
     CRYSTAL

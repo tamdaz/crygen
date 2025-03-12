@@ -144,8 +144,8 @@ describe Crygen::Types::Struct do
   it "creates a struct with scoped properties" do
     struct_type = test_point_struct()
     struct_type.add_property(:property, "x", "Int32")
-    struct_type.add_property(:getter, "y", "Int32", :protected)
-    struct_type.add_property(:setter, "z", "Int32", :private)
+    struct_type.add_property(:getter, "y", "Int32", scope: :protected)
+    struct_type.add_property(:setter, "z", "Int32", scope: :private)
 
     struct_type.generate.should eq(<<-CRYSTAL)
     struct Point
@@ -158,8 +158,8 @@ describe Crygen::Types::Struct do
 
   it "creates a class with nilable scoped properties" do
     struct_type = test_point_struct()
-    struct_type.add_property(:nil_property, "x", "Int32", :private)
-    struct_type.add_property(:nil_getter, "y", "Int32", :protected)
+    struct_type.add_property(:nil_property, "x", "Int32", scope: :private)
+    struct_type.add_property(:nil_getter, "y", "Int32", scope: :protected)
 
     struct_type.generate.should eq(<<-CRYSTAL)
     struct Point

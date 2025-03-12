@@ -50,17 +50,12 @@ class Crygen::Types::Module < Crygen::Abstract::GeneratorInterface
   #   end
   # end
   # ```
-  # Parameters:
-  # - object_type : ObjectType
-  # Returns:
-  # an object class itself.
   def add_object(object_type : ObjectType) : self
     @objects << object_type
     self
   end
 
   # Generates a module.
-  # Returns: String
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }

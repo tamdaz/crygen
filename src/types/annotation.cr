@@ -27,8 +27,6 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # ```
   # @[MyAnnotation(true)]
   # ```
-  # Returns:
-  # an object class itself.
   def add_arg(value : String) : self
     @args << {nil, value}
     self
@@ -43,15 +41,12 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   # ```
   # @[MyAnnotation(full_name: "John Doe")]
   # ```
-  # Returns:
-  # an object class itself.
   def add_arg(name : String, value : String) : self
     @args << {name, value}
     self
   end
 
   # Generates an annotation.
-  # Returns: String
   def generate : String
     String.build do |str|
       str << "@[#{@name}"
@@ -61,7 +56,6 @@ class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
   end
 
   # Generates args for an annotation.
-  # Returns: String
   private def generate_args : String
     String.build do |str|
       str << '(' unless @args.empty?

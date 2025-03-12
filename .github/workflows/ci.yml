@@ -30,8 +30,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Dependencies
         run: apk add --update jq
-      - name: Build
-        run: shards build --production
       - name: Specs
         run: crystal spec --order random --error-on-warnings
   test_nightly:
@@ -42,7 +40,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Dependencies
         run: apk add --update jq
-      - name: Build
-        run: shards build --production
       - name: Specs
         run: crystal spec --order random --error-on-warnings

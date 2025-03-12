@@ -35,10 +35,6 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   # def full_name : String
   # end
   # ```
-  # Parameters:
-  # - annotation_type : Crygen::Types::Annotation
-  # Returns:
-  # an object class itself.
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
     self
@@ -55,17 +51,12 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   #   "Hello world"
   # end
   # ```
-  # Parameters:
-  # - body : String
-  # Returns:
-  # an object class itself.
   def add_body(body : String) : self
     @body += body
     self
   end
 
   # Generates the methods.
-  # Returns: String
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
@@ -78,7 +69,6 @@ class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
   end
 
   # Generates the abstract methods.
-  # Returns: String
   protected def generate_abstract_method : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }

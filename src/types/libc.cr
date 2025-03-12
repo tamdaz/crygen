@@ -34,8 +34,6 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   #   fun getch(arg1 : Int32, arg2 : Int32) : Int32
   # end
   # ```
-  # Returns:
-  # an object class itself.
   def add_function(name : String, return_type : String, args : Array(Tuple(String, String)) | Nil = nil) : self
     @functions << {
       :name        => name,
@@ -59,8 +57,6 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   #   end
   # end
   # ```
-  # Returns:
-  # an object class itself.
   def add_struct(name : String, fields : FieldArray) : self
     @objects << {name, :struct, fields}
     self
@@ -80,15 +76,12 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   #   end
   # end
   # ```
-  # Returns:
-  # an object class itself.
   def add_union(name : String, fields : FieldArray) : self
     @objects << {name, :union, fields}
     self
   end
 
   # Generates a C lib.
-  # Returns: String
   def generate : String
     String.build do |str|
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
@@ -116,9 +109,6 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   end
 
   # Generate the args.
-  # Parameters:
-  # - args : Array(Tuple(String, String))
-  # Returns: String
   private def generate_args(args : Array(Tuple(String, String))) : String
     String.build do |str|
       str << '('

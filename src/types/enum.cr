@@ -18,6 +18,7 @@ require "./../interfaces/generator_interface"
 # end
 # ```
 class Crygen::Types::Enum
+  include Crygen::Modules::Comment
   include Crygen::Modules::Method
   include Crygen::Modules::Annotation
 
@@ -37,8 +38,6 @@ class Crygen::Types::Enum
   #   Employee
   # end
   # ```
-  # Returns:
-  # an object class itself.
   def add_constant(name : String) : self
     @constants << {name, nil}
     self
@@ -49,17 +48,15 @@ class Crygen::Types::Enum
   # enum_type = Crygen::Types::Enum.new("Person")
   # enum_type.add_constant("Employee", 1)
   # ```
-  # Returns:
-  # an object class itself.
   def add_constant(name : String, value : String) : self
     @constants << {name, value}
     self
   end
 
   # Generates an enum.
-  # Returns: String
   def generate : String
     String.build do |str|
+      @comments.each { |comment| str << "# #{comment}\n" }
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
       if @type
         str << "enum #{@name} : #{@type}\n"
