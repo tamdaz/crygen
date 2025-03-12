@@ -18,6 +18,22 @@ describe Crygen::Types::Class do
     CRYSTAL
   end
 
+  it "creates a class with helpers" do
+    class_type = test_person_class().as_deprecated("This class is deprecated.")
+    class_type.generate.should eq(<<-CRYSTAL)
+    @[Deprecated("This class is deprecated.")]
+    class Person
+    end
+    CRYSTAL
+
+    class_type = test_person_class().as_experimental("This class is experimental.")
+    class_type.generate.should eq(<<-CRYSTAL)
+    @[Experimental("This class is experimental.")]
+    class Person
+    end
+    CRYSTAL
+  end
+
   it "creates a class with many annotations" do
     class_type = test_person_class()
     class_type.add_annotation(CGT::Annotation.new("Experimental"))

@@ -181,4 +181,21 @@ describe Crygen::Types::LibC do
     end
     CRYSTAL
   end
+
+  it "creates a C library with `#as_link` helper" do
+    args = [
+      {"arg", "String"},
+      {"value", "Int32"},
+    ]
+
+    libc_type = Crygen::Types::LibC.new("C")
+    libc_type.add_function("getch", "Int32", args)
+    libc_type.add_link("mylink")
+    libc_type.generate.should eq(<<-CRYSTAL)
+    @[Link("mylink")]
+    lib C
+      fun getch(arg : String, value : Int32) : Int32
+    end
+    CRYSTAL
+  end
 end

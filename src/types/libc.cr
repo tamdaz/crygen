@@ -1,4 +1,4 @@
-require "./../types/*"
+require "./../modules/annotation"
 require "./../interfaces/generator_interface"
 
 # A class that generates a C library.
@@ -14,6 +14,8 @@ require "./../interfaces/generator_interface"
 # end
 # ```
 class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
+  include Crygen::Modules::Annotation
+
   alias FieldArray = Array(Tuple(String, String))
 
   @functions = [] of Hash(Symbol, String)
@@ -82,6 +84,7 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   # Generates a C lib.
   def generate : String
     String.build do |str|
+      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
       str << "lib #{@name}\n"
       can_add_whitespace = false
       @objects.each do |object|

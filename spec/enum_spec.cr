@@ -107,4 +107,21 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
   end
+
+  it "creates an enum with `#as_flags` annotation helper" do
+    enum_type = Crygen::Types::Enum.new("Person")
+    enum_type.add_constant("Employee")
+    enum_type.add_constant("Student")
+    enum_type.add_constant("Intern")
+    enum_type.as_flags
+
+    enum_type.generate.should eq(<<-CRYSTAL)
+    @[Flags]
+    enum Person
+      Employee
+      Student
+      Intern
+    end
+    CRYSTAL
+  end
 end

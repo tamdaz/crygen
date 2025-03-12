@@ -20,6 +20,7 @@ require "./../interfaces/generator_interface"
 class Crygen::Types::Enum
   include Crygen::Modules::Comment
   include Crygen::Modules::Method
+  include Crygen::Modules::Annotation
 
   # Array of constants (name and value).
   @constants = [] of Tuple(String, String | Nil)
@@ -56,6 +57,7 @@ class Crygen::Types::Enum
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
+      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
       if @type
         str << "enum #{@name} : #{@type}\n"
       else

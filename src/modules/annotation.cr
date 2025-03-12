@@ -1,5 +1,10 @@
+require "./../types/annotation"
+require "./../helpers/annotation"
+
 # Module that is used to store and add the annotations.
 module Crygen::Modules::Annotation
+  include Crygen::Helpers::Annotation
+
   @annotations = [] of Crygen::Types::Annotation
 
   # Adds annotation(s) onto object.
