@@ -8,7 +8,7 @@
 - Add the `Crygen::Modules::Annotation` module. by (@tamdaz)(#17)
 - Format the hashes by (@tamdaz)(#18)
 
-## [v0.3.0](https://github.com/tamdaz/cruml/releases/tag/v0.3.0) - 15-02-2025
+## [v0.3.0](https://github.com/tamdaz/cruml/releases/tag/v0.3.0) - 2025-02-15
 
 ## Added
 - Add nullable properties by (@tamdaz)(#15)
@@ -18,7 +18,7 @@
 - Update documentation by (@tamdaz)(#13)
 - Improve the README by (@tamdaz)(#14)
 
-## [v0.2.0](https://github.com/tamdaz/cruml/releases/tag/v0.2.0) - 04-02-2025
+## [v0.2.0](https://github.com/tamdaz/cruml/releases/tag/v0.2.0) - 2025-02-04
 
 ### Added
 
@@ -40,6 +40,6 @@
 - Change the return type for methods ([312d34](https://github.com/tamdaz/crygen/pull/8/commits/312d34de9b9fce2ba3d4594d9a8eb381dda3d6c4))(@tamdaz)
 - An `scope` optional argument is added to `Crygen::Modules::Property#add_property` overloaded methods. ([543eb6](https://github.com/tamdaz/crygen/pull/10/commits/543eb6b37111788e3ccca0c89ebc0cad28c09894))(@tamdaz)
 
-## [v0.1.0](https://github.com/tamdaz/cruml/releases/tag/v0.1.0) - 24-01-2025
+## [v0.1.0](https://github.com/tamdaz/cruml/releases/tag/v0.1.0) - 2025-01-24
 
 This is an initial release 🧭
