@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.4.0](https://github.com/tamdaz/cruml/releases/tag/v0.4.0) - 12-03-2025
+## [v0.4.0](https://github.com/tamdaz/cruml/releases/tag/v0.4.0) - 2025-03-12
 
 ## Added
 
