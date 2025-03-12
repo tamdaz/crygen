@@ -2,6 +2,6 @@
 # This latter must return a string to easily get the generated code.
 # This rule is applied to classes located in the `src/types` directory.
 abstract class Crygen::Abstract::GeneratorInterface
-  # This method generates a class.
+  # This method is used to generates an object.
   abstract def generate : String
 end
