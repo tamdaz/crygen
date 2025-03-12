@@ -6,14 +6,6 @@ module Crygen::Modules::Property
   @properties = [] of Hash(Symbol, String | Nil)
 
   # Adds a property into object (visibility, name, type, value and scope).
-  # Parameters:
-  # - visibility : Crygen::Enums::PropVisibility
-  # - name : String
-  # - type : String
-  # - value : String
-  # - scope : Crygen::Enums::PropScope = :public
-  # Returns:
-  # an object class itself.
   def add_property(
     visibility : Crygen::Enums::PropVisibility,
     name : String,
@@ -35,7 +27,6 @@ module Crygen::Modules::Property
   end
 
   # Generates the properties.
-  # Returns: String
   protected def generate_properties : String
     String.build do |str|
       @properties.each do |prop|
@@ -55,9 +46,6 @@ module Crygen::Modules::Property
   end
 
   # Gets the property visibility.
-  # Parameters:
-  # - visibility : Crygen::Enums::PropVisibility
-  # Returns: String
   private def string_visibility(visibility : Crygen::Enums::PropVisibility) : String
     case visibility
     when .nil_getter?   then "getter?"

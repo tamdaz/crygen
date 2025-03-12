@@ -16,8 +16,6 @@ module Crygen::Modules::Annotation
   # class Person
   # end
   # ```
-  # Returns:
-  # an object class itself.
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
     self
