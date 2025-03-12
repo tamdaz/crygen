@@ -37,8 +37,6 @@ class Crygen::Types::Enum
   #   Employee
   # end
   # ```
-  # Returns:
-  # an object class itself.
   def add_constant(name : String) : self
     @constants << {name, nil}
     self
@@ -49,15 +47,12 @@ class Crygen::Types::Enum
   # enum_type = Crygen::Types::Enum.new("Person")
   # enum_type.add_constant("Employee", 1)
   # ```
-  # Returns:
-  # an object class itself.
   def add_constant(name : String, value : String) : self
     @constants << {name, value}
     self
   end
 
   # Generates an enum.
-  # Returns: String
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }

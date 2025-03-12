@@ -4,8 +4,7 @@ require "./../interfaces/generator_interface"
 class Crygen::Types::Alias < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Comment
 
-  def initialize(@name : String, @types : Array(String))
-  end
+  def initialize(@name : String, @types : Array(String)); end
 
   def generate : String
     String.build do |str|

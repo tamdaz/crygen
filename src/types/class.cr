@@ -41,15 +41,12 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   # abstract class Person
   # end
   # ```
-  # Returns:
-  # an object class itself.
   def as_abstract : self
     @type = :abstract
     self
   end
 
   # Generates a Crystal code.
-  # Returns: String
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
