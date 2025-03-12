@@ -9,7 +9,7 @@ module Crygen::Modules::Mixin
     self
   end
 
-  # Adds an extend into object
+  # Adds an extend into object.
   def add_extend(name : String) : self
     @extends << name
     self

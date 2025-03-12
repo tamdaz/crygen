@@ -29,7 +29,6 @@ class Crygen::Types::Struct < Crygen::Abstract::GeneratorInterface
   def initialize(@name : String); end
 
   # Generates a struct.
-  # Returns: String
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }

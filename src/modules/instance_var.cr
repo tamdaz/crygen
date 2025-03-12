@@ -3,23 +3,12 @@ module Crygen::Modules::InstanceVar
   @instance_vars = [] of Tuple(String, String, String | Nil)
 
   # Add an argument with no default value.
-  # Parameters:
-  # - name : String
-  # - type : String
-  # Returns:
-  # an object class itself.
   def add_instance_var(name : String, type : String) : self
     @instance_vars << {name, type, nil}
     self
   end
 
   # Add an argument with default value.
-  # Parameters:
-  # - name : String
-  # - type : String
-  # - value : String
-  # Returns:
-  # an object class itself.
   def add_instance_var(name : String, type : String, value : String) : self
     if type == "String"
       @instance_vars << {name, type, value.dump}
@@ -30,7 +19,6 @@ module Crygen::Modules::InstanceVar
   end
 
   # Generate the instance vars.
-  # Returns: String.
   def generate_instance_vars : String
     String.build do |str|
       @instance_vars.each do |instance_var|
