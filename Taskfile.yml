@@ -8,4 +8,4 @@ tasks:
   test:
     cmd: crystal spec -p
   pull:
-    cmd: git pull origin main --ff-only
+    cmd: git pull origin main --rebase
