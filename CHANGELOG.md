@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.5.0](https://github.com/tamdaz/cruml/releases/tag/v0.5.0) - 2025-04-21
+
+## Added
+
+* Add tests for mixins and possible to use mixins in structs. (@tamdaz)(#29)
+* Add `sync` command. (@tamdaz)(#30)
+
+## Changed
+
+* Update README (@tamdaz)(#28)
+
+## Fixed
+
+* `Crygen::Types::Enum` implments Crygen::Abstract::GeneratorInterface (@tamdaz)(#27)
+
 ## [v0.4.0](https://github.com/tamdaz/cruml/releases/tag/v0.4.0) - 2025-03-12
 
 ## Added
