@@ -30,7 +30,7 @@ end
 def make_type(class_name : String) : Nil
   method_generate = CGT::Method.new("generate", "String")
   method_generate.add_body("# Put the code...")
-  class_type = CGT::Class.new("Crygen::Types::#{class_name} < Crygen::Abstract::GeneratorInterface")
+  class_type = CGT::Class.new("Crygen::Types::#{class_name} < Crygen::Interfaces::GeneratorInterface")
   class_type.add_comment("TODO : Write the documentation about the `#{class_name}` class.")
   class_type.add_method(method_generate)
 

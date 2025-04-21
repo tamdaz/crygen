@@ -13,7 +13,7 @@ require "./../interfaces/generator_interface"
 # class Person
 # end
 # ```
-class Crygen::Types::Annotation < Crygen::Abstract::GeneratorInterface
+class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   @args = [] of Tuple(String | Nil, String)
 
   def initialize(@name : String); end

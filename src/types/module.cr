@@ -22,7 +22,7 @@ require "./../interfaces/generator_interface"
 #   end
 # end
 # ```
-class Crygen::Types::Module < Crygen::Abstract::GeneratorInterface
+class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Comment
 
   alias ObjectType = Crygen::Types::Module | Crygen::Types::Class | Crygen::Types::Struct | Crygen::Types::Enum

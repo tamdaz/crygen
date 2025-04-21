@@ -10,7 +10,7 @@ require "./../interfaces/generator_interface"
 # ```
 # alias MyAlias = Foo | Bar
 # ```
-class Crygen::Types::Alias < Crygen::Abstract::GeneratorInterface
+class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Comment
 
   def initialize(@name : String, @types : Array(String)); end

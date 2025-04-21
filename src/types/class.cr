@@ -18,7 +18,7 @@ require "./../interfaces/generator_interface"
 #   end
 # end
 # ```
-class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
+class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Comment
   include Crygen::Modules::Property
   include Crygen::Modules::InstanceVar
