@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.5.1](https://github.com/tamdaz/cruml/releases/tag/v0.5.1) - 2025-04-22
+
+## Fixed
+
+* Rename interface to `Crygen::Interfaces::GeneratorInterface` (@tamdaz)(#31)
+* Refactor the code (@tamdaz)(#32)
+
 ## [v0.5.0](https://github.com/tamdaz/cruml/releases/tag/v0.5.0) - 2025-04-21
 
 ## Added
