@@ -11,7 +11,7 @@ module Crygen::Modules::Scope
   # Set the scope as private.
   def as_private : self
     @scope = :private
-    
+
     self
   end
 end

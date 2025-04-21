@@ -91,7 +91,7 @@ class Crygen::Types::Macro < Crygen::Abstract::GeneratorInterface
 
       @args.each_with_index do |arg, i|
         str << arg
-        
+
         if i != @args.size - 1
           str << ", "
         end

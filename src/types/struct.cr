@@ -33,7 +33,7 @@ class Crygen::Types::Struct < Crygen::Abstract::GeneratorInterface
   def generate : String
     String.build do |str|
       line_proc = ->(line : String) { str << "  " + line + "\n" }
-      
+
       @comments.each { |comment| str << "# " << comment << "\n" }
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
       str << "struct " << @name << "\n"

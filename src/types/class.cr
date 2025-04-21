@@ -57,7 +57,7 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
 
       class_type = @type == :abstract ? "abstract class" : "class"
 
-      str << class_type << ' ' <<  @name << "\n"
+      str << class_type << ' ' << @name << "\n"
 
       generate_mixins.each_line(&line_proc)
       generate_properties.each_line(&line_proc)
