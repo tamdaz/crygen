@@ -40,6 +40,7 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
       :args        => !args.nil? ? generate_args(args) : "",
       :return_type => return_type,
     }
+
     self
   end
 
@@ -59,6 +60,7 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   # ```
   def add_struct(name : String, fields : FieldArray) : self
     @objects << {name, :struct, fields}
+
     self
   end
 
@@ -78,6 +80,7 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   # ```
   def add_union(name : String, fields : FieldArray) : self
     @objects << {name, :union, fields}
+
     self
   end
 
@@ -85,24 +88,30 @@ class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
   def generate : String
     String.build do |str|
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
-      str << "lib #{@name}\n"
+
+      str << "lib " << @name << "\n"
+
       can_add_whitespace = false
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
-        str << "  #{object[1]} #{object[0]}\n"
+        str << "  " << object[1] << ' ' << object[0] << "\n"
+
         object[2].each do |field|
           str << "    #{field[0]} : #{field[1]}\n"
         end
+
         str << "  end\n"
         can_add_whitespace = true
       end
       str << "\n" if !@objects.empty? && !@functions.empty?
       @functions.each do |function|
         if function[:args].empty?
-          str << "  fun #{function[:name]} : #{function[:return_type]}\n"
+          str << "  fun " << function[:name]
         else
-          str << "  fun #{function[:name]}#{function[:args]} : #{function[:return_type]}\n"
+          str << "  fun " << function[:name] << function[:args]
         end
+
+        str << " : " << function[:return_type] << "\n"
       end
       str << "end"
     end

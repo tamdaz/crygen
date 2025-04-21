@@ -43,34 +43,42 @@ class Crygen::Types::Class < Crygen::Abstract::GeneratorInterface
   # ```
   def as_abstract : self
     @type = :abstract
+
     self
   end
 
   # Generates a Crystal code.
   def generate : String
     String.build do |str|
+      line_proc = ->(line : String) { str << "  " + line + "\n" }
+
       @comments.each { |comment| str << "# #{comment}\n" }
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
-      str << if @type == :abstract
-        "abstract class #{@name}\n"
-      else
-        "class #{@name}\n"
-      end
-      generate_mixins.each_line { |line| str << "  " + line + "\n" }
-      generate_properties.each_line { |line| str << "  " + line + "\n" }
-      generate_instance_vars.each_line { |line| str << "  " + line + "\n" }
-      generate_class_vars.each_line { |line| str << "  " + line + "\n" }
+
+      class_type = @type == :abstract ? "abstract class" : "class"
+
+      str << class_type << ' ' <<  @name << "\n"
+
+      generate_mixins.each_line(&line_proc)
+      generate_properties.each_line(&line_proc)
+      generate_instance_vars.each_line(&line_proc)
+      generate_class_vars.each_line(&line_proc)
+
       can_add_whitespace = false
+
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
+
         case @type
-        when :normal   then str << method.generate.each_line { |line| str << "  " + line + "\n" }
+        when :normal   then str << method.generate.each_line(&line_proc)
         when :abstract then str << method.generate_abstract_method
         end
+
         if can_add_whitespace == false && @type == :normal
           can_add_whitespace = true
         end
       end
+
       str << "end"
     end
   end

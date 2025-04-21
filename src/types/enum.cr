@@ -27,29 +27,22 @@ class Crygen::Types::Enum < Crygen::Abstract::GeneratorInterface
 
   def initialize(@name : String, @type : String | Nil = nil); end
 
-  # Adds a constant into enum (name only).
+  # Adds a constant into enum (name and value).
   # ```
   # enum_type = Crygen::Types::Enum.new("Person")
   # enum_type.add_constant("Employee")
+  #
+  # enum_type = Crygen::Types::Enum.new("Person")
+  # enum_type.add_constant("Employee", 1)
   # ```
   # Output:
-  # ```
   # enum Person
   #   Employee
   # end
   # ```
-  def add_constant(name : String) : self
-    @constants << {name, nil}
-    self
-  end
-
-  # Adds a constant into enum (name and value).
-  # ```
-  # enum_type = Crygen::Types::Enum.new("Person")
-  # enum_type.add_constant("Employee", 1)
-  # ```
-  def add_constant(name : String, value : String) : self
+  def add_constant(name : String, value : String | Nil = nil) : self
     @constants << {name, value}
+
     self
   end
 
@@ -57,28 +50,47 @@ class Crygen::Types::Enum < Crygen::Abstract::GeneratorInterface
   def generate : String
     String.build do |str|
       @comments.each { |comment| str << "# #{comment}\n" }
+
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
+
+      str << "enum " << @name
+
       if @type
-        str << "enum #{@name} : #{@type}\n"
-      else
-        str << "enum #{@name}\n"
+        str << " : " << @type
       end
+
+      str << "\n"
+
       @constants.each do |constant|
-        if constant[1]
-          str << "  #{constant[0]} = #{constant[1]}\n"
-        else
-          str << "  #{constant[0]}\n"
+        name, value = constant
+
+        str << "  " << name
+
+        if value
+          str << " = " << value
         end
+
+        str << "\n"
       end
-      str << "\n" if !@methods.empty?
+
+      if !@methods.empty?
+        str << "\n"
+      end
+
       can_add_whitespace = false
+
       @methods.each do |method|
-        str << "\n" if can_add_whitespace == true
+        if can_add_whitespace == true
+          str << "\n"
+        end
+
         str << method.generate.each_line { |line| str << "  " + line + "\n" }
+
         if can_add_whitespace == false
           can_add_whitespace = true
         end
       end
+
       str << "end"
     end
   end

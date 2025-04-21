@@ -58,16 +58,21 @@ class Crygen::Types::Module < Crygen::Abstract::GeneratorInterface
   # Generates a module.
   def generate : String
     String.build do |str|
-      @comments.each { |comment| str << "# #{comment}\n" }
-      str << "module #{@name}\n"
+      @comments.each { |comment| str << "# " << comment << "\n" }
+      str << "module " << @name << "\n"
+
       can_add_whitespace = false
 
       # All classes from `Crygen::Types` module have the `generate` method.
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
         object.generate.each_line { |line| str << "  " + line + "\n" }
-        can_add_whitespace = true
+
+        if can_add_whitespace == false
+          can_add_whitespace = true
+        end
       end
+
       str << "end"
     end
   end
