@@ -17,7 +17,7 @@ require "./../interfaces/generator_interface"
 #   Intern
 # end
 # ```
-class Crygen::Types::Enum
+class Crygen::Types::Enum < Crygen::Abstract::GeneratorInterface
   include Crygen::Modules::Comment
   include Crygen::Modules::Method
   include Crygen::Modules::Annotation
