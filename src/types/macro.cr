@@ -13,7 +13,7 @@ require "./../interfaces/generator_interface"
 #   puts {{ name }}
 # end
 # ```
-class Crygen::Types::Macro < Crygen::Abstract::GeneratorInterface
+class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   @args = [] of String
   @body = ""
 

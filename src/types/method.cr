@@ -13,7 +13,7 @@ require "./../interfaces/generator_interface"
 #   "Hello world"
 # end
 # ```
-class Crygen::Types::Method < Crygen::Abstract::GeneratorInterface
+class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Comment
   include Crygen::Modules::Scope
   include Crygen::Modules::Arg

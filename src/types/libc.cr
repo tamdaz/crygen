@@ -13,7 +13,7 @@ require "./../interfaces/generator_interface"
 #   fun getch : Int32
 # end
 # ```
-class Crygen::Types::LibC < Crygen::Abstract::GeneratorInterface
+class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Annotation
 
   alias FieldArray = Array(Tuple(String, String))
