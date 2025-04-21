@@ -349,6 +349,8 @@ enum_type.add_constant("Administrator", "3")
 
 module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
 module_type.add_object(enum_type)
+
+puts module_type
 ```
 
 Output:
@@ -380,6 +382,7 @@ libc_type.add_union("IntOrFloat", [
   {"some_int", "Int32"},
   {"some_float", "Float64"},
 ])
+
 puts libc_type.generate
 ```
 
@@ -433,14 +436,14 @@ end
 
 ## Alias
 
-```
+```crystal
 alias_type = CGT::Alias.new("MyAlias", %w[Foo Bar])
 puts alias_type.generate
 ```
 
 Output:
 
-```
+```crystal
 alias MyAlias = Foo | Bar
 ```
 
