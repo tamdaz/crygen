@@ -470,10 +470,8 @@ end
 
 This library can be used to save time. In particular, the frameworks have features
 for generating code more easily, without having to rewrite everything by hand.
-For example, frameworks such as Adonis, Laravel and Symfony include features
-for generating classes.
 
-_Check out the references : https://crystal-lang.org/reference/1.15/syntax_and_semantics/index.html_
+_Check out the references : https://crystal-lang.org/reference/1.16/syntax_and_semantics/index.html_
 
 If there's something missing from the todo, don't hesitate to add it.
 
