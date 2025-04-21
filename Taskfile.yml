@@ -9,3 +9,9 @@ tasks:
     cmd: crystal spec -p
   pull:
     cmd: git pull origin main --rebase
+  sync:
+    cmds:
+      - git switch main
+      - git fetch -p
+      - "git branch -vv | grep ': disparue]' | awk '{print $1}' | xargs -r git branch -D"
+      - git pull origin main
