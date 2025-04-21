@@ -23,6 +23,7 @@ module Crygen::Modules::Annotation
   # ```
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
+
     self
   end
 end

@@ -2,14 +2,8 @@
 module Crygen::Modules::Arg
   @args = [] of Tuple(String, String, String | Nil)
 
-  # Add an argument with no default value.
-  def add_arg(name : String, type : String) : self
-    @args << {name, type, nil}
-    self
-  end
-
-  # Add an argument with default value.
-  def add_arg(name : String, type : String, value : String) : self
+  # Adds an argument.
+  def add_arg(name : String, type : String, value : String | Nil = nil) : self
     @args << {name, type, value}
     self
   end
@@ -18,14 +12,21 @@ module Crygen::Modules::Arg
   def generate_args : String
     String.build do |str|
       str << '(' unless @args.empty?
+
       @args.each_with_index do |arg, i|
-        if arg[2].nil?
-          str << "#{arg[0]} : #{arg[1]}"
-        else
-          str << "#{arg[0]} : #{arg[1]} = #{arg[2]}"
+        name, type, value = arg
+
+        str << name << " : " << type
+
+        unless value.nil?
+          str << " = " << value
         end
-        str << ", " if i != @args.size - 1
+
+        if i != @args.size - 1
+          str << ", "
+        end
       end
+
       str << ')' unless @args.empty?
     end
   end

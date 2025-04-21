@@ -31,15 +31,16 @@ module Crygen::Modules::Property
     String.build do |str|
       @properties.each do |prop|
         if comment = prop[:comment]
-          comment.each_line { |line| str << "# #{line}\n" }
+          comment.each_line { |line| str << "# " << line << "\n" }
         end
+
         unless prop[:scope] == "public"
-          str << prop[:scope]
-          str << ' '
+          str << prop[:scope] << ' '
         end
-        str << "#{prop[:visibility]} #{prop[:name]}"
-        str << " : #{prop[:type]}" if prop[:type]
-        str << " = #{prop[:value]}" if prop[:value]
+
+        str << prop[:visibility] << ' ' << prop[:name]
+        str << " : " << prop[:type] if prop[:type]
+        str << " = " << prop[:value] if prop[:value]
         str << "\n"
       end
     end
