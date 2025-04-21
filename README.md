@@ -269,7 +269,7 @@ Output:
 With the annotation, you can add it to the method or class to add the metadata.
 
 ```crystal
-class_type = test_person_class()
+class_type = CGT::Class.new("Person")
 class_type.add_annotation(CGT::Annotation.new("Experimental"))
 puts class_type.generate
 
@@ -298,7 +298,7 @@ end
 # Annotation on class and method.
 @[Experimental]
 class Person
-  @[Experimental]
+  @[MyAnnotation]
   def full_name : String
     "John Doe"
   end
