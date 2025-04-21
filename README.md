@@ -21,6 +21,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Struct](#struct)
   - [Module](#module)
   - [Alias](#alias)
+  - [Mixin](#mixin)
 - [Usage](#usage)
 - [Todos](#todos)
 - [Lib C-binding](#lib-c-binding)
@@ -269,7 +270,7 @@ Output:
 With the annotation, you can add it to the method or class to add the metadata.
 
 ```crystal
-class_type = test_person_class()
+class_type = CGT::Class.new("Person")
 class_type.add_annotation(CGT::Annotation.new("Experimental"))
 puts class_type.generate
 
@@ -298,7 +299,7 @@ end
 # Annotation on class and method.
 @[Experimental]
 class Person
-  @[Experimental]
+  @[MyAnnotation]
   def full_name : String
     "John Doe"
   end
@@ -348,6 +349,8 @@ enum_type.add_constant("Administrator", "3")
 
 module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
 module_type.add_object(enum_type)
+
+puts module_type
 ```
 
 Output:
@@ -379,6 +382,7 @@ libc_type.add_union("IntOrFloat", [
   {"some_int", "Int32"},
   {"some_float", "Float64"},
 ])
+
 puts libc_type.generate
 ```
 
@@ -432,25 +436,45 @@ end
 
 ## Alias
 
-```
+```crystal
 alias_type = CGT::Alias.new("MyAlias", %w[Foo Bar])
 puts alias_type.generate
 ```
 
 Output:
 
-```
+```crystal
 alias MyAlias = Foo | Bar
+```
+
+## Mixin
+
+```crystal
+class_type = CGT::Class.new("Person")
+class_type.add_include("FirstModule")
+class_type.add_include("SecondModule")
+class_type.add_extend("MyExtension")
+class_type.add_extend("AnotherExtension")
+puts class_type
+```
+
+Output:
+
+```crystal
+class Person
+  include FirstModule
+  include SecondModule
+  extend MyExtension
+  extend AnotherExtension
+end
 ```
 
 ## Usage
 
 This library can be used to save time. In particular, the frameworks have features
 for generating code more easily, without having to rewrite everything by hand.
-For example, frameworks such as Adonis, Laravel and Symfony include features
-for generating classes.
 
-_Check out the references : https://crystal-lang.org/reference/1.15/syntax_and_semantics/index.html_
+_Check out the references : https://crystal-lang.org/reference/1.16/syntax_and_semantics/index.html_
 
 If there's something missing from the todo, don't hesitate to add it.
 
