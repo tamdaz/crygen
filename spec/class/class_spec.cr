@@ -175,4 +175,44 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
   end
+
+  it "creates a class with mixins" do
+    class_type = test_person_class()
+    class_type.add_include("MyMixin")
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      include MyMixin
+    end
+    CRYSTAL
+
+    class_type = test_person_class()
+    class_type.add_include("MyMixin")
+    class_type.add_include("AnotherMixin")
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      include MyMixin
+      include AnotherMixin
+    end
+    CRYSTAL
+  end
+
+  it "creates a class with extensions" do
+    class_type = test_person_class()
+    class_type.add_extend("MyExtension")
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      extend MyExtension
+    end
+    CRYSTAL
+
+    class_type = test_person_class()
+    class_type.add_extend("MyExtension")
+    class_type.add_extend("AnotherExtension")
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      extend MyExtension
+      extend AnotherExtension
+    end
+    CRYSTAL
+  end
 end

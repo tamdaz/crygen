@@ -156,7 +156,7 @@ describe Crygen::Types::Struct do
     CRYSTAL
   end
 
-  it "creates a class with nilable scoped properties" do
+  it "creates a struct with nilable scoped properties" do
     struct_type = test_point_struct()
     struct_type.add_property(:nil_property, "x", "Int32", scope: :private)
     struct_type.add_property(:nil_getter, "y", "Int32", scope: :protected)
@@ -165,6 +165,46 @@ describe Crygen::Types::Struct do
     struct Point
       private property? x : Int32
       protected getter? y : Int32
+    end
+    CRYSTAL
+  end
+
+  it "creates a struct with mixins" do
+    struct_type = test_point_struct()
+    struct_type.add_include("MyMixin")
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      include MyMixin
+    end
+    CRYSTAL
+
+    struct_type = test_point_struct()
+    struct_type.add_include("MyMixin")
+    struct_type.add_include("AnotherMixin")
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      include MyMixin
+      include AnotherMixin
+    end
+    CRYSTAL
+  end
+
+  it "creates a struct with extensions" do
+    struct_type = test_point_struct()
+    struct_type.add_extend("MyExtension")
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      extend MyExtension
+    end
+    CRYSTAL
+
+    struct_type = test_point_struct()
+    struct_type.add_extend("MyExtension")
+    struct_type.add_extend("AnotherExtension")
+    struct_type.generate.should eq(<<-CRYSTAL)
+    struct Point
+      extend MyExtension
+      extend AnotherExtension
     end
     CRYSTAL
   end
