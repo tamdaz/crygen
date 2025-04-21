@@ -37,6 +37,7 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
+
     self
   end
 
@@ -53,15 +54,16 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_body(body : String) : self
     @body += body
+
     self
   end
 
   # Generates the methods.
   def generate : String
     String.build do |str|
-      @comments.each { |comment| str << "# #{comment}\n" }
-      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
-      str << @scope.to_s + " " unless @scope == :public
+      @comments.each { |comment| str << "# " << comment << "\n" }
+      @annotations.each { |annotation_type| str << annotation_type.generate << "\n" }
+      str << @scope << ' ' unless @scope == :public
       str << "def #{@name}#{generate_args} : #{@return_type}\n"
       @body.each_line { |line| str << "  #{line}\n" }
       str << "end"
@@ -71,9 +73,9 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # Generates the abstract methods.
   protected def generate_abstract_method : String
     String.build do |str|
-      @comments.each { |comment| str << "# #{comment}\n" }
-      str << @scope.to_s + " " unless @scope == :public
-      str << "  abstract def #{@name}#{generate_args} : #{@return_type}\n"
+      @comments.each { |comment| str << "# " << comment << "\n" }
+      str << @scope << ' ' unless @scope == :public
+      str << "  abstract def " << @name << generate_args << " : " << @return_type << "\n"
     end
   end
 end

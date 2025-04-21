@@ -31,6 +31,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_arg(arg : String) : self
     @args << arg
+
     self
   end
 
@@ -48,6 +49,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_body(line : String) : self
     @body += line + "\n"
+
     self
   end
 
@@ -65,16 +67,19 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def body=(body : String) : self
     @body = body
+
     self
   end
 
   # Generates the macro.
   def generate : String
     String.build do |str|
-      str << "macro #{@name}"
-      str << generate_args unless @args.empty?
+      str << "macro " << @name
+      unless @args.empty?
+        str << generate_args
+      end
       str << "\n"
-      @body.each_line { |line| str << "  #{line}\n" }
+      @body.each_line { |line| str << "  " << line << "\n" }
       str << "end"
     end
   end
@@ -83,10 +88,15 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   private def generate_args : String
     String.build do |str|
       str << '(' unless @args.empty?
+
       @args.each_with_index do |arg, i|
-        str << "#{arg}"
-        str << ", " if i != @args.size - 1
+        str << arg
+
+        if i != @args.size - 1
+          str << ", "
+        end
       end
+
       str << ')' unless @args.empty?
     end
   end
