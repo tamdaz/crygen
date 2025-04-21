@@ -21,6 +21,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
   - [Struct](#struct)
   - [Module](#module)
   - [Alias](#alias)
+  - [Mixin](#mixin)
 - [Usage](#usage)
 - [Todos](#todos)
 - [Lib C-binding](#lib-c-binding)
@@ -441,6 +442,28 @@ Output:
 
 ```
 alias MyAlias = Foo | Bar
+```
+
+## Mixin
+
+```crystal
+class_type = CGT::Class.new("Person")
+class_type.add_include("FirstModule")
+class_type.add_include("SecondModule")
+class_type.add_extend("MyExtension")
+class_type.add_extend("AnotherExtension")
+puts class_type
+```
+
+Output:
+
+```crystal
+class Person
+  include FirstModule
+  include SecondModule
+  extend MyExtension
+  extend AnotherExtension
+end
 ```
 
 ## Usage
