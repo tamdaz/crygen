@@ -190,7 +190,7 @@ describe Crygen::Types::LibC do
 
     libc_type = Crygen::Types::LibC.new("C")
     libc_type.add_function("getch", "Int32", args)
-    libc_type.add_link("mylink")
+    libc_type.link("mylink")
     libc_type.generate.should eq(<<-CRYSTAL)
     @[Link("mylink")]
     lib C

@@ -40,48 +40,72 @@ describe Crygen::Types::Annotation do
   end
 
   describe "annotation helpers" do
-    it "#as_deprecated" do
-      Crygen::Types::Class.new("AnnotationTest").as_deprecated.generate.should eq(<<-CRYSTAL)
+    it "#deprecated" do
+      Crygen::Types::Class.new("AnnotationTest").deprecated.generate.should eq(<<-CRYSTAL)
       @[Deprecated]
       class AnnotationTest
       end
       CRYSTAL
 
-      Crygen::Types::Class.new("AnnotationTest").as_deprecated("Use something instead").generate.should eq(<<-CRYSTAL)
+      Crygen::Types::Class.new("AnnotationTest").deprecated("Use something instead").generate.should eq(<<-CRYSTAL)
       @[Deprecated("Use something instead")]
       class AnnotationTest
       end
       CRYSTAL
     end
 
-    it "#as_experimental" do
-      Crygen::Types::Class.new("AnnotationTest").as_experimental.generate.should eq(<<-CRYSTAL)
+    it "#experimental" do
+      Crygen::Types::Class.new("AnnotationTest").experimental.generate.should eq(<<-CRYSTAL)
       @[Experimental]
       class AnnotationTest
       end
       CRYSTAL
 
-      Crygen::Types::Class.new("AnnotationTest").as_experimental("Lorem ipsum").generate.should eq(<<-CRYSTAL)
+      Crygen::Types::Class.new("AnnotationTest").experimental("Lorem ipsum").generate.should eq(<<-CRYSTAL)
       @[Experimental("Lorem ipsum")]
       class AnnotationTest
       end
       CRYSTAL
     end
 
-    it "#as_flags" do
-      Crygen::Types::Enum.new("AnnotationTest").as_flags.generate.should eq(<<-CRYSTAL)
+    it "#flags" do
+      Crygen::Types::Enum.new("AnnotationTest").flags.generate.should eq(<<-CRYSTAL)
       @[Flags]
       enum AnnotationTest
       end
       CRYSTAL
     end
 
-    it "#as_link" do
-      Crygen::Types::LibC.new("AnnotationTest").add_link("musl").generate.should eq(<<-CRYSTAL)
+    it "#link" do
+      Crygen::Types::LibC.new("AnnotationTest").link("musl").generate.should eq(<<-CRYSTAL)
       @[Link("musl")]
       lib AnnotationTest
       end
       CRYSTAL
+    end
+
+    it "#thread_local" do
+      # FIXME: Complete the @[ThreadLocal] annotation spec.
+    end
+
+    it "#always_inline" do
+      Crygen::Types::Method.new("always_inline", "Void").always_inline.generate.should eq(<<-CRYSTAL)
+      @[AlwaysInline]
+      def always_inline : Void
+      end
+      CRYSTAL
+    end
+
+    it "#no_inline" do
+      Crygen::Types::Method.new("no_inline", "Void").no_inline.generate.should eq(<<-CRYSTAL)
+      @[NoInline]
+      def no_inline : Void
+      end
+      CRYSTAL
+    end
+
+    it "#call_convention" do
+      # FIXME: Complete the @[CallConvention] annotation spec.
     end
   end
 end
