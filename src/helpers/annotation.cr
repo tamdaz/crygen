@@ -1,6 +1,6 @@
 # This module provides helper methods for adding annotations to objects easily.
 module Crygen::Helpers::Annotation
-  # Add a `@[Deprecated]` annotation on the method.
+  # Add a `@[Deprecated]` annotation.
   # Returns: an object class itself.
   def as_deprecated : self
     @annotations << CGT::Annotation.new("Deprecated")
@@ -14,7 +14,7 @@ module Crygen::Helpers::Annotation
     self
   end
 
-  # Add a `@[Experimental]` annotation on the method.
+  # Add a `@[Experimental]` annotation.
   # Returns: an object class itself.
   def as_experimental : self
     @annotations << CGT::Annotation.new("Experimental")
@@ -28,7 +28,7 @@ module Crygen::Helpers::Annotation
     self
   end
 
-  # Add a `@[Flags]` annotation on the method.
+  # Add a `@[Flags]` annotation.
   # Returns: an object class itself.
   def as_flags : self
     @annotations << CGT::Annotation.new("Flags")
@@ -42,5 +42,38 @@ module Crygen::Helpers::Annotation
     self
   end
 
-  # Note: Add the @[ThreadLocal], @[AlwaysInline], @[Extern], @[AlwaysInline], @[NoInline], @[Raises], @[CallConvention] annotations.
+  # Add a `@[ThreadLocal]` annotation.
+  # Returns: an object class itself.
+  def as_thread_local : self
+    @annotations << CGT::Annotation.new("ThreadLocal")
+    self
+  end
+
+  # Add a `@[AlwaysInline]` annotation.
+  # Returns: an object class itself.
+  def as_always_inline : self
+    @annotations << CGT::Annotation.new("AlwaysInline")
+    self
+  end
+
+  # Add a `@[Extern]` annotation.
+  # Returns: an object class itself.
+  def as_extern : self
+    @annotations << CGT::Annotation.new("Extern")
+    self
+  end
+
+  # Add a `@[NoInline]` annotation.
+  # Returns: an object class itself.
+  def as_no_inline : self
+    @annotations << CGT::Annotation.new("NoInline")
+    self
+  end
+
+  # Add a `@[CallConvention]` annotation.
+  # Returns: an object class itself.
+  def add_call_convention(name : String) : self
+    @annotations << CGT::Annotation.new("Link").add_arg(name.dump)
+    self
+  end
 end
