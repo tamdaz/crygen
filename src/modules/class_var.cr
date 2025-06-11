@@ -4,12 +4,13 @@ module Crygen::Modules::ClassVar
 
   # Adds a class var with default value.
   def add_class_var(name : String, type : String, value : String | Nil = nil) : self
-    if type == "String" && !value.nil?
-      @class_vars << {name, type, value.dump}
-    else
-      @class_vars << {name, type, value}
-    end
+    output_value = if type == "String" && !value.nil?
+                     value.dump
+                   else
+                     value
+                   end
 
+    @class_vars << {name, type, output_value}
     self
   end
 
@@ -20,11 +21,9 @@ module Crygen::Modules::ClassVar
         name, type, value = class_var
 
         str << "@@" << name << " : " << type
-
         unless value.nil?
           str << " = " << value
         end
-
         str << "\n"
       end
     end
