@@ -113,7 +113,7 @@ describe Crygen::Types::Enum do
     enum_type.add_constant("Employee")
     enum_type.add_constant("Student")
     enum_type.add_constant("Intern")
-    enum_type.as_flags
+    enum_type.flags
 
     enum_type.generate.should eq(<<-CRYSTAL)
     @[Flags]
