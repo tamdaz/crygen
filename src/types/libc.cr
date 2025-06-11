@@ -40,7 +40,6 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
       :args        => !args.nil? ? generate_args(args) : "",
       :return_type => return_type,
     }
-
     self
   end
 
@@ -60,7 +59,6 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_struct(name : String, fields : FieldArray) : self
     @objects << {name, :struct, fields}
-
     self
   end
 
@@ -80,7 +78,6 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_union(name : String, fields : FieldArray) : self
     @objects << {name, :union, fields}
-
     self
   end
 

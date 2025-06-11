@@ -64,7 +64,7 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
       @comments.each { |comment| str << "# " << comment << "\n" }
       @annotations.each { |annotation_type| str << annotation_type.generate << "\n" }
       str << @scope << ' ' unless @scope == :public
-      str << "def #{@name}#{generate_args} : #{@return_type}\n"
+      str << "def " << @name << generate_args << " : " << @return_type << "\n"
       @body.each_line { |line| str << "  #{line}\n" }
       str << "end"
     end

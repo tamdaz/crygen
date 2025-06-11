@@ -54,36 +54,23 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
       @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
 
       str << "enum " << @name
-
-      if @type
-        str << " : " << @type
-      end
-
+      str << " : " << @type if @type
       str << "\n"
 
       @constants.each do |constant|
         name, value = constant
 
         str << "  " << name
-
-        if value
-          str << " = " << value
-        end
-
+        str << " = " << value if value
         str << "\n"
       end
 
-      if !@methods.empty?
-        str << "\n"
-      end
+      str << "\n" if !@methods.empty?
 
       can_add_whitespace = false
 
       @methods.each do |method|
-        if can_add_whitespace == true
-          str << "\n"
-        end
-
+        str << "\n" if can_add_whitespace == true
         str << method.generate.each_line { |line| str << "  " + line + "\n" }
 
         if can_add_whitespace == false

@@ -4,12 +4,12 @@ module Crygen::Modules::InstanceVar
 
   # Adds an argument with default value.
   def add_instance_var(name : String, type : String, value : String | Nil = nil) : self
-    if type == "String" && !value.nil?
-      @instance_vars << {name, type, value.dump}
-    else
-      @instance_vars << {name, type, value}
-    end
-
+    output_value = if type == "String" && !value.nil?
+                     value.dump
+                   else
+                     value
+                   end
+    @instance_vars << {name, type, output_value}
     self
   end
 
@@ -20,11 +20,9 @@ module Crygen::Modules::InstanceVar
         name, type, value = instance_var
 
         str << '@' << name << " : " << type
-
         unless value.nil?
           str << " = " << value
         end
-
         str << "\n"
       end
     end

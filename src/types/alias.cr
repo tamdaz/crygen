@@ -18,18 +18,13 @@ class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
   # Generates an alias.
   def generate : String
     String.build do |str|
-      types_count = @types.size
-
       @comments.each { |comment| str << "# #{comment}\n" }
 
       str << "alias " << @name << " = "
 
       @types.each_with_index do |type, idx|
         str << type
-
-        unless idx == types_count - 1
-          str << " | "
-        end
+        str << " | " unless idx == @types.size - 1
       end
     end
   end

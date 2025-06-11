@@ -5,7 +5,6 @@ module Crygen::Modules::Comment
   # Add a line or a multiline comment.
   def add_comment(value : String) : self
     @comments += value.lines
-
     self
   end
 end

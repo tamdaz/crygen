@@ -6,14 +6,12 @@ module Crygen::Modules::Mixin
   # Adds an include into object.
   def add_include(name : String) : self
     @includes << name
-
     self
   end
 
   # Adds an extend into object.
   def add_extend(name : String) : self
     @extends << name
-
     self
   end
 
