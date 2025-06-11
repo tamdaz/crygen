@@ -29,7 +29,6 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_arg(value : String) : self
     @args << {nil, value}
-
     self
   end
 
@@ -44,7 +43,6 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_arg(name : String, value : String) : self
     @args << {name, value}
-
     self
   end
 
@@ -52,11 +50,7 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   def generate : String
     String.build do |str|
       str << "@[" << @name
-
-      unless @args.empty?
-        str << generate_args
-      end
-
+      str << generate_args unless @args.empty?
       str << "]"
     end
   end
@@ -69,15 +63,9 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
       @args.each_with_index do |arg, i|
         name, value = arg
 
-        unless name.nil?
-          str << name << ": "
-        end
-
+        str << name << ": " unless name.nil?
         str << value
-
-        if i != @args.size - 1
-          str << ", "
-        end
+        str << ", " if i != @args.size - 1
       end
 
       str << ')' unless @args.empty?

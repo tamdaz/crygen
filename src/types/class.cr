@@ -43,7 +43,6 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   # ```
   def as_abstract : self
     @type = :abstract
-
     self
   end
 
