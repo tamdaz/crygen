@@ -15,6 +15,18 @@ module Crygen::Modules::Mixin
     self
   end
 
+  # Adds includes into object.
+  def add_includes(names : Array(String)) : self
+    @includes += names
+    self
+  end
+
+  # Adds includes into object.
+  def add_extends(names : Array(String)) : self
+    @extends += names
+    self
+  end
+
   # Generate the mixins.
   protected def generate_mixins : String
     String.build do |str|
