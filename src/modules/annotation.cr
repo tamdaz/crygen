@@ -7,7 +7,7 @@ module Crygen::Modules::Annotation
 
   @annotations = [] of Crygen::Types::Annotation
 
-  # Adds annotation(s) onto object.
+  # Adds the annotation onto object.
   # Example:
   # ```
   # class_type = CGT::Class.new("Person")
@@ -23,6 +23,27 @@ module Crygen::Modules::Annotation
   # ```
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
+    self
+  end
+
+  # Adds annotations onto object.
+  # Example:
+  # ```
+  # class_type = CGT::Class.new("Person")
+  # class_type.add_annotation(
+  #   CGT::Annotation.new("Experimental"),
+  #   CGT::Annotation.new("AnotherAnnotation")
+  # )
+  # ```
+  # Output:
+  # ```
+  # @[Experimental]
+  # @[AnotherAnnotation]
+  # class Person
+  # end
+  # ```
+  def add_annotations(*annotation_type : Crygen::Types::Annotation) : self
+    @annotations += annotation_type.to_a
     self
   end
 end
