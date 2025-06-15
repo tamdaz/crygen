@@ -8,4 +8,10 @@ module Crygen::Modules::Method
     @methods << method
     self
   end
+
+  # Adds methods into class.
+  def add_methods(*methods : Crygen::Types::Method) : self
+    @methods << methods
+    self
+  end
 end
