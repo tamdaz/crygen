@@ -9,7 +9,7 @@ authors:
 development_dependencies:
   cruml:
     github: tamdaz/cruml
-    branch: main
+    branch: ~> 0.7.0
 
 targets:
   console:
