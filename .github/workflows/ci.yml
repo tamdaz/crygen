@@ -6,41 +6,25 @@ on:
     - cron: '0 6 * * 6'
 
 jobs:
-  check_format:
-    runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:latest-alpine
+  linux-build:
+    strategy:
+      fail-fast: false
+      matrix:
+        crystal: ["1.14", "1.15", "1.16", latest, nightly]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Format
-        run: crystal tool format --check
-  coding_standards:
-    runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:latest-alpine
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: shards install
-      - name: Ameba
-        run: ./bin/ameba
-  test_latest:
-    runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:latest-alpine
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: apk add --update jq
-      - name: Specs
-        run: crystal spec --order random --error-on-warnings
-  test_nightly:
-    runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:nightly-alpine
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: apk add --update jq
-      - name: Specs
-        run: crystal spec --order random --error-on-warnings
+      - name: Download source
+        uses: actions/checkout@v4
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: ${{ matrix.crystal }}
+      - name: Install shards
+        run: shards install --ignore-crystal-version
+      - name: Run tests
+        run: crystal spec --order=random
+      - name: Check formatting
+        run: crystal tool format
+      - name: Run Ameba (static analysis)
+        uses: crystal-ameba/github-action@v0.12.0
