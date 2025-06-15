@@ -9,25 +9,25 @@
 **crygen** is a library that allows to generate a Crystal file. It is inspired by the PHP
 library : [nette/php-generator](https://github.com/nette/php-generator).
 
-- [Installation](#installation)
-- [Examples usage](#examples-usage)
-  - [Method](#method)
-  - [Class](#class)
-  - [Instance variables](#instance-variables)
-  - [Class variables](#class-variables)
-  - [Abstract class](#abstract-class)
-  - [Enum](#enum)
-  - [Annotation](#annotation)
-  - [Struct](#struct)
-  - [Module](#module)
+- [crygen](#crygen)
+  - [Installation](#installation)
+  - [Examples usage](#examples-usage)
+    - [Method](#method)
+    - [Class](#class)
+    - [Instance variables](#instance-variables)
+    - [Class variables](#class-variables)
+    - [Abstract class](#abstract-class)
+    - [Enum](#enum)
+    - [Annotation](#annotation)
+    - [Struct](#struct)
+    - [Module](#module)
+    - [Lib C-binding](#lib-c-binding)
+    - [Macro](#macro)
   - [Alias](#alias)
   - [Mixin](#mixin)
-- [Usage](#usage)
-- [Todos](#todos)
-- [Lib C-binding](#lib-c-binding)
-- [Macro](#macro)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [Contributors](#contributors)
 
 ## Installation
 
@@ -37,6 +37,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
 dependencies:
   crygen:
     github: tamdaz/crygen
+    version: ~> 0.5.0
 ```
 
 2. Run `shards install`
