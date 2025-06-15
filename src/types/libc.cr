@@ -84,11 +84,11 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   # Generates a C lib.
   def generate : String
     String.build do |str|
-      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
-
+      str << CGG::Annotation.generate(@annotations)
       str << "lib " << @name << "\n"
 
       can_add_whitespace = false
+      
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
         str << "  " << object[1] << ' ' << object[0] << "\n"

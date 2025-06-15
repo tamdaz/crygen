@@ -31,7 +31,7 @@ module Crygen::Modules::Property
     String.build do |str|
       @properties.each do |prop|
         if comment = prop[:comment]
-          comment.each_line { |line| str << "# " << line << "\n" }
+          str << CGG::Comment.generate(comment.lines)
         end
 
         unless prop[:scope] == "public"

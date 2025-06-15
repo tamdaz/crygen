@@ -58,6 +58,7 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   # Generates a module.
   def generate : String
     String.build do |str|
+      str << CGG::Comment.generate(@comments)
       @comments.each { |comment| str << "# " << comment << "\n" }
       str << "module " << @name << "\n"
 

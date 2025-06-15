@@ -49,9 +49,8 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   # Generates an enum.
   def generate : String
     String.build do |str|
-      @comments.each { |comment| str << "# #{comment}\n" }
-
-      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
+      str << CGG::Comment.generate(@comments)
+      str << CGG::Annotation.generate(@annotations)
 
       str << "enum " << @name
       str << " : " << @type if @type

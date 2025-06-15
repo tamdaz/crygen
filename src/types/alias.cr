@@ -18,7 +18,7 @@ class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
   # Generates an alias.
   def generate : String
     String.build do |str|
-      @comments.each { |comment| str << "# #{comment}\n" }
+      str << CGG::Comment.generate(@comments)
 
       str << "alias " << @name << " = "
 

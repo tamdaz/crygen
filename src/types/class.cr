@@ -51,8 +51,8 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       line_proc = ->(line : String) { str << "  " + line + "\n" }
 
-      @comments.each { |comment| str << "# #{comment}\n" }
-      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
+      str << CGG::Comment.generate(@comments)
+      str << CGG::Annotation.generate(@annotations)
 
       class_type = @type == :abstract ? "abstract class" : "class"
 
