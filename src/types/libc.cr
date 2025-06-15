@@ -34,7 +34,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   #   fun getch(arg1 : Int32, arg2 : Int32) : Int32
   # end
   # ```
-  def add_function(name : String, return_type : String, args : Array(Tuple(String, String)) | Nil = nil) : self
+  def add_function(name : String, return_type : String, args : FieldArray? = nil) : self
     @functions << {
       :name        => name,
       :args        => !args.nil? ? generate_args(args) : "",

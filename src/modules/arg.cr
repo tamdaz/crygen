@@ -1,9 +1,9 @@
 # Module that is used to store and add the arguments.
 module Crygen::Modules::Arg
-  @args = [] of Tuple(String, String, String | Nil)
+  @args = [] of Tuple(String, String, String?)
 
   # Adds an argument.
-  def add_arg(name : String, type : String, value : String | Nil = nil) : self
+  def add_arg(name : String, type : String, value : String? = nil) : self
     @args << {name, type, value}
     self
   end

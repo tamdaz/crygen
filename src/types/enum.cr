@@ -23,9 +23,9 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Annotation
 
   # Array of constants (name and value).
-  @constants = [] of Tuple(String, String | Nil)
+  @constants = [] of Tuple(String, String?)
 
-  def initialize(@name : String, @type : String | Nil = nil); end
+  def initialize(@name : String, @type : String? = nil); end
 
   # Adds a constant into enum (name and value).
   # ```
@@ -40,7 +40,7 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   #   Employee
   # end
   # ```
-  def add_constant(name : String, value : String | Nil = nil) : self
+  def add_constant(name : String, value : String? = nil) : self
     @constants << {name, value}
 
     self

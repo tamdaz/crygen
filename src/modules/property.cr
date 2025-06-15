@@ -3,7 +3,7 @@ require "./../enums/prop_scope"
 require "./scope"
 
 module Crygen::Modules::Property
-  @properties = [] of Hash(Symbol, String | Nil)
+  @properties = [] of Hash(Symbol, String?)
 
   # Adds a property into object (visibility, name, type, value and scope).
   def add_property(
