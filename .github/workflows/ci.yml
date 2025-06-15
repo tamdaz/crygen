@@ -6,7 +6,7 @@ on:
     - cron: '0 6 * * 6'
 
 jobs:
-  linux-build:
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -26,5 +26,5 @@ jobs:
         run: crystal spec --order=random
       - name: Check formatting
         run: crystal tool format
-      - name: Run Ameba (static analysis)
-        uses: crystal-ameba/github-action@v0.12.0
+      - name: Run Ameba
+        uses: ghcr.io/crystal-ameba/ameba:1.6.0
