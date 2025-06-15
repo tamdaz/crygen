@@ -14,7 +14,7 @@ require "./../interfaces/generator_interface"
 # end
 # ```
 class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
-  @args = [] of Tuple(String | Nil, String)
+  @args = [] of Tuple(String?, String)
 
   def initialize(@name : String); end
 

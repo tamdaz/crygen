@@ -3,7 +3,7 @@ require "./../enums/prop_scope"
 require "./scope"
 
 module Crygen::Modules::Property
-  @properties = [] of Hash(Symbol, String | Nil)
+  @properties = [] of Hash(Symbol, String?)
 
   # Adds a property into object (visibility, name, type, value and scope).
   def add_property(
@@ -31,13 +31,10 @@ module Crygen::Modules::Property
     String.build do |str|
       @properties.each do |prop|
         if comment = prop[:comment]
-          comment.each_line { |line| str << "# " << line << "\n" }
+          str << CGG::Comment.generate(comment.lines)
         end
 
-        unless prop[:scope] == "public"
-          str << prop[:scope] << ' '
-        end
-
+        str << prop[:scope] << ' ' unless prop[:scope] == "public"
         str << prop[:visibility] << ' ' << prop[:name]
         str << " : " << prop[:type] if prop[:type]
         str << " = " << prop[:value] if prop[:value]

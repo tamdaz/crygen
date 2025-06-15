@@ -51,17 +51,16 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       line_proc = ->(line : String) { str << "  " + line + "\n" }
 
-      @comments.each { |comment| str << "# #{comment}\n" }
-      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
+      str << CGG::Comment.generate(@comments)
+      str << CGG::Annotation.generate(@annotations)
 
-      class_type = @type == :abstract ? "abstract class" : "class"
+      str << "abstract " if @type == :abstract
+      str << "class "
+      str << @name << "\n"
 
-      str << class_type << ' ' << @name << "\n"
-
-      generate_mixins.each_line(&line_proc)
-      generate_properties.each_line(&line_proc)
-      generate_instance_vars.each_line(&line_proc)
-      generate_class_vars.each_line(&line_proc)
+      [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
+        step.each_line(&line_proc)
+      end
 
       can_add_whitespace = false
 

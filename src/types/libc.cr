@@ -34,7 +34,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   #   fun getch(arg1 : Int32, arg2 : Int32) : Int32
   # end
   # ```
-  def add_function(name : String, return_type : String, args : Array(Tuple(String, String)) | Nil = nil) : self
+  def add_function(name : String, return_type : String, args : FieldArray? = nil) : self
     @functions << {
       :name        => name,
       :args        => !args.nil? ? generate_args(args) : "",
@@ -84,11 +84,11 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   # Generates a C lib.
   def generate : String
     String.build do |str|
-      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
-
+      str << CGG::Annotation.generate(@annotations)
       str << "lib " << @name << "\n"
 
       can_add_whitespace = false
+
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
         str << "  " << object[1] << ' ' << object[0] << "\n"
@@ -102,12 +102,8 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
       end
       str << "\n" if !@objects.empty? && !@functions.empty?
       @functions.each do |function|
-        if function[:args].empty?
-          str << "  fun " << function[:name]
-        else
-          str << "  fun " << function[:name] << function[:args]
-        end
-
+        str << "  fun " << function[:name]
+        str << function[:args] unless function[:args].empty?
         str << " : " << function[:return_type] << "\n"
       end
       str << "end"

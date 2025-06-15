@@ -1,9 +1,9 @@
 # Module that is used to store class variables.
 module Crygen::Modules::ClassVar
-  @class_vars = [] of Tuple(String, String, String | Nil)
+  @class_vars = [] of Tuple(String, String, String?)
 
   # Adds a class var with default value.
-  def add_class_var(name : String, type : String, value : String | Nil = nil) : self
+  def add_class_var(name : String, type : String, value : String? = nil) : self
     output_value = if type == "String" && !value.nil?
                      value.dump
                    else
@@ -21,9 +21,7 @@ module Crygen::Modules::ClassVar
         name, type, value = class_var
 
         str << "@@" << name << " : " << type
-        unless value.nil?
-          str << " = " << value
-        end
+        str << " = " << value unless value.nil?
         str << "\n"
       end
     end

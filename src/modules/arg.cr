@@ -1,9 +1,9 @@
 # Module that is used to store and add the arguments.
 module Crygen::Modules::Arg
-  @args = [] of Tuple(String, String, String | Nil)
+  @args = [] of Tuple(String, String, String?)
 
   # Adds an argument.
-  def add_arg(name : String, type : String, value : String | Nil = nil) : self
+  def add_arg(name : String, type : String, value : String? = nil) : self
     @args << {name, type, value}
     self
   end
@@ -13,14 +13,12 @@ module Crygen::Modules::Arg
     String.build do |str|
       str << '(' unless @args.empty?
 
-      @args.each_with_index do |arg, i|
+      @args.each_with_index do |arg, index|
         name, type, value = arg
 
         str << name << " : " << type
-        unless value.nil?
-          str << " = " << value
-        end
-        str << ", " if i != @args.size - 1
+        str << " = " << value unless value.nil?
+        str << ", " if index != @args.size - 1
       end
 
       str << ')' unless @args.empty?

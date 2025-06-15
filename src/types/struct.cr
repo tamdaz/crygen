@@ -34,22 +34,25 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       line_proc = ->(line : String) { str << "  " + line + "\n" }
 
-      @comments.each { |comment| str << "# " << comment << "\n" }
-      @annotations.each { |annotation_type| str << annotation_type.generate + "\n" }
+      str << CGG::Comment.generate(@comments)
+      str << CGG::Annotation.generate(@annotations)
+
       str << "struct " << @name << "\n"
-      generate_mixins.each_line(&line_proc)
-      generate_properties.each_line(&line_proc)
-      generate_instance_vars.each_line(&line_proc)
-      generate_class_vars.each_line(&line_proc)
+
+      [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |method|
+        method.each_line(&line_proc)
+      end
 
       can_add_whitespace = false
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
         str << method.generate.each_line(&line_proc)
+
         if can_add_whitespace == false
           can_add_whitespace = true
         end
       end
+
       str << "end"
     end
   end
