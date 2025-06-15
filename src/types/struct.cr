@@ -5,13 +5,12 @@ require "./../interfaces/generator_interface"
 # ```
 # method_type = CGT::Method.new("full_name", "String")
 # method_type.add_body("John Doe".dump)
-# struct_type = test_point_struct()
+# struct_type = CGT::Struct.new("Point")
 # struct_type.add_method(method_type)
 # puts struct_type.generate
 # ```
 # Output:
 # ```
-# # This is a struct called Point.
 # struct Point
 #   def full_name : String
 #     "John Doe"
