@@ -13,14 +13,12 @@ module Crygen::Modules::Arg
     String.build do |str|
       str << '(' unless @args.empty?
 
-      @args.each_with_index do |arg, i|
+      @args.each_with_index do |arg, index|
         name, type, value = arg
 
         str << name << " : " << type
-        unless value.nil?
-          str << " = " << value
-        end
-        str << ", " if i != @args.size - 1
+        str << " = " << value unless value.nil?
+        str << ", " if index != @args.size - 1
       end
 
       str << ')' unless @args.empty?

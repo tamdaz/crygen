@@ -59,8 +59,8 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   def generate : String
     String.build do |str|
       str << CGG::Comment.generate(@comments)
-      @comments.each { |comment| str << "# " << comment << "\n" }
-      str << "module " << @name << "\n"
+      str << "module "
+      str << @name << "\n"
 
       can_add_whitespace = false
 

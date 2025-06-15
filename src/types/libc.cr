@@ -88,7 +88,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
       str << "lib " << @name << "\n"
 
       can_add_whitespace = false
-      
+
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
         str << "  " << object[1] << ' ' << object[0] << "\n"
@@ -102,12 +102,8 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
       end
       str << "\n" if !@objects.empty? && !@functions.empty?
       @functions.each do |function|
-        if function[:args].empty?
-          str << "  fun " << function[:name]
-        else
-          str << "  fun " << function[:name] << function[:args]
-        end
-
+        str << "  fun " << function[:name]
+        str << function[:args] unless function[:args].empty?
         str << " : " << function[:return_type] << "\n"
       end
       str << "end"

@@ -34,10 +34,7 @@ module Crygen::Modules::Property
           str << CGG::Comment.generate(comment.lines)
         end
 
-        unless prop[:scope] == "public"
-          str << prop[:scope] << ' '
-        end
-
+        str << prop[:scope] << ' ' unless prop[:scope] == "public"
         str << prop[:visibility] << ' ' << prop[:name]
         str << " : " << prop[:type] if prop[:type]
         str << " = " << prop[:value] if prop[:value]

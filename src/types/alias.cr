@@ -22,9 +22,9 @@ class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
 
       str << "alias " << @name << " = "
 
-      @types.each_with_index do |type, idx|
+      @types.each_with_index do |type, index|
         str << type
-        str << " | " unless idx == @types.size - 1
+        str << " | " unless index == @types.size - 1
       end
     end
   end

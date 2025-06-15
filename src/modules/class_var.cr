@@ -21,9 +21,7 @@ module Crygen::Modules::ClassVar
         name, type, value = class_var
 
         str << "@@" << name << " : " << type
-        unless value.nil?
-          str << " = " << value
-        end
+        str << " = " << value unless value.nil?
         str << "\n"
       end
     end

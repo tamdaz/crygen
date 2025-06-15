@@ -37,7 +37,6 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_annotation(annotation_type : Crygen::Types::Annotation) : self
     @annotations << annotation_type
-
     self
   end
 
@@ -54,7 +53,6 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # ```
   def add_body(body : String) : self
     @body += body
-
     self
   end
 
@@ -65,7 +63,7 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
       str << CGG::Annotation.generate(@annotations)
       str << @scope << ' ' unless @scope == :public
       str << "def " << @name << generate_args << " : " << @return_type << "\n"
-      @body.each_line { |line| str << "  #{line}\n" }
+      @body.each_line { |line| str << "  " << line << "\n" }
       str << "end"
     end
   end

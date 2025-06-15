@@ -20,9 +20,7 @@ module Crygen::Modules::InstanceVar
         name, type, value = instance_var
 
         str << '@' << name << " : " << type
-        unless value.nil?
-          str << " = " << value
-        end
+        str << " = " << value unless value.nil?
         str << "\n"
       end
     end
