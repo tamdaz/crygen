@@ -18,8 +18,10 @@ describe Crygen::Types::Struct do
 
   it "creates a class with many annotations" do
     struct_type = test_point_struct()
-    struct_type.add_annotation(CGT::Annotation.new("Experimental"))
-    struct_type.add_annotation(CGT::Annotation.new("MyAnnotation"))
+    struct_type.add_annotations(
+      CGT::Annotation.new("Experimental"),
+      CGT::Annotation.new("MyAnnotation")
+    )
     struct_type.generate.should eq(<<-CRYSTAL)
     @[Experimental]
     @[MyAnnotation]
@@ -29,7 +31,9 @@ describe Crygen::Types::Struct do
   end
 
   it "creates a class with one line comment" do
-    test_point_struct().add_comment("This is an example class concerning a person.").generate.should eq(<<-CRYSTAL)
+    test_point_struct()
+      .add_comment("This is an example class concerning a person.")
+      .generate.should eq(<<-CRYSTAL)
     # This is an example class concerning a person.
     struct Point
     end
@@ -66,15 +70,11 @@ describe Crygen::Types::Struct do
   end
 
   it "creates a class with many methods" do
-    method_first_name = CGT::Method.new("first_name", "String")
-    method_first_name.add_body("John".dump)
-
-    method_last_name = CGT::Method.new("last_name", "String")
-    method_last_name.add_body("Doe".dump)
-
     struct_type = test_point_struct()
-    struct_type.add_method(method_first_name)
-    struct_type.add_method(method_last_name)
+    struct_type.add_methods(
+      CGT::Method.new("first_name", "String").add_body("John".dump),
+      CGT::Method.new("last_name", "String").add_body("Doe".dump)
+    )
 
     struct_type.generate.should eq(<<-CRYSTAL)
     struct Point
@@ -179,8 +179,7 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_include("MyMixin")
-    struct_type.add_include("AnotherMixin")
+    struct_type.add_includes(%w(MyMixin AnotherMixin))
     struct_type.generate.should eq(<<-CRYSTAL)
     struct Point
       include MyMixin
@@ -199,8 +198,7 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_extend("MyExtension")
-    struct_type.add_extend("AnotherExtension")
+    struct_type.add_extends(%w(MyExtension AnotherExtension))
     struct_type.generate.should eq(<<-CRYSTAL)
     struct Point
       extend MyExtension

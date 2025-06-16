@@ -54,8 +54,10 @@ describe Crygen::Types::Module do
 
   it "creates a module with many class" do
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(Crygen::Types::Class.new("File"))
-    module_type.add_object(Crygen::Types::Class.new("Symlink"))
+    module_type.add_objects(
+      Crygen::Types::Class.new("File"),
+      Crygen::Types::Class.new("Symlink")
+    )
     module_type.generate.should eq(<<-CRYSTAL)
     module Folder::Sub::Folder
       class File

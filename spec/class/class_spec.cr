@@ -36,8 +36,10 @@ describe Crygen::Types::Class do
 
   it "creates a class with many annotations" do
     class_type = test_person_class()
-    class_type.add_annotation(CGT::Annotation.new("Experimental"))
-    class_type.add_annotation(CGT::Annotation.new("MyAnnotation"))
+    class_type.add_annotations(
+      CGT::Annotation.new("Experimental"),
+      CGT::Annotation.new("MyAnnotation")
+    )
     class_type.generate.should eq(<<-CRYSTAL)
     @[Experimental]
     @[MyAnnotation]
@@ -186,8 +188,7 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_include("MyMixin")
-    class_type.add_include("AnotherMixin")
+    class_type.add_includes(%w(MyMixin AnotherMixin))
     class_type.generate.should eq(<<-CRYSTAL)
     class Person
       include MyMixin
@@ -206,8 +207,7 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_extend("MyExtension")
-    class_type.add_extend("AnotherExtension")
+    class_type.add_extends(%w(MyExtension AnotherExtension))
     class_type.generate.should eq(<<-CRYSTAL)
     class Person
       extend MyExtension

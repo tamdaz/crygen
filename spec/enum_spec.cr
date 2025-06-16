@@ -53,9 +53,7 @@ describe Crygen::Types::Enum do
     enum_type.add_constant("Employee")
     enum_type.add_constant("Student")
     enum_type.add_constant("Intern")
-    enum_type.add_method(method_is_student)
-    enum_type.add_method(method_is_employee)
-    enum_type.add_method(method_is_intern)
+    enum_type.add_methods(method_is_student, method_is_employee, method_is_intern)
 
     enum_type.generate.should eq(<<-CRYSTAL)
     enum Person

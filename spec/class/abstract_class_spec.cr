@@ -21,12 +21,13 @@ describe Crygen::Types::Class do
     end
 
     it "creates an abstract class with many abstract methods" do
-      first_name_method = CGT::Method.new("first_name", "String")
-      last_name_method = CGT::Method.new("last_name", "String")
-      full_name_method = CGT::Method.new("full_name", "String")
       class_type = test_person_class()
       class_type.as_abstract
-      class_type.add_method(first_name_method).add_method(last_name_method).add_method(full_name_method)
+      class_type.add_methods(
+        CGT::Method.new("first_name", "String"),
+        CGT::Method.new("last_name", "String"),
+        CGT::Method.new("full_name", "String")
+      )
       class_type.generate.should eq(<<-CRYSTAL)
       abstract class Person
         abstract def first_name : String

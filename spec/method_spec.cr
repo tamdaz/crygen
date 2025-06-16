@@ -20,8 +20,10 @@ describe Crygen::Types::Method do
 
   it "creates a method with more annotations" do
     method_type = CGT::Method.new("full_name", "String")
-    method_type.add_annotation(CGT::Annotation.new("Experimental"))
-    method_type.add_annotation(CGT::Annotation.new("MyAnnotation"))
+    method_type.add_annotations(
+      CGT::Annotation.new("Experimental"),
+      CGT::Annotation.new("MyAnnotation")
+    )
     method_type.generate.should eq(<<-CRYSTAL)
     @[Experimental]
     @[MyAnnotation]
