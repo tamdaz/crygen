@@ -36,13 +36,19 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   # enum_type.add_constant("Employee", 1)
   # ```
   # Output:
+  # ```
   # enum Person
   #   Employee
   # end
   # ```
+  #
+  # ```
+  # enum Person
+  #   Employee = 1
+  # end
+  # ```
   def add_constant(name : String, value : String? = nil) : self
     @constants << {name, value}
-
     self
   end
 
