@@ -11,7 +11,7 @@ module Crygen::Modules::Method
 
   # Adds methods into class.
   def add_methods(*methods : Crygen::Types::Method) : self
-    @methods << methods
+    @methods += methods.to_a
     self
   end
 end
