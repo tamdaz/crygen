@@ -9,15 +9,15 @@ module Crygen::Modules::Mixin
     self
   end
 
-  # Adds an extend into object.
-  def add_extend(name : String) : self
-    @extends << name
-    self
-  end
-
   # Adds includes into object.
   def add_includes(names : Array(String)) : self
     @includes += names
+    self
+  end
+
+  # Adds an extend into object.
+  def add_extend(name : String) : self
+    @extends << name
     self
   end
 
