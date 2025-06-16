@@ -492,4 +492,6 @@ If there's something missing from the todo, don't hesitate to add it.
 
 ## Contributors
 
-- [tamdaz](https://github.com/tamdaz) - creator and maintainer
+<a href="https://github.com/tamdaz/crygen/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=tamdaz/crygen" />
+</a>
