@@ -97,7 +97,7 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
       # All classes from `Crygen::Types` module have the `generate` method.
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
-        object.generate.each_line { |line| str << "  " + line + "\n" }
+        object.generate.each_line { |line| str << "  " << line << "\n" }
 
         if can_add_whitespace == false
           can_add_whitespace = true

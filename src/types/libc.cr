@@ -94,7 +94,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
         str << "  " << object[1] << ' ' << object[0] << "\n"
 
         object[2].each do |field|
-          str << "    #{field[0]} : #{field[1]}\n"
+          str << "    " << field[0] << " : " << field[1] << "\n"
         end
 
         str << "  end\n"
@@ -102,7 +102,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
       end
       str << "\n" if !@objects.empty? && !@functions.empty?
       @functions.each do |function|
-        str << "  fun " << function[:name]
+        str << "  " << "fun " << function[:name]
         str << function[:args] unless function[:args].empty?
         str << " : " << function[:return_type] << "\n"
       end
@@ -115,7 +115,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       str << '('
       args.each_with_index do |arg, i|
-        str << "#{arg[0]} : #{arg[1]}"
+        str << arg[0] << " : " << arg[1]
         str << ", " if i != args.size - 1
       end
       str << ')'
