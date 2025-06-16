@@ -24,22 +24,6 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
 
   def initialize(@name : String, @return_type : String); end
 
-  # Adds an annotation on a class.
-  # ```
-  # method_type = CGT::Method.new("full_name", "String")
-  # method_type.add_annotation(CGT::Annotation.new("Experimental"))
-  # ```
-  # Output:
-  # ```
-  # @[Experimental]
-  # def full_name : String
-  # end
-  # ```
-  def add_annotation(annotation_type : Crygen::Types::Annotation) : self
-    @annotations << annotation_type
-    self
-  end
-
   # Add a code into method.
   # ```
   # method_type = CGT::Method.new("full_name", "String")
