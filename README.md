@@ -44,7 +44,7 @@ dependencies:
 
 ## Examples usage
 
-To generate code, you can find classes in the `CGT` module (`Crygen::Types`).
+To generate code, you can find classes in the `Crygen::Types` module [(crystaldoc.info for more info)](https://crystaldoc.info/github/tamdaz/crygen/v0.5.1/Crygen/Types.html).
 
 ### Method
 
@@ -195,9 +195,11 @@ Abstract class can be generated.
 ```crystal
 class_person = CGT::Class.new("Person")
 class_type.as_abstract # Set this class as abstract.
-class_type.add_method(CGT::Method.new("first_name", "String"))
-class_type.add_method(CGT::Method.new("last_name", "String"))
-class_type.add_method(CGT::Method.new("full_name", "String"))
+class_type.add_methods(
+  CGT::Method.new("first_name", "String"),
+  CGT::Method.new("last_name", "String"),
+  CGT::Method.new("full_name", "String")
+)
 puts class_person.generate
 ```
 
@@ -320,8 +322,7 @@ method_last_name = CGT::Method.new("last_name", "String")
 method_last_name.add_body("Doe".dump)
 
 struct_type = CGT::Struct.new("Point")
-struct_type.add_method(method_first_name)
-struct_type.add_method(method_last_name)
+struct_type.add_methods(method_first_name, method_last_name)
 
 puts struct_type.generate
 ```
@@ -450,12 +451,12 @@ alias MyAlias = Foo | Bar
 
 ## Mixin
 
+You can add one or more includes and extends to a class.
+
 ```crystal
 class_type = CGT::Class.new("Person")
-class_type.add_include("FirstModule")
-class_type.add_include("SecondModule")
-class_type.add_extend("MyExtension")
-class_type.add_extend("AnotherExtension")
+class_type.add_includes(%w[FirstModule SecondModule])
+class_type.add_extends(%w[MyExtension AnotherExtension])
 puts class_type
 ```
 
@@ -474,6 +475,8 @@ end
 
 This library can be used to save time. In particular, the frameworks have features
 for generating code more easily, without having to rewrite everything by hand.
+
+Also, crygen might be useful to parse documentations and converting into code.
 
 _Check out the references : https://crystal-lang.org/reference/1.16/syntax_and_semantics/index.html_
 
