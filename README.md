@@ -110,9 +110,9 @@ You can add properties in the class, for example:
 # Create a class with one comment and a method.
 class_person = CGT::Class.new("Person")
 class_person.add_comment("This is a class called Person.")
-class_type.add_property(CGE::PropVisibility::Property, "full_name", "String")
-class_type.add_property(CGE::PropVisibility::Getter, "first_name", "String")
-class_type.add_property(CGE::PropVisibility::Setter, "last_name", "String")
+class_type.add_property(:property, "full_name", "String")
+class_type.add_property(:getter, "first_name", "String")
+class_type.add_property(:setter, "last_name", "String")
 
 # Print the generated code.
 puts class_person.generate
