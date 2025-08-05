@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        crystal: ["1.14", "1.15", "1.16", latest, nightly]
+        crystal: ["1.14", "1.15", "1.16", "1.17", latest, nightly]
     runs-on: ubuntu-latest
     steps:
       - name: Download source
@@ -24,4 +24,4 @@ jobs:
       - name: Run tests
         run: crystal spec --order=random
       - name: Check formatting
-        run: crystal tool format && bin/ameba
+        run: bin/ameba
