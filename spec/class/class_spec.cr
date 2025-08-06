@@ -146,6 +146,34 @@ describe Crygen::Types::Class do
     CRYSTAL
   end
 
+  it "creates a class with static properties" do
+    class_type = test_person_class()
+    class_type.add_property(CGE::PropVisibility::ClassProperty, "full_name", "String")
+    class_type.add_property(CGE::PropVisibility::ClassGetter, "first_name", "String")
+    class_type.add_property(CGE::PropVisibility::ClassSetter, "last_name", "String")
+
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      class_property full_name : String
+      class_getter first_name : String
+      class_setter last_name : String
+    end
+    CRYSTAL
+
+    class_type = test_person_class()
+    class_type.add_property(:class_property, "full_name", "String")
+    class_type.add_property(:class_getter, "first_name", "String")
+    class_type.add_property(:class_setter, "last_name", "String")
+
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      class_property full_name : String
+      class_getter first_name : String
+      class_setter last_name : String
+    end
+    CRYSTAL
+  end
+
   it "creates a class with nilable properties" do
     class_type = test_person_class()
     class_type.add_property(CGE::PropVisibility::NilProperty, "last_name", "String")
@@ -166,6 +194,30 @@ describe Crygen::Types::Class do
     class Person
       property? last_name : String
       getter? first_name : String
+    end
+    CRYSTAL
+  end
+
+    it "creates a class with nilable properties" do
+    class_type = test_person_class()
+    class_type.add_property(CGE::PropVisibility::NilClassProperty, "last_name", "String")
+    class_type.add_property(CGE::PropVisibility::NilClassGetter, "first_name", "String")
+
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      class_property? last_name : String
+      class_getter? first_name : String
+    end
+    CRYSTAL
+
+    class_type = test_person_class()
+    class_type.add_property(:nil_class_property, "last_name", "String")
+    class_type.add_property(:nil_class_getter, "first_name", "String")
+
+    class_type.generate.should eq(<<-CRYSTAL)
+    class Person
+      class_property? last_name : String
+      class_getter? first_name : String
     end
     CRYSTAL
   end
