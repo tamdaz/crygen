@@ -1,7 +1,7 @@
 name: crygen
 version: 0.5.1
 
-description: A library that generates the Crystal code.
+description: A library that allows to generate the Crystal code
 
 authors:
   - tamdaz <tamda.zohir.pro@gmail.com>
@@ -12,7 +12,7 @@ development_dependencies:
     version: ~> 1.6.0
   cruml:
     github: tamdaz/cruml
-    branch: main
+    version: ~> 0.7.0
 
 targets:
   console:
