@@ -198,7 +198,7 @@ describe Crygen::Types::Class do
     CRYSTAL
   end
 
-    it "creates a class with nilable properties" do
+  it "creates a class with nilable properties" do
     class_type = test_person_class()
     class_type.add_property(CGE::PropVisibility::NilClassProperty, "last_name", "String")
     class_type.add_property(CGE::PropVisibility::NilClassGetter, "first_name", "String")
