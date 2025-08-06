@@ -9,7 +9,7 @@ assignees: 'tamdaz'
 
 ## Description
 
-A clear and concise description of what the bug is.
+A clear and concise description about your suggestion.
 
 ## Example(s)
 
