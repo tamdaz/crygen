@@ -1,5 +1,22 @@
 # Changelog
 
+## [v0.6.0](https://github.com/tamdaz/cruml/releases/tag/v0.6.0) - 2025-08-06
+
+## Added
+
+* Possibility to add several objects with one method / in one line (@tamdaz)(#41)
+
+## Fixed
+
+* Format docs (@tamdaz)(#44)
+* Update the doc to `Crygen::Types::Struct` (@tamdaz)(#39)
+* Avoid code's repetitions, simplify nilable types (@tamdaz)(#36)
+* Refactor code (@tamdaz)(#33)
+
+## Changed
+
+* Breaking change: Annotation helpers (@tamdaz)(#35)
+
 ## [v0.5.1](https://github.com/tamdaz/cruml/releases/tag/v0.5.1) - 2025-04-22
 
 ## Fixed
