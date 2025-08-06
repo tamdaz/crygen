@@ -1,4 +1,5 @@
-# Enum that identifies the property visibility such as `getter`, `property` and `setter`.
+# Enum that identifies the property visibility like `getter`, `getter?` `property`, `property?`,
+# `setter` `class_getter`, `class_getter?`, `class_property`, `class_property?` and `class_setter`
 @[Flags]
 enum Crygen::Enums::PropVisibility
   Getter
@@ -6,4 +7,9 @@ enum Crygen::Enums::PropVisibility
   Property
   NilProperty
   Setter
+  ClassGetter
+  NilClassGetter
+  ClassProperty
+  NilClassProperty
+  ClassSetter
 end

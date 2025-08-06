@@ -46,9 +46,14 @@ module Crygen::Modules::Property
   # Gets the property visibility.
   private def string_visibility(visibility : Crygen::Enums::PropVisibility) : String
     case visibility
-    when .nil_getter?   then "getter?"
-    when .nil_property? then "property?"
-    else                     visibility.to_s.downcase
+    when .nil_getter?         then "getter?"
+    when .nil_property?       then "property?"
+    when .class_getter?       then "class_getter"
+    when .class_property?     then "class_property"
+    when .class_setter?       then "class_setter"
+    when .nil_class_getter?   then "class_getter?"
+    when .nil_class_property? then "class_property?"
+    else                           visibility.to_s.downcase
     end
   end
 end
