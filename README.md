@@ -1,7 +1,11 @@
 # crygen
 
+![license](https://img.shields.io/github/license/tamdaz/crygen)
 ![GitHub Release](https://img.shields.io/github/v/release/tamdaz/crygen)
 ![ci](https://github.com/tamdaz/crygen/actions/workflows/ci.yml/badge.svg?branch=main)
+![commit activity](https://img.shields.io/github/commit-activity/m/tamdaz/crygen)
+![issues](https://img.shields.io/github/issues/tamdaz/crygen)
+![prs](https://img.shields.io/github/issues-pr/tamdaz/crygen)
 
 > [!WARNING]
 > This library is under development, it is not completely finished.
