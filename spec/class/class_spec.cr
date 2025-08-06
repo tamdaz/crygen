@@ -8,6 +8,13 @@ describe Crygen::Types::Class do
     CRYSTAL
   end
 
+  it "creates a child class with an inherited class" do
+    CGT::Class.new("Person", "LivingBeing").generate.should eq(<<-CRYSTAL)
+    class Person < LivingBeing
+    end
+    CRYSTAL
+  end
+
   it "creates a class with one annotation" do
     class_type = test_person_class()
     class_type.add_annotation(CGT::Annotation.new("Experimental"))
