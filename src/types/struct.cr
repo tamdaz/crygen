@@ -9,6 +9,7 @@ require "./../interfaces/generator_interface"
 # struct_type.add_method(method_type)
 # puts struct_type.generate
 # ```
+#
 # Output:
 # ```
 # struct Point

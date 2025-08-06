@@ -8,6 +8,7 @@ require "./../interfaces/generator_interface"
 # class_person.add_method(method_full_name)
 # puts class_person.generate
 # ```
+#
 # Output:
 # ```
 # # This is a class called Person.
@@ -36,6 +37,7 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   # class_type = CGT::Class.new("Person")
   # class_type.as_abstract
   # ```
+  #
   # Output:
   # ```
   # abstract class Person

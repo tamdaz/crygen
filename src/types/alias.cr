@@ -2,10 +2,12 @@ require "./../modules/*"
 require "./../interfaces/generator_interface"
 
 # Class that is used to generate the aliases.
+#
 # ```
 # alias_type = CGT::Alias.new("MyAlias", %w[Foo Bar])
 # puts alias_type.generate
 # ```
+#
 # Output:
 # ```
 # alias MyAlias = Foo | Bar

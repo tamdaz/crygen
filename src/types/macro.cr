@@ -7,6 +7,7 @@ require "./../interfaces/generator_interface"
 # macro_type.add_arg("name")
 # puts macro_type.generate
 # ```
+#
 # Output:
 # ```
 # macro example(name)
@@ -24,6 +25,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # macro_type = CGT::Macro.new("example")
   # macro_type.add_arg("name")
   # ```
+  #
   # Output:
   # ```
   # macro example(name)
@@ -40,6 +42,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # macro_type.add_arg("name")
   # macro_type.add_body("puts {{ name }}")
   # ```
+  #
   # Output:
   # ```
   # macro example(name)
@@ -57,6 +60,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # macro_type.add_arg("name")
   # macro_type.body = "puts {{ name }}"
   # ```
+  #
   # Output:
   # ```
   # macro example(name)

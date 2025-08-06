@@ -4,6 +4,7 @@ require "./../interfaces/generator_interface"
 
 # A class thar generates a module.
 # A module can include any objects, like classes, structs, enums and modules itselves.
+#
 # ```
 # enum_type = Crygen::Types::Enum.new("Role", "Int8")
 # enum_type.add_constant("Member", "1")
@@ -12,6 +13,7 @@ require "./../interfaces/generator_interface"
 # module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
 # module_type.add_object(enum_type)
 # ```
+#
 # Output:
 # ```
 # module Folder::Sub::Folder

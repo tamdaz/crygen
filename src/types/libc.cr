@@ -7,6 +7,7 @@ require "./../interfaces/generator_interface"
 # libc_type.add_function("getch", "Int32")
 # libc_type.generate
 # ```
+#
 # Output:
 # ```
 # lib C
@@ -28,6 +29,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   # libc_type = Crygen::Types::LibC.new("C")
   # libc_type.add_function("getch", "Int32", [{"arg1", "Int32"}, {"arg2", "Int32"}])
   # ```
+  #
   # Output:
   # ```
   # lib C
@@ -48,6 +50,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   # libc_type = Crygen::Types::LibC.new("C")
   # libc_type.add_struct("Person", [{"name", "String"}, {"age", "Int32"}])
   # ```
+  #
   # Output:
   # ```
   # lib C
@@ -67,6 +70,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   # libc_type = Crygen::Types::LibC.new("C")
   # libc_type.add_union("Person", [{"name", "String"}, {"age", "Int32"}])
   # ```
+  #
   # Output:
   # ```
   # lib C
