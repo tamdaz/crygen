@@ -9,6 +9,7 @@ require "./../interfaces/generator_interface"
 # enum_type.add_constant("Intern")
 # puts enum_type.generate
 # ```
+#
 # Output:
 # ```
 # enum Person
@@ -35,6 +36,7 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   # enum_type = Crygen::Types::Enum.new("Person")
   # enum_type.add_constant("Employee", 1)
   # ```
+  #
   # Output:
   # ```
   # enum Person

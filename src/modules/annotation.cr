@@ -13,6 +13,7 @@ module Crygen::Modules::Annotation
   # class_type = CGT::Class.new("Person")
   # class_type.add_annotation(CGT::Annotation.new("Experimental"))
   # ```
+  #
   # Output:
   # ```
   # @[Experimental]
@@ -33,6 +34,7 @@ module Crygen::Modules::Annotation
   #   CGT::Annotation.new("AnotherAnnotation")
   # )
   # ```
+  #
   # Output:
   # ```
   # @[Experimental]

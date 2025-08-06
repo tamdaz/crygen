@@ -7,6 +7,7 @@ require "./../interfaces/generator_interface"
 # method_type.add_arg("age", "Int8", "22")
 # method_type.add_body("Hello world".dump)
 # ```
+#
 # Output:
 # ```
 # def major?(age : Int8 = 22) : Bool
@@ -29,6 +30,7 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # method_type = CGT::Method.new("full_name", "String")
   # method_type.add_body("Hello world".dump)
   # ```
+  #
   # Output:
   # ```
   # def full_name : String

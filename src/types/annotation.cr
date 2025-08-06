@@ -7,6 +7,7 @@ require "./../interfaces/generator_interface"
 # class_type.add_annotation(CGT::Annotation.new("Experimental"))
 # puts class_type.generate
 # ```
+#
 # Output:
 # ```
 # @[Experimental]
@@ -23,6 +24,7 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
   # annotation_type.add_arg("true")
   # ```
+  #
   # Output:
   # ```
   # @[MyAnnotation(true)]
@@ -37,6 +39,7 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
   # annotation_type.add_arg("full_name", "John Doe".dump)
   # ```
+  #
   # Output:
   # ```
   # @[MyAnnotation(full_name: "John Doe")]
