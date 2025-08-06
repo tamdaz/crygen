@@ -8,6 +8,13 @@ describe Crygen::Types::Struct do
     CRYSTAL
   end
 
+  it "creates a child struct with an inherited abstract struct" do
+    CGT::Struct.new("Point", "Geometry").generate.should eq(<<-CRYSTAL)
+    struct Point < Geometry
+    end
+    CRYSTAL
+  end
+
   it "creates a class with one annotation" do
     test_point_struct().add_annotation(CGT::Annotation.new("Experimental")).generate.should eq(<<-CRYSTAL)
     @[Experimental]
