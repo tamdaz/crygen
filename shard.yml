@@ -12,7 +12,7 @@ development_dependencies:
     version: ~> 1.6.0
   cruml:
     github: tamdaz/cruml
-    branch: main
+    branch: ~> 0.7.0
 
 targets:
   console:
