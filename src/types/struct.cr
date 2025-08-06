@@ -27,7 +27,7 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Annotation
   include Crygen::Modules::Mixin
 
-  def initialize(@name : String); end
+  def initialize(@name : String, @inherited_abstract_struct_name : String? = nil); end
 
   # Generates a struct.
   def generate : String
@@ -37,7 +37,9 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
       str << CGG::Comment.generate(@comments)
       str << CGG::Annotation.generate(@annotations)
 
-      str << "struct " << @name << "\n"
+      str << "struct " << @name
+      str << " < " << @inherited_abstract_struct_name if @inherited_abstract_struct_name
+      str << "\n"
 
       [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |method|
         method.each_line(&line_proc)

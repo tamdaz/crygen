@@ -30,7 +30,7 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
 
   @type : Symbol = :normal
 
-  def initialize(@name : String); end
+  def initialize(@name : String, @inherited_class_name : String? = nil); end
 
   # Set as an abstract class.
   # ```
@@ -57,8 +57,9 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
       str << CGG::Annotation.generate(@annotations)
 
       str << "abstract " if @type == :abstract
-      str << "class "
-      str << @name << "\n"
+      str << "class " << @name
+      str << " < " << @inherited_class_name if @inherited_class_name
+      str << "\n"
 
       [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
         step.each_line(&line_proc)
