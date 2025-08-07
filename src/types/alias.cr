@@ -30,4 +30,9 @@ class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
       end
     end
   end
+
+  # Generate an alias thanks to #to_s method.
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
 end
