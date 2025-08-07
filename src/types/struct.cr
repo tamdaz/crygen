@@ -58,4 +58,9 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
       str << "end"
     end
   end
+
+  # Generate a struct thanks to #to_s method.
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
 end

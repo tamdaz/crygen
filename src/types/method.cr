@@ -62,4 +62,9 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
       str << "  abstract def " << @name << generate_args << " : " << @return_type << "\n"
     end
   end
+
+  # Generate a method thanks to #to_s method.
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
 end

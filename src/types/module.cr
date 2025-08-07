@@ -109,4 +109,9 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
       str << "end"
     end
   end
+
+  # Generate a module thanks to #to_s method.
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
 end

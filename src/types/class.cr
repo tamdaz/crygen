@@ -83,4 +83,9 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
       str << "end"
     end
   end
+
+  # Generate a class thanks to #to_s method.
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
 end

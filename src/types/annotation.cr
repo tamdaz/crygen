@@ -74,4 +74,9 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
       str << ')' unless @args.empty?
     end
   end
+
+  # Generate an annotation thanks to #to_s method.
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
 end
