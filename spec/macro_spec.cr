@@ -149,7 +149,9 @@ describe Crygen::Types::Macro do
       str << indent << Crygen::Types::Macro.verbatim do |str2, indent2|
         str2 << indent2 << "Hello world".dump << "\n"
         str2 << indent
-      end << "\n"
+      end
+
+      str << "\n"
     end
 
     result.should eq expected
