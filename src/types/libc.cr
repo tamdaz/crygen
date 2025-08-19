@@ -125,4 +125,9 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
       str << ')'
     end
   end
+
+  # Generate a LibC thanks to #to_s method.
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
 end
