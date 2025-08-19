@@ -118,7 +118,12 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       str << "{% if " << expression << " %}"
       str << "\n"
-      yield str, " " * 2
+      @@indent += 2
+      begin
+        yield str, " " * @@indent
+      ensure
+        @@indent -= 2
+      end
       str << "{% end %}"
     end
   end
@@ -140,7 +145,12 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       str << "{% unless " << expression << " %}"
       str << "\n"
-      yield str, " " * 2
+      @@indent += 2
+      begin
+        yield str, " " * @@indent
+      ensure
+        @@indent -= 2
+      end
       str << "{% end %}"
     end
   end
@@ -162,7 +172,12 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       str << "{% verbatim do %}"
       str << "\n"
-      yield str, " " * 2
+      @@indent += 2
+      begin
+        yield str, " " * @@indent
+      ensure
+        @@indent -= 2
+      end
       str << "{% end %}"
     end
   end
