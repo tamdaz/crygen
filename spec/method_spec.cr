@@ -138,4 +138,21 @@ describe Crygen::Types::Method do
     method_type.generate.should eq(expected)
     method_type.to_s.should eq(expected)
   end
+
+  it "adds several arguments with #add_args" do
+    expected = <<-CRYSTAL
+    def foo(bar : String, age : Int32 = 42, flag : Bool) : Nil
+    end
+    CRYSTAL
+
+    method_type = CGT::Method.new("foo", "Nil")
+    method_type.add_args(
+      {"bar", "String", nil},
+      {"age", "Int32", "42"},
+      {"flag", "Bool", nil}
+    )
+
+    method_type.generate.should eq(expected)
+    method_type.to_s.should eq(expected)
+  end
 end

@@ -8,6 +8,14 @@ module Crygen::Modules::Arg
     self
   end
 
+  # Adds several arguments.
+  def add_args(*args : Tuple(String, String, String?)) : self
+    args.each do |name, type, value|
+      self.add_arg(name, type, value)
+    end
+    self
+  end
+
   # Generate the args.
   def generate_args : String
     String.build do |str|
