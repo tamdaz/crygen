@@ -104,14 +104,14 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # Generates an if condition macro.
   # ```
   # Crygen::Types::Macro.if("x > 0") do |str, indent|
-  #   str << indent << "puts 'positive'\n"
+  #   str << indent << "puts \"positive\"\n"
   # end
   # ```
   #
   # Output:
   # ```
   # {% for item in items %}
-  #   puts {{ item }}
+  #   puts "positive"
   # {% end %}
   # ```
   def self.if(expression : String, &) : String
@@ -126,14 +126,14 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # Generates an unless condition macro.
   # ```
   # Crygen::Types::Macro.unless("x > 0") do |str, indent|
-  #   str << indent << "puts 'negative or zero'\n"
+  #   str << indent << "puts \"negative or zero\"\n"
   # end
   # ```
   #
   # Output:
   # ```
   # {% unless x > 0 %}
-  #   puts 'negative or zero'
+  #   puts \"negative or zero\"
   # {% end %}
   # ```
   def self.unless(expression : String, &) : String
