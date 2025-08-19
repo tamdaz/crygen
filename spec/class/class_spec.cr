@@ -303,7 +303,7 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_includes(%w(MyMixin AnotherMixin))
+    class_type.add_includes(%w[MyMixin AnotherMixin])
     class_type.generate.should eq(expected)
     class_type.to_s.should eq(expected)
   end
@@ -328,7 +328,7 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_extends(%w(MyExtension AnotherExtension))
+    class_type.add_extends(%w[MyExtension AnotherExtension])
     class_type.generate.should eq(expected)
     class_type.to_s.should eq(expected)
   end

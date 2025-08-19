@@ -223,7 +223,7 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_includes(%w(MyMixin AnotherMixin))
+    struct_type.add_includes(%w[MyMixin AnotherMixin])
     struct_type.generate.should eq(expected)
     struct_type.to_s.should eq(expected)
   end
@@ -248,7 +248,7 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_extends(%w(MyExtension AnotherExtension))
+    struct_type.add_extends(%w[MyExtension AnotherExtension])
     struct_type.generate.should eq(expected)
     struct_type.to_s.should eq(expected)
   end
