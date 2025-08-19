@@ -156,4 +156,70 @@ describe Crygen::Types::Macro do
 
     result.should eq expected
   end
+
+  it "generates a recursive if condition" do
+    expected = <<-CRYSTAL
+    {% if x > 0 %}
+      {% if y > 0 %}
+        puts "x and y are positive"
+      {% end %}
+    {% end %}
+    CRYSTAL
+
+    result = Crygen::Types::Macro.if("x > 0") do |str, indent|
+      str << indent << Crygen::Types::Macro.if("y > 0") do |str2, indent2|
+        str2 << indent2 << "puts \"x and y are positive\"\n"
+        str2 << indent
+      end
+      str << "\n"
+    end
+
+    result.should eq expected
+  end
+
+  it "generates a recursive unless condition" do
+    expected = <<-CRYSTAL
+    {% unless x > 0 %}
+      {% unless y > 0 %}
+        puts "x and y aren't positive"
+      {% end %}
+    {% end %}
+    CRYSTAL
+
+    result = Crygen::Types::Macro.unless("x > 0") do |str, indent|
+      str << indent << Crygen::Types::Macro.unless("y > 0") do |str2, indent2|
+        str2 << indent2 << "puts \"x and y aren't positive\"\n"
+        str2 << indent
+      end
+      str << "\n"
+    end
+
+    result.should eq expected
+  end
+
+  it "generates a verbatim block with nested if and unless conditions" do
+    expected = <<-CRYSTAL
+    {% verbatim do %}
+      {% if condition1 %}
+        {% unless condition2 %}
+          "verbatim > if > unless"
+        {% end %}
+      {% end %}
+    {% end %}
+    CRYSTAL
+
+    result = Crygen::Types::Macro.verbatim do |str, indent|
+      str << indent << Crygen::Types::Macro.if("condition1") do |str2, indent2|
+        str2 << indent2 << Crygen::Types::Macro.unless("condition2") do |str3, indent3|
+          str3 << indent3 << "\"verbatim > if > unless\"\n"
+          str3 << indent2
+        end
+        str2 << "\n"
+        str2 << indent
+      end
+      str << "\n"
+    end
+
+    result.should eq expected
+  end
 end
