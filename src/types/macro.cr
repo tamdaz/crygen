@@ -89,15 +89,14 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def self.for_loop(name : String, iterator : String, &) : String
     String.build do |str|
-      str << "{% for " << name << " in " << iterator << " %}"
-      str << "\n"
+      str << (" " * @@indent) << "{% for " << name << " in " << iterator << " %}" << "\n"
       @@indent += 2
       begin
-        yield str, " " * @@indent
+        yield str, (" " * @@indent)
       ensure
         @@indent -= 2
       end
-      str << "{% end %}"
+      str << (" " * @@indent) << "{% end %}"
     end
   end
 
@@ -116,7 +115,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def self.if(expression : String, &) : String
     String.build do |str|
-      str << "{% if " << expression << " %}"
+      str << (" " * @@indent) << "{% if " << expression << " %}"
       str << "\n"
       @@indent += 2
       begin
@@ -124,7 +123,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
       ensure
         @@indent -= 2
       end
-      str << "{% end %}"
+      str << (" " * @@indent) << "{% end %}"
     end
   end
 
@@ -143,7 +142,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def self.unless(expression : String, &) : String
     String.build do |str|
-      str << "{% unless " << expression << " %}"
+      str << (" " * @@indent) << "{% unless " << expression << " %}"
       str << "\n"
       @@indent += 2
       begin
@@ -151,7 +150,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
       ensure
         @@indent -= 2
       end
-      str << "{% end %}"
+      str << (" " * @@indent) << "{% end %}"
     end
   end
 
