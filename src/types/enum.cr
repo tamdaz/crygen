@@ -54,6 +54,29 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
     self
   end
 
+  # Adds several constants into enum (name and value).
+  # ```
+  # enum_type = Crygen::Types::Enum.new("Person")
+  # enum_type.add_constants(
+  #   {"Employee", "1"}, {"Student", "2"}, {"Intern", "3"}
+  # )
+  # ```
+  #
+  # Output:
+  # ```
+  # enum Person
+  #   Employee = 1
+  #   Student = 2
+  #   Intern = 3
+  # end
+  # ```
+  def add_constants(*constants : Tuple(String, String?)) : self
+    constants.each do |name, value|
+      self.add_constant(name, value)
+    end
+    self
+  end
+
   # Generates an enum.
   def generate : String
     String.build do |str|
