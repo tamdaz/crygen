@@ -89,7 +89,12 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       str << "{% for " << name << " in " << iterator << " %}"
       str << "\n"
-      yield str, " " * 2
+      @@indent += 2
+      begin
+        yield str
+      ensure
+        @@indent -= 2
+      end
       str << "{% end %}"
     end
   end
