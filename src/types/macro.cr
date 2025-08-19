@@ -138,7 +138,6 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
     end
   end
 
-
   # Generates a verbatim macro.
   # ```
   # Crygen::Types::Macro.verbatim do |str, indent|
