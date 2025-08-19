@@ -19,6 +19,46 @@ describe Crygen::Types::Enum do
     enum_type.to_s.should eq(expected)
   end
 
+  it "creates an enum (with #add_constants method)" do
+    enum_type = Crygen::Types::Enum.new("Person")
+    enum_type.add_constants(
+      {"Employee", nil},
+      {"Student", nil},
+      {"Intern", nil},
+    )
+
+    expected = <<-CRYSTAL
+    enum Person
+      Employee
+      Student
+      Intern
+    end
+    CRYSTAL
+
+    enum_type.generate.should eq(expected)
+    enum_type.to_s.should eq(expected)
+  end
+
+  it "creates an enum with the value of constants (with #add_constants method)" do
+    enum_type = Crygen::Types::Enum.new("Person")
+    enum_type.add_constants(
+      {"Employee", "1"},
+      {"Student", "2"},
+      {"Intern", "3"},
+    )
+
+    expected = <<-CRYSTAL
+    enum Person
+      Employee = 1
+      Student = 2
+      Intern = 3
+    end
+    CRYSTAL
+
+    enum_type.generate.should eq(expected)
+    enum_type.to_s.should eq(expected)
+  end
+
   it "creates an enum with one method" do
     method_is_student = Crygen::Types::Method.new("student?", "Bool")
     method_is_student.add_body("self == Person::Student")
