@@ -72,6 +72,95 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
     self
   end
 
+  # Generates a for loop macro.
+  # ```
+  # Crygen::Types::Macro.for_loop("item", "items") do |str, indent|
+  #   str << indent << "puts {{ item }}\n"
+  # end
+  # ```
+  #
+  # Output:
+  # ```
+  # {% for item in items %}
+  #   puts {{ item }}
+  # {% end %}
+  # ```
+  def self.for_loop(name : String, iterator : String, &) : String
+    String.build do |str|
+      str << "{% for " << name << " in " << iterator << " %}"
+      str << "\n"
+      yield str, " " * 2
+      str << "{% end %}"
+    end
+  end
+
+  # Generates an if condition macro.
+  # ```
+  # Crygen::Types::Macro.if("x > 0") do |str, indent|
+  #   str << indent << "puts 'positive'\n"
+  # end
+  # ```
+  #
+  # Output:
+  # ```
+  # {% for item in items %}
+  #   puts {{ item }}
+  # {% end %}
+  # ```
+  def self.if(expression : String, &) : String
+    String.build do |str|
+      str << "{% if " << expression << " %}"
+      str << "\n"
+      yield str, " " * 2
+      str << "{% end %}"
+    end
+  end
+
+  # Generates an unless condition macro.
+  # ```
+  # Crygen::Types::Macro.unless("x > 0") do |str, indent|
+  #   str << indent << "puts 'negative or zero'\n"
+  # end
+  # ```
+  #
+  # Output:
+  # ```
+  # {% unless x > 0 %}
+  #   puts 'negative or zero'
+  # {% end %}
+  # ```
+  def self.unless(expression : String, &) : String
+    String.build do |str|
+      str << "{% unless " << expression << " %}"
+      str << "\n"
+      yield str, " " * 2
+      str << "{% end %}"
+    end
+  end
+
+
+  # Generates a verbatim macro.
+  # ```
+  # Crygen::Types::Macro.verbatim do |str, indent|
+  #   str << indent << "puts 123\n"
+  # end
+  # ```
+  #
+  # Output:
+  # ```
+  # {% verbatim do %}
+  #   puts 123
+  # {% end %}
+  # ```
+  def self.verbatim(&) : String
+    String.build do |str|
+      str << "{% verbatim do %}"
+      str << "\n"
+      yield str, " " * 2
+      str << "{% end %}"
+    end
+  end
+
   # Generates the macro.
   def generate : String
     String.build do |str|
