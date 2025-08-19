@@ -155,4 +155,45 @@ describe Crygen::Types::Method do
     method_type.generate.should eq(expected)
     method_type.to_s.should eq(expected)
   end
+
+  it "creates an abstract method" do
+    expected = <<-CRYSTAL
+    abstract def major?(age : Int8 = 18, min_majority : Int8 = 22) : Bool
+    CRYSTAL
+
+    method_type = CGT::Method.new("major?", "Bool")
+    method_type.add_arg("age", "Int8", "18")
+    method_type.add_arg("min_majority", "Int8", "22")
+    method_type.as_abstract
+    method_type.generate.should eq(expected)
+    method_type.to_s.should eq(expected)
+  end
+
+  it "creates a protected abstract method" do
+    expected = <<-CRYSTAL
+    protected abstract def major?(age : Int8 = 18, min_majority : Int8 = 22) : Bool
+    CRYSTAL
+
+    method_type = CGT::Method.new("major?", "Bool")
+    method_type.add_arg("age", "Int8", "18")
+    method_type.add_arg("min_majority", "Int8", "22")
+    method_type.as_protected
+    method_type.as_abstract
+    method_type.generate.should eq(expected)
+    method_type.to_s.should eq(expected)
+  end
+
+  it "creates a private abstract method" do
+    expected = <<-CRYSTAL
+    private abstract def major?(age : Int8 = 18, min_majority : Int8 = 22) : Bool
+    CRYSTAL
+
+    method_type = CGT::Method.new("major?", "Bool")
+    method_type.add_arg("age", "Int8", "18")
+    method_type.add_arg("min_majority", "Int8", "22")
+    method_type.as_private
+    method_type.as_abstract
+    method_type.generate.should eq(expected)
+    method_type.to_s.should eq(expected)
+  end
 end

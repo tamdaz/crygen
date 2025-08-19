@@ -65,19 +65,17 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
         step.each_line(&line_proc)
       end
 
-      can_add_whitespace = false
+      whitespace = false
 
-      @methods.each do |method|
-        str << "\n" if can_add_whitespace == true
+      grouped_methods = @methods.group_by(&.type)
 
-        case @type
-        when :normal   then str << method.generate.each_line(&line_proc)
-        when :abstract then str << method.generate_abstract_method
-        end
+      if grouped_methods[:abstract]?
+        generate_abstract_methods(str, grouped_methods[:abstract], whitespace)
+        str << "\n" if grouped_methods[:normal]?
+      end
 
-        if can_add_whitespace == false && @type == :normal
-          can_add_whitespace = true
-        end
+      if grouped_methods[:normal]?
+        generate_normal_methods(str, grouped_methods[:normal], whitespace)
       end
 
       str << "end"
