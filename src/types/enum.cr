@@ -66,8 +66,8 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   # ```
   # enum Person
   #   Employee = 1
-  #   Student = 2
-  #   Intern = 3
+  #   Student  = 2
+  #   Intern   = 3
   # end
   # ```
   def add_constants(*constants : Tuple(String, String?)) : self
