@@ -15,8 +15,6 @@ require "./../interfaces/generator_interface"
 # end
 # ```
 class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
-  @@indent = 0
-
   @args = [] of String
   @body = ""
 
@@ -89,14 +87,11 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def self.for_loop(name : String, iterator : String, &) : String
     String.build do |str|
-      str << (" " * @@indent) << "{% for " << name << " in " << iterator << " %}" << "\n"
-      @@indent += 2
-      begin
-        yield str, (" " * @@indent)
-      ensure
-        @@indent -= 2
+      str << "{% for " << name << " in " << iterator << " %}" << "\n"
+      String::IndentedBuilder.with_indent(str) do |_, indent|
+        yield str, indent
       end
-      str << (" " * @@indent) << "{% end %}"
+      str << "{% end %}"
     end
   end
 
@@ -115,15 +110,11 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def self.if(expression : String, &) : String
     String.build do |str|
-      str << (" " * @@indent) << "{% if " << expression << " %}"
-      str << "\n"
-      @@indent += 2
-      begin
-        yield str, " " * @@indent
-      ensure
-        @@indent -= 2
+      str << "{% if " << expression << " %}" << "\n"
+      String::IndentedBuilder.with_indent(str) do |_, indent|
+        yield str, indent
       end
-      str << (" " * @@indent) << "{% end %}"
+      str << "{% end %}"
     end
   end
 
@@ -142,15 +133,11 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def self.unless(expression : String, &) : String
     String.build do |str|
-      str << (" " * @@indent) << "{% unless " << expression << " %}"
-      str << "\n"
-      @@indent += 2
-      begin
-        yield str, " " * @@indent
-      ensure
-        @@indent -= 2
+      str << "{% unless " << expression << " %}" << "\n"
+      String::IndentedBuilder.with_indent(str) do |_, indent|
+        yield str, indent
       end
-      str << (" " * @@indent) << "{% end %}"
+      str << "{% end %}"
     end
   end
 
@@ -169,13 +156,9 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   # ```
   def self.verbatim(&) : String
     String.build do |str|
-      str << "{% verbatim do %}"
-      str << "\n"
-      @@indent += 2
-      begin
-        yield str, " " * @@indent
-      ensure
-        @@indent -= 2
+      str << "{% verbatim do %}" << "\n"
+      String::IndentedBuilder.with_indent(str) do |_, indent|
+        yield str, indent
       end
       str << "{% end %}"
     end
