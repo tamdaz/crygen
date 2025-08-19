@@ -15,6 +15,8 @@ require "./../interfaces/generator_interface"
 # end
 # ```
 class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
+  @@indent = 0
+
   @args = [] of String
   @body = ""
 
@@ -91,7 +93,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
       str << "\n"
       @@indent += 2
       begin
-        yield str
+        yield str, " " * @@indent
       ensure
         @@indent -= 2
       end
