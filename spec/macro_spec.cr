@@ -126,12 +126,12 @@ describe Crygen::Types::Macro do
   it "generates a verbatim block" do
     expected = <<-CRYSTAL
     {% verbatim do %}
-      example code
+      "example code"
     {% end %}
     CRYSTAL
 
     result = Crygen::Types::Macro.verbatim do |str, indent|
-      str << indent << "example code\n"
+      str << indent << "\"example code\"\n"
     end
     result.should eq expected
   end
