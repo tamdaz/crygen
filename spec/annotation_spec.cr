@@ -32,6 +32,18 @@ describe Crygen::Types::Annotation do
     annotation_type.to_s.should eq("@[MyAnnotation(true, 1, \"Hello World\")]")
   end
 
+  it "creates an annotation with many parameters (values and #add_args method )" do
+    annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
+    annotation_type.add_args("true", "1", "Hello World".dump)
+
+    expected = <<-CRYSTAL
+    @[MyAnnotation(true, 1, "Hello World")]
+    CRYSTAL
+
+    annotation_type.generate.should eq(expected)
+    annotation_type.to_s.should eq(expected)
+  end
+
   it "creates an annotation with many parameters (name and value)" do
     annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
     annotation_type.add_arg("is_cool", "true")
