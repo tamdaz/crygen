@@ -20,10 +20,28 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Arg
   include Crygen::Modules::Annotation
 
+  getter type : Symbol = :normal
+
   # Body content.
   @body : String = ""
 
   def initialize(@name : String, @return_type : String); end
+
+  # Set as an abstract method.
+  # ```
+  # class_type = CGT::Class.new("Person")
+  # class_type.as_abstract
+  # ```
+  #
+  # Output:
+  # ```
+  # abstract class Person
+  # end
+  # ```
+  def as_abstract : self
+    @type = :abstract
+    self
+  end
 
   # Add a code into method.
   # ```
