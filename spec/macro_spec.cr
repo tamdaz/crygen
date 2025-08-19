@@ -139,15 +139,16 @@ describe Crygen::Types::Macro do
   it "generates a recursive verbatim block" do
     expected = <<-CRYSTAL
     {% verbatim do %}
-      {% if item == :foo %}
+      {% verbatim do %}
         "Hello world"
       {% end %}
     {% end %}
     CRYSTAL
 
-    result = Crygen::Types::Macro.verbatim do |str|
-      str << Crygen::Types::Macro.if("item == :foo") do |str2, indent|
-        str2 << indent << "Hello world".dump << "\n"
+    result = Crygen::Types::Macro.verbatim do |str, indent|
+      str << indent << Crygen::Types::Macro.verbatim do |str2, indent2|
+        str2 << indent2 << "Hello world".dump << "\n"
+        str2 << indent
       end << "\n"
     end
 
