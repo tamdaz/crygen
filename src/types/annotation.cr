@@ -34,6 +34,21 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
     self
   end
 
+  # Add several values into the argument.
+  # ```
+  # my_annotation = Crygen::Types::Annotation.new("MyAnnotation")
+  # my_annotation.add_args("1", "2.73", "true", "Hello world".dump)
+  # ```
+  #
+  # Output:
+  # ```
+  # @[MyAnnotation(1, 2.73, true, "Hello world")]
+  # ```
+  def add_args(*values : String) : self
+    values.each { |value| self.add_arg(value) }
+    self
+  end
+
   # Adds a name and value into the argument.
   # ```
   # annotation_type = Crygen::Types::Annotation.new("MyAnnotation")
