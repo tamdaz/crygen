@@ -60,8 +60,17 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
     self
   end
 
-  # Generates the methods.
+  # Generates the method.
   def generate : String
+    if @type == :abstract
+      self.generate_abstract_method
+    else
+      self.generate_normal_method
+    end
+  end
+
+  # Generates the normal (non-abstract) method.
+  protected def generate_normal_method : String
     String.build do |str|
       str << CGG::Comment.generate(@comments)
       str << CGG::Annotation.generate(@annotations)
@@ -72,12 +81,12 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
     end
   end
 
-  # Generates the abstract methods.
+  # Generates the abstract method.
   protected def generate_abstract_method : String
     String.build do |str|
       str << CGG::Comment.generate(@comments)
       str << @scope << ' ' unless @scope == :public
-      str << "  abstract def " << @name << generate_args << " : " << @return_type << "\n"
+      str << "abstract def " << @name << generate_args << " : " << @return_type
     end
   end
 
