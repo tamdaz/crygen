@@ -13,6 +13,21 @@ extra:
 plugins:
   - search
 
+nav:
+  - introduction.md
+  - getting-started.md
+  - Guide:
+    - guide/alias.md
+    - guide/annotation.md
+    - guide/class.md
+    - guide/enum.md
+    - guide/lib-c-binding.md
+    - guide/macro.md
+    - guide/method.md
+    - guide/mixin.md
+    - guide/module.md
+    - guide/struct.md
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
