@@ -44,6 +44,8 @@ markdown_extensions:
 - pymdownx.details
 
 theme:
+  logo: assets/crygen-logo.png
+  favicon: assets/crygen-logo.png
   palette:
     scheme: slate
     primary: teal
