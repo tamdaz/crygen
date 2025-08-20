@@ -1,4 +1,9 @@
 site_name: Crygen Docs
+site_url: https://tamdaz.github.io/crygen
+site_author: tamdaz
+site_description: >-
+  Crygen is a shard that generates Crystal code. It is inspired by the
+  PHP library nette/php-generator.
 
 repo_name: tamdaz/crygen
 repo_url: https://github.com/tamdaz/crygen
