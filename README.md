@@ -48,6 +48,7 @@ module App
 
   # You can save the generated code into the .cr file.
   File.write("src/classes/my_class.cr", class_type)
+end
 ```
 
 ## Contributing
