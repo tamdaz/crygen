@@ -1,18 +1,7 @@
 require "./types/**"
 require "./modules/**"
 require "./generators/**"
-
-abstract class String::IndentedBuilder
-  @@indent = 0
-
-  def self.with_indent(io, *, by : Int = 2, &)
-    @@indent += by
-
-    yield io, " " * @@indent
-  ensure
-    @@indent -= by
-  end
-end
+require "./utils/string_indented_builder"
 
 # **crygen** is a library that allows to generate a Crystal file. It is inspired by the PHP
 # library : [nette/php-generator](https://github.com/nette/php-generator).
