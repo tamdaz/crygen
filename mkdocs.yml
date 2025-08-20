@@ -2,8 +2,7 @@ site_name: Crygen Docs
 site_url: https://tamdaz.github.io/crygen/
 site_author: tamdaz
 site_description: >-
-  Crygen is a shard that generates Crystal code. It is inspired by the
-  PHP library nette/php-generator.
+  Crygen is a shard that generates Crystal code. It is inspired by the PHP library nette/php-generator.
 
 repo_name: tamdaz/crygen
 repo_url: https://github.com/tamdaz/crygen
@@ -12,52 +11,51 @@ extra:
   version:
     provider: mikem
   social:
-    - icon: fontawesome/brands/github 
-      link: https://github.com/tamdaz
+  - icon: fontawesome/brands/github
+    link: https://github.com/tamdaz
 
 plugins:
-  - search
+- search
 
 nav:
-  - introduction.md
-  - getting-started.md
-  - Guide:
-    - guide/alias.md
-    - guide/annotation.md
-    - guide/class.md
-    - guide/enum.md
-    - guide/lib-c-binding.md
-    - guide/macro.md
-    - guide/method.md
-    - guide/mixin.md
-    - guide/module.md
-    - guide/struct.md
+- introduction.md
+- getting-started.md
+- Guide:
+  - guide/alias.md
+  - guide/annotation.md
+  - guide/class.md
+  - guide/enum.md
+  - guide/c-binding.md
+  - guide/macro.md
+  - guide/method.md
+  - guide/mixin.md
+  - guide/module.md
+  - guide/struct.md
 
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - admonition
-  - pymdownx.details
+- pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+- pymdownx.inlinehilite
+- pymdownx.snippets
+- pymdownx.superfences
+- admonition
+- pymdownx.details
 
 theme:
   palette:
     scheme: slate
     primary: teal
 
-
   features:
-    - search.suggest
-    - search.highlight
-    - content.code.copy
-    - navigation.instant
-    - navigation.sections
-    - navigation.footer
-    - navigation.tracking
+  - search.suggest
+  - search.highlight
+  - content.code.copy
+  - navigation.instant
+  - navigation.sections
+  - navigation.footer
+  - navigation.tracking
 
   locale: en
   name: material
