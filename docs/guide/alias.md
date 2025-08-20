@@ -19,9 +19,9 @@ alias MyAlias = Foo | Bar
 
 - `Crygen::Modules::Comment`
 
-## Add the comment on an alias
+## Add a comment on an alias
 
-In addition of creating an alias, you can put the comment on it.
+In addition of creating an alias, you can put a comment.
 
 ```cr
 alias_type = CGT::Alias.new("MyAlias", %w[Foo Bar])
@@ -36,3 +36,6 @@ Output:
 # For example, this is my alias.
 alias MyAlias = Foo | Bar
 ```
+
+!!! info
+    Using the heredoc is recommended if you want to write a multiline comment.
