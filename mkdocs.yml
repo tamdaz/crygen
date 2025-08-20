@@ -28,7 +28,6 @@ nav:
   - guide/c-binding.md
   - guide/macro.md
   - guide/method.md
-  - guide/mixin.md
   - guide/module.md
   - guide/struct.md
 
