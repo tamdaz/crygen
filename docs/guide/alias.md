@@ -1,9 +1,7 @@
 # Alias
 
-Crygen provides functionnality to generate an alias. To do this, use `Crygen::Types::Alias`
+Crygen provides a class to generate an alias. To do this, use `Crygen::Types::Alias`
 *(here abbreviated as `CGT::Alias`)*.
-
-## Generate an alias
 
 This class takes 2 parameters: the alias name and an array of strings which are types name.
 
@@ -16,6 +14,10 @@ Output:
 ```cr
 alias MyAlias = Foo | Bar
 ```
+
+## Included modules
+
+- `Crygen::Modules::Comment`
 
 ## Add the comment on an alias
 
