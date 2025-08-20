@@ -43,4 +43,7 @@ module App
 end
 ```
 
+!!! info
+    All classes located in the `Crygen::Types` (or `CGT`) namespace inherit from `Crygen::Interfaces::GeneratorInterface`.
+
 Now you can explore the guide to understand how to generate the code.
