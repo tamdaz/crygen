@@ -1,5 +1,25 @@
 # Changelog
 
+## [v1.0.0](https://github.com/tamdaz/cruml/releases/tag/v1.0.0) - 2025-08-21
+
+## Added
+
+* Possibility to inherit classes and structs (@tamdaz)(#52)
+* Create static properties (@tamdaz)(#53)
+* Generate types thanks to `#to_s` method (@tamdaz)(#54)
+* Add several constants with `#add_constants` (@tamdaz)(#55)
+* Possibility to add several args for annotations (@tamdaz)(#56)
+* Possibility to add several args into an argument. (@tamdaz)(#57)
+* Generate if & unless conditions and verbatim macros. (@tamdaz)(@Sija)(#58)
+
+## Fixed
+
+* Fix abstract methods (@tamdaz)(#60)
+
+## Removed
+
+- Breaking change: Remove the `ObjectType` alias (@tamdaz)(#62)
+
 ## [v0.6.0](https://github.com/tamdaz/cruml/releases/tag/v0.6.0) - 2025-08-06
 
 ## Added

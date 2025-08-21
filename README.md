@@ -10,6 +10,9 @@
 **crygen** is a library that allows to generate a Crystal file. It is inspired by the PHP
 library : [nette/php-generator](https://github.com/nette/php-generator).
 
+- Crygen documentation: https://tamdaz.github.io/crygen/
+- API documentation: https://crystaldoc.info/github/tamdaz/crygen/main/index.html
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
@@ -18,7 +21,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
 dependencies:
   crygen:
     github: tamdaz/crygen
-    version: ~> 0.6.0
+    version: ~> 1.0.0
 ```
 
 2. Run `shards install`
