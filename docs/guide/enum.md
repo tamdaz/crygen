@@ -130,5 +130,46 @@ end
 
 ## Add a method in an enumeration
 
-!!! note
-    TODO: write this section.
+You can add one or more methods to an enumeration using the `#add_method` or `#add_methods` methods. Each method should be an instance of `Crygen::Types::Method` (here abbreviated as `CGT::Method`).
+
+```crystal
+enum_type = CGT::Enum.new("Person")
+enum_type.add_constants(
+  {"Employee", nil},
+  {"Student", nil},
+  {"Intern", nil},
+)
+
+method_is_student = CGT::Method.new("student?", "Bool")
+method_is_student.add_body("self == Person::Student")
+
+enum_type.add_method(method_is_student)
+
+puts enum_type
+```
+
+Output:
+
+```crystal
+enum Person
+  Employee
+  Student
+  Intern
+
+  def student? : Bool
+    self == Person::Student
+  end
+end
+```
+
+You can add several methods at once using `add_methods`:
+
+```crystal
+method_is_employee = CGT::Method.new("employee?", "Bool")
+method_is_employee.add_body("self == Person::Employee")
+
+method_is_intern = CGT::Method.new("intern?", "Bool")
+method_is_intern.add_body("self == Person::Intern")
+
+enum_type.add_methods(method_is_student, method_is_employee, method_is_intern)
+```
