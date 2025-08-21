@@ -4,11 +4,8 @@
     All classes in the `Crygen::Types` namespace implement the `Crygen::Interfaces::GeneratorInterface` interface.
     You can add any of these objects to a `Crygen::Types::Module` instance to generate a module containing them.
 
-## Included modules
-
-- `Crygen::Modules::Comment`
-
-## Create a simple module
+You can create a module by instantiating the `CGT::Module` class *(here abbreviated as `CGT::Module`)* and adding
+the code to it.
 
 ```crystal
 module_type = Crygen::Types::Module.new("Folder")
@@ -20,6 +17,10 @@ Output:
 module Folder
 end
 ```
+
+## Included modules
+
+- `Crygen::Modules::Comment`
 
 ## Create a module with a class
 
