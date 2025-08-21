@@ -138,7 +138,7 @@ Output:
 ```
 
 !!! warning
-  If you want to do this recursively, you must carefully manage indentations. For example,
-  the parent `verbatim` block should use the parameters `str` and `indent`. However, the child `verbatim` block
-  should use its own parameters, such as `str2` and `indent2`. You need to differentiate these names to prevent the
-  confusions.
+    If you want to do this recursively, you must carefully manage indentations. For example,
+    the parent `verbatim` block should use the parameters `str` and `indent`. However, the child `verbatim` block
+    should use its own parameters, such as `str2` and `indent2`. You need to differentiate these names to prevent the
+    confusions.
