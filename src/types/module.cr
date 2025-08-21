@@ -27,9 +27,7 @@ require "./../interfaces/generator_interface"
 class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Comment
 
-  alias ObjectType = Crygen::Types::Module | Crygen::Types::Class | Crygen::Types::Struct | Crygen::Types::Enum
-
-  @objects = [] of ObjectType
+  @objects = [] of Crygen::Interfaces::GeneratorInterface
 
   def initialize(@name : String); end
 
@@ -52,7 +50,7 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   #   end
   # end
   # ```
-  def add_object(object_type : ObjectType) : self
+  def add_object(object_type : Crygen::Interfaces::GeneratorInterface) : self
     @objects << object_type
     self
   end
@@ -82,7 +80,7 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   #   end
   # end
   # ```
-  def add_objects(*object_type : ObjectType) : self
+  def add_objects(*object_type : Crygen::Interfaces::GeneratorInterface) : self
     @objects += object_type.to_a
     self
   end
