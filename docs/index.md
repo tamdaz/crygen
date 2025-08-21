@@ -20,4 +20,4 @@ rapid code generation, eliminating the need to rewrite everything by hand.
 
 ## Contributing
 
-If you find issues with this shard or have suggestions, feel free to open an issue or submit a pull request on Github.
+If you find issues/inconsistencies with this shard or have suggestions, feel free to open an issue or submit a pull request on Github.
