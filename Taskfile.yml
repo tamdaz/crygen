@@ -5,6 +5,8 @@ tasks:
     cmds:
       - crystal tool format
       - bin/ameba
+  docs:
+    cmd: crystal docs -o api
   test:
     cmd: crystal spec -p
   pull:
