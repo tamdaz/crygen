@@ -13,7 +13,7 @@ Output:
 
 ```crystal
 macro example(name)
-	puts {{ name }}
+  puts {{ name }}
 end
 ```
 
@@ -21,7 +21,7 @@ end
 
 ```crystal
 puts Crygen::Types::Macro.for_loop("item", "items") do |str, indent|
-	str << indent << "puts {{ item }}\n"
+  str << indent << "puts {{ item }}\n"
 end
 ```
 
@@ -29,7 +29,7 @@ Output:
 
 ```crystal
 {% for item in items %}
-	puts {{ item }}
+  puts {{ item }}
 {% end %}
 ```
 
@@ -37,7 +37,7 @@ Output:
 
 ```crystal
 puts Crygen::Types::Macro.if("x > 0") do |str, indent|
-	str << indent << 'puts "positive"\n'
+  str << indent << 'puts "positive"\n'
 end
 ```
 
@@ -45,7 +45,7 @@ Output:
 
 ```crystal
 {% if x > 0 %}
-	puts "positive"
+  puts "positive"
 {% end %}
 ```
 
@@ -53,7 +53,7 @@ Output:
 
 ```crystal
 puts Crygen::Types::Macro.unless("x > 0") do |str, indent|
-	str << indent << 'puts "negative or zero"\n'
+  str << indent << 'puts "negative or zero"\n'
 end
 ```
 
@@ -61,7 +61,7 @@ Output:
 
 ```crystal
 {% unless x > 0 %}
-	puts "negative or zero"
+  puts "negative or zero"
 {% end %}
 ```
 
@@ -69,7 +69,7 @@ Output:
 
 ```crystal
 puts Crygen::Types::Macro.verbatim do |str, indent|
-	str << indent << "puts 123\n"
+  str << indent << "puts 123\n"
 end
 ```
 
@@ -77,7 +77,7 @@ Output:
 
 ```crystal
 {% verbatim do %}
-	puts 123
+  puts 123
 {% end %}
 ```
 
@@ -87,31 +87,31 @@ Also, Crygen allows you to nest one macro block inside another, but the code bel
 
 ```crystal
 puts Crygen::Types::Macro.if("x > 0") do |str, indent|
-	str << indent << Crygen::Types::Macro.if("y > 0") do |str2, indent2|
-		str2 << indent2 << 'puts "x and y are positive"\n'
-		str2 << indent
-	end
-	str << "\n"
+  str << indent << Crygen::Types::Macro.if("y > 0") do |str2, indent2|
+    str2 << indent2 << 'puts "x and y are positive"\n'
+    str2 << indent
+  end
+  str << "\n"
 end
 
 puts "\n"
 
 puts Crygen::Types::Macro.unless("x > 0") do |str, indent|
-	str << indent << Crygen::Types::Macro.unless("y > 0") do |str2, indent2|
-		str2 << indent2 << 'puts "x and y are negative"\n'
-		str2 << indent
-	end
-	str << "\n"
+  str << indent << Crygen::Types::Macro.unless("y > 0") do |str2, indent2|
+    str2 << indent2 << 'puts "x and y are negative"\n'
+    str2 << indent
+  end
+  str << "\n"
 end
 
 puts "\n"
 
 puts Crygen::Types::Macro.verbatim do |str, indent|
-	str << indent << Crygen::Types::Macro.verbatim do |str2, indent2|
-		str2 << indent2 << 'puts "nested verbatim"\n'
-		str2 << indent
-	end
-	str << "\n"
+  str << indent << Crygen::Types::Macro.verbatim do |str2, indent2|
+    str2 << indent2 << 'puts "nested verbatim"\n'
+    str2 << indent
+  end
+  str << "\n"
 end
 ```
 
@@ -119,26 +119,26 @@ Output:
 
 ```crystal
 {% if x > 0 %}
-	{% if y > 0 %}
-		puts "x and y are positive"
-	{% end %}
+  {% if y > 0 %}
+    puts "x and y are positive"
+  {% end %}
 {% end %}
 
 {% unless x > 0 %}
-	{% unless y > 0 %}
-		puts "x and y are negative"
-	{% end %}
+  {% unless y > 0 %}
+    puts "x and y are negative"
+  {% end %}
 {% end %}
 
 {% verbatim do %}
-	{% verbatim do %}
-		puts "nested verbatim"
-	{% end %}
+  {% verbatim do %}
+    puts "nested verbatim"
+  {% end %}
 {% end %}
 ```
 
 !!! warning
-    If you want to do this recursively, you must carefully manage indentations. For example,
-    the parent `verbatim` block should use the parameters `str` and `indent`. However, the child `verbatim` block
-    should use its own parameters, such as `str2` and `indent2`. You need to differentiate these names to prevent the
-    confusions.
+  If you want to do this recursively, you must carefully manage indentations. For example,
+  the parent `verbatim` block should use the parameters `str` and `indent`. However, the child `verbatim` block
+  should use its own parameters, such as `str2` and `indent2`. You need to differentiate these names to prevent the
+  confusions.
