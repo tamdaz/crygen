@@ -54,7 +54,7 @@ There's an even better way: if you pass values without necessarily naming argume
 
 ```cr
 annotation_type = CGT::Annotation.new("MyAnnotation")
-annotation_type.add_args("1", true, "Hello world".dump)
+annotation_type.add_args("1", "true", "Hello world".dump)
 
 puts annotation_type.generate
 ```
