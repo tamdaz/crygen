@@ -252,4 +252,34 @@ describe Crygen::Types::Struct do
     struct_type.generate.should eq(expected)
     struct_type.to_s.should eq(expected)
   end
+
+  it "adds annotations to the instance var (struct)" do
+    annotations = [
+      Crygen::Types::Annotation.new("Number"),
+      Crygen::Types::Annotation.new("Coordinate"),
+    ]
+
+    expected = <<-CRYSTAL
+    struct Point
+      @[Number]
+      @[Coordinate]
+      @x : Int32 = 32
+    end
+    CRYSTAL
+
+    test_point_struct().add_instance_var("x", "Int32", "32", annotations).to_s.should eq(expected)
+  end
+
+  it "adds one annotation to the instance var (struct)" do
+    the_annotation = Crygen::Types::Annotation.new("Number")
+
+    expected = <<-CRYSTAL
+    struct Point
+      @[Number]
+      @x : Int32 = 32
+    end
+    CRYSTAL
+
+    test_point_struct().add_instance_var("x", "Int32", "32", the_annotation).to_s.should eq(expected)
+  end
 end
