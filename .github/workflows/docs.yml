@@ -1,6 +1,7 @@
 name: docs
 on:
   pull_request:
+    branches: [ "docs/**" ]
   push:
     branches: [ "main" ]
 
