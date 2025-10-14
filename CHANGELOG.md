@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.1.0](https://github.com/tamdaz/cruml/releases/tag/v1.1.0) - 2025-10-14
+
+## Added
+
+* Possibility to add annotations to instance vars and class vars (@tamdaz)(#64)
+
 ## [v1.0.0](https://github.com/tamdaz/cruml/releases/tag/v1.0.0) - 2025-08-21
 
 ## Added
