@@ -332,4 +332,34 @@ describe Crygen::Types::Class do
     class_type.generate.should eq(expected)
     class_type.to_s.should eq(expected)
   end
+
+  it "adds annotations to the instance var" do
+    annotations = [
+      Crygen::Types::Annotation.new("Identity"),
+      Crygen::Types::Annotation.new("Sensitive"),
+    ]
+
+    expected = <<-CRYSTAL
+    class Person
+      @[Identity]
+      @[Sensitive]
+      @name : String = "value"
+    end
+    CRYSTAL
+
+    test_person_class().add_instance_var("name", "String", "value", annotations).to_s.should eq(expected)
+  end
+
+  it "adds one annotation to the instance var" do
+    the_annotation = Crygen::Types::Annotation.new("Identity")
+
+    expected = <<-CRYSTAL
+    class Person
+      @[Identity]
+      @name : String = "value"
+    end
+    CRYSTAL
+
+    test_person_class().add_instance_var("name", "String", "value", the_annotation).to_s.should eq(expected)
+  end
 end
