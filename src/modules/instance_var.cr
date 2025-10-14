@@ -41,7 +41,7 @@ module Crygen::Modules::InstanceVar
 
         if annotations
           annotations.each do |ann|
-            str << ann.to_s << "\n"
+            str << ann << "\n"
           end
         end
 
