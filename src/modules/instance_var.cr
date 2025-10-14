@@ -23,14 +23,7 @@ module Crygen::Modules::InstanceVar
     name : String, type : String, value : String? = nil,
     the_annotation : Crygen::Types::Annotation? = nil,
   ) : self
-    output_value = if type == "String" && !value.nil?
-                     value.dump
-                   else
-                     value
-                   end
-
-    @instance_vars << {name, type, output_value, [the_annotation]}
-    self
+    add_instance_var(name, type, value, [the_annotation])
   end
 
   # Generate the instance vars.

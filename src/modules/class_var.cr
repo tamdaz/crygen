@@ -24,14 +24,7 @@ module Crygen::Modules::ClassVar
     name : String, type : String, value : String? = nil,
     the_annotation : Crygen::Types::Annotation? = nil,
   ) : self
-    output_value = if type == "String" && !value.nil?
-                     value.dump
-                   else
-                     value
-                   end
-
-    @class_vars << {name, type, output_value, [the_annotation]}
-    self
+    add_class_var(name, type, value, [the_annotation])
   end
 
   # Generate the class_vars.
