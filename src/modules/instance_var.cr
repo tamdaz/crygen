@@ -19,6 +19,7 @@ module Crygen::Modules::InstanceVar
     self
   end
 
+  # Adds an argument with default value.
   def add_instance_var(
     name : String, type : String, value : String? = nil,
     the_annotation : Crygen::Types::Annotation? = nil,
