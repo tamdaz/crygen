@@ -20,6 +20,8 @@ plugins:
 nav:
 - index.md
 - getting-started.md
+- Releases:
+  - releases/v1.1.0.md
 - Guide:
   - guide/alias.md
   - guide/annotation.md
