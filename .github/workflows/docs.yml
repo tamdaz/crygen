@@ -1,7 +1,7 @@
 name: docs
 on:
   pull_request:
-    branches: [ "docs/**", "docs/release" ]
+    branches: [ "docs/**", "docs/release/**" ]
   push:
     branches: [ "main" ]
 
