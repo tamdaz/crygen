@@ -297,14 +297,14 @@ describe Crygen::Types::Struct do
   it "adds the #initialize method (with block)" do
     expected = <<-CRYSTAL
     struct Point
-      def initialize(@name : String, @age : UInt8) : Nil
+      def initialize(@x : Int32, @y : Int32) : Nil
       end
     end
     CRYSTAL
 
     person_class = test_point_struct().add_initialize do |method|
-      method.add_arg("@name", "String")
-      method.add_arg("@age", "UInt8")
+      method.add_arg("@x", "Int32")
+      method.add_arg("@y", "Int32")
     end
 
     person_class.to_s.should eq(expected)
@@ -317,7 +317,7 @@ describe Crygen::Types::Struct do
       def initialize : Nil
       end
 
-      def initialize(@name : String, @age : UInt8) : Nil
+      def initialize(@x : Int32, @y : Int32) : Nil
       end
     end
     CRYSTAL
@@ -325,8 +325,8 @@ describe Crygen::Types::Struct do
     person_class = test_point_struct()
     person_class.add_initialize
     person_class.add_initialize do |method|
-      method.add_arg("@name", "String")
-      method.add_arg("@age", "UInt8")
+      method.add_arg("@x", "Int32")
+      method.add_arg("@y", "Int32")
     end
     person_class.to_s.should eq(expected)
   end
