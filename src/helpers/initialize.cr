@@ -8,7 +8,7 @@ module Crygen::Helpers::Initialize
     self
   end
 
-  # Adds `#initialize` method.
+  # Adds `#initialize` method with the block.
   # Returns: an object itself.
   def add_initialize(&) : self
     method = Crygen::Types::Method.new("initialize", "Nil")
