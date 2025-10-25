@@ -392,4 +392,52 @@ describe Crygen::Types::Class do
 
     test_person_class().add_class_var("name", "String", "value", the_annotation).to_s.should eq(expected)
   end
+
+  it "adds the #initialize method" do
+    expected = <<-CRYSTAL
+    class Person
+      def initialize : Nil
+      end
+    end
+    CRYSTAL
+
+    test_person_class().add_initialize.to_s.should eq(expected)
+  end
+
+  it "adds the #initialize method (with block)" do
+    expected = <<-CRYSTAL
+    class Person
+      def initialize(@name : String, @age : UInt8) : Nil
+      end
+    end
+    CRYSTAL
+
+    person_class = test_person_class().add_initialize do |method|
+      method.add_arg("@name", "String")
+      method.add_arg("@age", "UInt8")
+    end
+
+    person_class.to_s.should eq(expected)
+  end
+
+  it "adds several #initialize methods" do
+    # watch out to spaces between two initializers.
+    expected = <<-CRYSTAL
+    class Person
+      def initialize : Nil
+      end
+
+      def initialize(@name : String, @age : UInt8) : Nil
+      end
+    end
+    CRYSTAL
+
+    person_class = test_person_class()
+    person_class.add_initialize
+    person_class.add_initialize do |method|
+      method.add_arg("@name", "String")
+      method.add_arg("@age", "UInt8")
+    end
+    person_class.to_s.should eq(expected)
+  end
 end
