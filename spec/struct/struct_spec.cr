@@ -282,4 +282,52 @@ describe Crygen::Types::Struct do
 
     test_point_struct().add_instance_var("x", "Int32", "32", the_annotation).to_s.should eq(expected)
   end
+
+  it "adds the #initialize method" do
+    expected = <<-CRYSTAL
+    struct Point
+      def initialize : Nil
+      end
+    end
+    CRYSTAL
+
+    test_point_struct().add_initialize.to_s.should eq(expected)
+  end
+
+  it "adds the #initialize method (with block)" do
+    expected = <<-CRYSTAL
+    struct Point
+      def initialize(@x : Int32, @y : Int32) : Nil
+      end
+    end
+    CRYSTAL
+
+    person_class = test_point_struct().add_initialize do |method|
+      method.add_arg("@x", "Int32")
+      method.add_arg("@y", "Int32")
+    end
+
+    person_class.to_s.should eq(expected)
+  end
+
+  it "adds several #initialize methods" do
+    # watch out to spaces between two initializers.
+    expected = <<-CRYSTAL
+    struct Point
+      def initialize : Nil
+      end
+
+      def initialize(@x : Int32, @y : Int32) : Nil
+      end
+    end
+    CRYSTAL
+
+    person_class = test_point_struct()
+    person_class.add_initialize
+    person_class.add_initialize do |method|
+      method.add_arg("@x", "Int32")
+      method.add_arg("@y", "Int32")
+    end
+    person_class.to_s.should eq(expected)
+  end
 end

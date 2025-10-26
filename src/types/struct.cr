@@ -1,5 +1,6 @@
 require "./../modules/*"
 require "./../interfaces/generator_interface"
+require "./../helpers/initialize"
 
 # A class that generates a struct.
 # ```
@@ -27,6 +28,9 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Annotation
   include Crygen::Modules::Mixin
 
+  include Crygen::Helpers::Initialize
+
+  # Used for adding nested structs.
   include Crygen::Modules::Struct
 
   def initialize(@name : String, @inherited_abstract_struct_name : String? = nil); end

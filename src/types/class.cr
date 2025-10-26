@@ -1,4 +1,5 @@
 require "./../interfaces/generator_interface"
+require "./../helpers/initialize"
 require "./../modules/*"
 
 # A class that generates a class.
@@ -27,6 +28,8 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Method
   include Crygen::Modules::Annotation
   include Crygen::Modules::Mixin
+
+  include Crygen::Helpers::Initialize
 
   # Used for adding nested classes.
   include Crygen::Modules::Class
