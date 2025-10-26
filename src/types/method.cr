@@ -74,10 +74,19 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       str << CGG::Comment.generate(@comments)
       str << CGG::Annotation.generate(@annotations)
+      str << Crygen::Utils::Indentation.generate
       str << @scope << ' ' unless @scope == :public
       str << "def " << @name << generate_args << " : " << @return_type << "\n"
-      @body.each_line { |line| str << "  " << line << "\n" }
-      str << "end"
+
+      Crygen::Utils::Indentation.add_indent
+
+      @body.each_line do |line|
+        str << Crygen::Utils::Indentation.generate << line << "\n"
+      end
+
+      Crygen::Utils::Indentation.remove_indent
+
+      str << Crygen::Utils::Indentation.generate << "end"
     end
   end
 
@@ -87,6 +96,7 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
       str << CGG::Comment.generate(@comments)
       str << CGG::Annotation.generate(@annotations)
       str << @scope << ' ' unless @scope == :public
+      str << Crygen::Utils::Indentation.generate
       str << "abstract def " << @name << generate_args << " : " << @return_type
     end
   end

@@ -27,34 +27,46 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Annotation
   include Crygen::Modules::Mixin
 
+  include Crygen::Modules::Struct
+
   def initialize(@name : String, @inherited_abstract_struct_name : String? = nil); end
 
   # Generates a struct.
   def generate : String
     String.build do |str|
-      line_proc = ->(line : String) { str << "  " << line << "\n" }
-
       str << CGG::Comment.generate(@comments)
       str << CGG::Annotation.generate(@annotations)
 
+      str << Crygen::Utils::Indentation.generate
       str << "struct " << @name
       str << " < " << @inherited_abstract_struct_name if @inherited_abstract_struct_name
       str << "\n"
 
-      [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |method|
-        method.each_line(&line_proc)
+      Crygen::Utils::Indentation.add_indent
+
+      [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
+        step.each_line do |line|
+          str << Crygen::Utils::Indentation.generate << line << "\n"
+        end
       end
 
       can_add_whitespace = false
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
-        str << method.generate.each_line(&line_proc)
+        str << method << "\n"
 
         if can_add_whitespace == false
           can_add_whitespace = true
         end
       end
 
+      @structs.each do |the_struct|
+        str << the_struct << "\n"
+      end
+
+      Crygen::Utils::Indentation.remove_indent
+
+      str << Crygen::Utils::Indentation.generate
       str << "end"
     end
   end

@@ -89,21 +89,31 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   def generate : String
     String.build do |str|
       str << CGG::Comment.generate(@comments)
+
+      str << Crygen::Utils::Indentation.generate
       str << "module "
       str << @name << "\n"
 
       can_add_whitespace = false
 
+      Crygen::Utils::Indentation.add_indent
+
       # All classes from `Crygen::Types` module have the `generate` method.
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
-        object.generate.each_line { |line| str << "  " << line << "\n" }
+
+        object.generate.each_line do |line|
+          str << line << "\n"
+        end
 
         if can_add_whitespace == false
           can_add_whitespace = true
         end
       end
 
+      Crygen::Utils::Indentation.remove_indent
+
+      str << Crygen::Utils::Indentation.generate
       str << "end"
     end
   end
