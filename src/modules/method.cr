@@ -18,7 +18,7 @@ module Crygen::Modules::Method
   protected def generate_abstract_methods(str : IO, methods : Array(CGT::Method), whitespace : Bool)
     methods.each do |method|
       str << "\n" if whitespace == true
-      str << method.generate_abstract_method.each_line { |line| str << "  " + line + "\n" }
+      str << method << "\n"
 
       if whitespace == false && @type == :normal
         whitespace = true
@@ -29,7 +29,7 @@ module Crygen::Modules::Method
   protected def generate_normal_methods(str : IO, methods : Array(CGT::Method), whitespace : Bool)
     methods.each do |method|
       str << "\n" if whitespace == true
-      str << method.generate.each_line { |line| str << "  " + line + "\n" }
+      str << method << "\n"
 
       if whitespace == false && @type == :normal
         whitespace = true

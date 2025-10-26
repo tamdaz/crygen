@@ -1,6 +1,6 @@
-require "./../modules/*"
 require "./../interfaces/generator_interface"
 require "./../helpers/initialize"
+require "./../modules/*"
 
 # A class that generates a class.
 # ```
@@ -30,6 +30,9 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Mixin
 
   include Crygen::Helpers::Initialize
+  
+  # Used for adding nested classes.
+  include Crygen::Modules::Class
 
   @type : Symbol = :normal
 
@@ -54,18 +57,21 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   # Generates a Crystal code.
   def generate : String
     String.build do |str|
-      line_proc = ->(line : String) { str << "  " + line + "\n" }
-
       str << CGG::Comment.generate(@comments)
       str << CGG::Annotation.generate(@annotations)
 
+      str << Crygen::Utils::Indentation.generate
       str << "abstract " if @type == :abstract
       str << "class " << @name
       str << " < " << @inherited_class_name if @inherited_class_name
       str << "\n"
 
+      Crygen::Utils::Indentation.add_indent
+
       [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
-        step.each_line(&line_proc)
+        step.each_line do |line|
+          str << Crygen::Utils::Indentation.generate << line << "\n"
+        end
       end
 
       whitespace = false
@@ -81,6 +87,13 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
         generate_normal_methods(str, grouped_methods[:normal], whitespace)
       end
 
+      @classes.each do |the_class|
+        str << the_class << "\n"
+      end
+
+      Crygen::Utils::Indentation.remove_indent
+
+      str << Crygen::Utils::Indentation.generate
       str << "end"
     end
   end
