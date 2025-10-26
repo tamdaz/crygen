@@ -83,14 +83,17 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
       str << CGG::Comment.generate(@comments)
       str << CGG::Annotation.generate(@annotations)
 
+      str << Crygen::Utils::Indentation.generate
       str << "enum " << @name
       str << " : " << @type if @type
       str << "\n"
 
+      Crygen::Utils::Indentation.add_indent
+
       @constants.each do |constant|
         name, value = constant
 
-        str << "  " << name
+        str << Crygen::Utils::Indentation.generate << name
         str << " = " << value if value
         str << "\n"
       end
@@ -101,13 +104,16 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
 
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
-        str << method.generate.each_line { |line| str << "  " + line + "\n" }
+        str << method << "\n"
 
         if can_add_whitespace == false
           can_add_whitespace = true
         end
       end
 
+      Crygen::Utils::Indentation.remove_indent
+
+      str << Crygen::Utils::Indentation.generate
       str << "end"
     end
   end

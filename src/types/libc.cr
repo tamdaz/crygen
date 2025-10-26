@@ -89,27 +89,44 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   def generate : String
     String.build do |str|
       str << CGG::Annotation.generate(@annotations)
+      str << Crygen::Utils::Indentation.generate
       str << "lib " << @name << "\n"
+
+      Crygen::Utils::Indentation.add_indent
 
       can_add_whitespace = false
 
       @objects.each do |object|
         str << "\n" if can_add_whitespace == true
-        str << "  " << object[1] << ' ' << object[0] << "\n"
+        str << Crygen::Utils::Indentation.generate
+        str << object[1] << ' ' << object[0] << "\n"
+
+        Crygen::Utils::Indentation.add_indent
 
         object[2].each do |field|
-          str << "    " << field[0] << " : " << field[1] << "\n"
+          str << Crygen::Utils::Indentation.generate
+          str << field[0] << " : " << field[1] << "\n"
         end
 
-        str << "  end\n"
+        Crygen::Utils::Indentation.remove_indent
+
+        str << Crygen::Utils::Indentation.generate
+        str << "end\n"
         can_add_whitespace = true
       end
+
       str << "\n" if !@objects.empty? && !@functions.empty?
+
       @functions.each do |function|
-        str << "  " << "fun " << function[:name]
+        str << Crygen::Utils::Indentation.generate
+        str << "fun " << function[:name]
         str << function[:args] unless function[:args].empty?
         str << " : " << function[:return_type] << "\n"
       end
+
+      Crygen::Utils::Indentation.remove_indent
+
+      str << Crygen::Utils::Indentation.generate
       str << "end"
     end
   end
