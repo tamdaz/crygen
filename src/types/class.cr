@@ -30,7 +30,7 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Mixin
 
   include Crygen::Helpers::Initialize
-  
+
   # Used for adding nested classes.
   include Crygen::Modules::Class
 

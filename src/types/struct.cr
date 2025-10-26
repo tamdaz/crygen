@@ -29,7 +29,7 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Mixin
 
   include Crygen::Helpers::Initialize
-  
+
   # Used for adding nested structs.
   include Crygen::Modules::Struct
 
