@@ -9,9 +9,7 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    pending!("In progress")
-
-    # test_person_class().add_class(test_person_class()).to_s.should eq(expected)
+    test_person_class().add_class(test_person_class()).to_s.should eq(expected)
   end
 
   it "create 3 classes in the class" do
@@ -26,13 +24,11 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    pending!("In progress")
-
-    # test_person_class()
-    #   .add_class(test_person_class())
-    #   .add_class(test_person_class())
-    #   .add_class(test_person_class())
-    #   .to_s.should eq(expected)
+    test_person_class()
+      .add_class(test_person_class())
+      .add_class(test_person_class())
+      .add_class(test_person_class())
+      .to_s.should eq(expected)
   end
 
   it "create 3 classes in 2 classes in the class" do
@@ -57,18 +53,16 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    pending!("In progress")
-
-    # test_person_class().add_class(
-    #   test_person_class()
-    #     .add_class(test_person_class())
-    #     .add_class(test_person_class())
-    #     .add_class(test_person_class())
-    # ).add_class(
-    #   test_person_class()
-    #     .add_class(test_person_class())
-    #     .add_class(test_person_class())
-    #     .add_class(test_person_class())
-    # ).to_s.should eq(expected)
+    test_person_class().add_class(
+      test_person_class()
+        .add_class(test_person_class())
+        .add_class(test_person_class())
+        .add_class(test_person_class())
+    ).add_class(
+      test_person_class()
+        .add_class(test_person_class())
+        .add_class(test_person_class())
+        .add_class(test_person_class())
+    ).to_s.should eq(expected)
   end
 end
