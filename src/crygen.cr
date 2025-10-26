@@ -1,6 +1,7 @@
 require "./types/**"
 require "./modules/**"
 require "./generators/**"
+require "./utils/indentation"
 require "./utils/string_indented_builder"
 
 # **crygen** is a library that allows to generate a Crystal file. It is inspired by the PHP
