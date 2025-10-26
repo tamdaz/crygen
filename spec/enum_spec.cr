@@ -19,6 +19,26 @@ describe Crygen::Types::Enum do
     enum_type.to_s.should eq(expected)
   end
 
+  it "creates an enum with the comment" do
+    enum_type = Crygen::Types::Enum.new("Person")
+    enum_type.add_constant("Employee")
+    enum_type.add_constant("Student")
+    enum_type.add_constant("Intern")
+    enum_type.add_comment("Hello world")
+
+    expected = <<-CRYSTAL
+    # Hello world
+    enum Person
+      Employee
+      Student
+      Intern
+    end
+    CRYSTAL
+
+    enum_type.generate.should eq(expected)
+    enum_type.to_s.should eq(expected)
+  end
+
   it "creates an enum (with #add_constants method)" do
     enum_type = Crygen::Types::Enum.new("Person")
     enum_type.add_constants(
