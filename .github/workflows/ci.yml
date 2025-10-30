@@ -31,6 +31,6 @@ jobs:
       with:
         crystal: ${{ matrix.crystal }}
     - name: Install shards
-      run: shards install --ignore-crystal-version
+      run: shards install --without-development
     - name: Run tests
       run: crystal spec --order=random
