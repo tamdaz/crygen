@@ -21,7 +21,7 @@ library : [nette/php-generator](https://github.com/nette/php-generator).
 dependencies:
   crygen:
     github: tamdaz/crygen
-    version: ~> 1.1.0
+    version: ~> 1.2.0
 ```
 
 2. Run `shards install`

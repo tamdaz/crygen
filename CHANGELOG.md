@@ -1,5 +1,17 @@
 # Changelog
 
+# [v1.2.0](https://github.com/tamdaz/cruml/releases/tag/v1.2.0) - 2025-10-30
+
+## Added
+
+- Possibility to add annotations onto props (@tamdaz)(#78)
+- Add nested classes and structures (@tamdaz)(#75)
+- Add the constructor (or initialize) helper (@tamdaz)(#74)
+
+## Fixed
+
+- Control the indentations (@tamdaz)(#76)
+
 ## [v1.1.0](https://github.com/tamdaz/cruml/releases/tag/v1.1.0) - 2025-10-14
 
 ## Added
