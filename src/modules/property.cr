@@ -23,15 +23,17 @@ module Crygen::Modules::Property
     value : String? = nil,
     scope : Crygen::Enums::PropScope = :public,
     comment : String? = nil,
+    annotations : Array(Crygen::Types::Annotation)? = nil,
   ) : self
     @properties << {
-      :scope      => scope.to_s.downcase,
-      :visibility => string_visibility(visibility),
-      :name       => name,
-      :type       => type,
-      :value      => value,
-      :comment    => comment,
-    } of Symbol => String?
+      scope:       scope.to_s.downcase,
+      visibility:  string_visibility(visibility),
+      name:        name,
+      type:        type,
+      value:       value,
+      comment:     comment,
+      annotations: annotations,
+    }
     self
   end
 
@@ -41,6 +43,10 @@ module Crygen::Modules::Property
       @properties.each do |prop|
         if comment = prop[:comment]
           str << CGG::Comment.generate(comment.lines)
+        end
+
+        if annotations = prop[:annotations]
+          annotations.each { |ann| str << ann.generate << "\n" }
         end
 
         str << prop[:scope] << ' ' unless prop[:scope] == "public"
