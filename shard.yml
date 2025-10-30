@@ -7,9 +7,6 @@ authors:
   - tamdaz <tamda.zohir.pro@gmail.com>
 
 development_dependencies:
-  ameba:
-    github: crystal-ameba/ameba
-    version: ~> 1.6.0
   cruml:
     github: tamdaz/cruml
     version: ~> 0.7.0
@@ -18,6 +15,6 @@ targets:
   console:
     main: src/console.cr
 
-crystal: '>= 1.14.0'
+crystal: '>= 1.16.0'
 
 license: MIT

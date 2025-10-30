@@ -7,7 +7,17 @@ on:
   - cron: '0 6 * * 6'
 
 jobs:
+  format:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/crystal-ameba/ameba:1.6.4
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+      - name: Check the code format
+        run: ameba
   test:
+    needs: format
     strategy:
       fail-fast: false
       matrix:
@@ -20,9 +30,5 @@ jobs:
       uses: crystal-lang/install-crystal@v1
       with:
         crystal: ${{ matrix.crystal }}
-    - name: Install shards
-      run: shards install --ignore-crystal-version
-    - name: Check formatting
-      run: bin/ameba
     - name: Run tests
       run: crystal spec --order=random
