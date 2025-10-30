@@ -8,10 +8,6 @@ on:
 
 jobs:
   format:
-    strategy:
-      fail-fast: false
-      matrix:
-        crystal: [ "1.16", "1.17", "1.18", latest, nightly ]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/crystal-ameba/ameba:1.6.4
@@ -21,6 +17,7 @@ jobs:
       - name: Check the code format
         run: ameba
   test:
+    needs: format
     strategy:
       fail-fast: false
       matrix:
