@@ -12,6 +12,8 @@ module Crygen::Modules::Property
     comment: String?,
     annotations: Array(Crygen::Types::Annotation) | Nil)
 
+  @properties = [] of PropertyType
+
   # Adds a property into object (visibility, name, type, value and scope).
   def add_property(
     visibility : Crygen::Enums::PropVisibility,
