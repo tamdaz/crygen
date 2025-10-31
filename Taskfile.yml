@@ -9,5 +9,3 @@ tasks:
     cmd: crystal docs -o api
   test:
     cmd: crystal spec -p
-  pull:
-    cmd: git pull origin main --rebase
