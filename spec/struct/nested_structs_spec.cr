@@ -17,8 +17,10 @@ describe Crygen::Types::Class do
     struct Point
       struct Point
       end
+
       struct Point
       end
+
       struct Point
       end
     end
@@ -37,16 +39,21 @@ describe Crygen::Types::Class do
       struct Point
         struct Point
         end
+
         struct Point
         end
+
         struct Point
         end
       end
+
       struct Point
         struct Point
         end
+
         struct Point
         end
+
         struct Point
         end
       end

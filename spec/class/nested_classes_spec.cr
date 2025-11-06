@@ -17,8 +17,10 @@ describe Crygen::Types::Class do
     class Person
       class Person
       end
+
       class Person
       end
+
       class Person
       end
     end
@@ -37,16 +39,21 @@ describe Crygen::Types::Class do
       class Person
         class Person
         end
+
         class Person
         end
+
         class Person
         end
       end
+
       class Person
         class Person
         end
+
         class Person
         end
+
         class Person
         end
       end

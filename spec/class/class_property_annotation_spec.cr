@@ -22,8 +22,10 @@ describe Crygen::Modules::Property do
     class Person
       @[JSON::Field(key: "full_name")]
       property name : String
+
       @[JSON::Field(ignore: true)]
       getter age : Int32
+
       @[Deprecated("Use new_field instead")]
       setter old_field : String
     end
@@ -102,6 +104,7 @@ describe Crygen::Modules::Property do
     class Person
       @[JSON::Field(key: "id")]
       private property id : Int32
+
       @[Deprecated]
       protected getter name : String
     end
@@ -189,8 +192,10 @@ describe Crygen::Modules::Property do
     class APIResponse
       @[JSON::Field(key: "response_code", emit_null: false)]
       property code : Int32
+
       @[JSON::Field(converter: Time::EpochConverter)]
       property timestamp : Time
+
       @[JSON::Field(ignore: true)]
       @[Deprecated("Use metadata instead")]
       getter? legacy_data : String?
@@ -223,22 +228,31 @@ describe Crygen::Modules::Property do
     class AllProperties
       @[Test]
       property prop : Int32
+
       @[Test]
       getter get : Int32
+
       @[Test]
       setter set : Int32
+
       @[Test]
       property? nil_prop : Int32
+
       @[Test]
       getter? nil_get : Int32
+
       @[Test]
       class_property class_prop : Int32
+
       @[Test]
       class_getter class_get : Int32
+
       @[Test]
       class_setter class_set : Int32
+
       @[Test]
       class_property? nil_class_prop : Int32
+
       @[Test]
       class_getter? nil_class_get : Int32
     end
