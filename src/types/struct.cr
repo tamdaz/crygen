@@ -49,12 +49,11 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
       Crygen::Utils::Indentation.add_indent
 
       [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
-        step.each_line do |line|
-          str << Crygen::Utils::Indentation.generate << line << "\n"
-        end
+        str << step
       end
 
       can_add_whitespace = false
+
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
         str << method << "\n"
@@ -64,8 +63,20 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
         end
       end
 
+      can_add_whitespace = false
+
       @structs.each do |the_struct|
+        if can_add_whitespace == true
+          Crygen::Utils::Indentation.reset
+          str << Crygen::Utils::Indentation.add_indent << "\n"
+          Crygen::Utils::Indentation.restore
+        end
+
         str << the_struct << "\n"
+
+        if can_add_whitespace == false
+          can_add_whitespace = true
+        end
       end
 
       Crygen::Utils::Indentation.remove_indent

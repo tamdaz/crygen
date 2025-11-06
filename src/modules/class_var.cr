@@ -35,10 +35,11 @@ module Crygen::Modules::ClassVar
 
         if annotations
           annotations.each do |ann|
-            str << ann << "\n"
+            str << Crygen::Utils::Indentation.generate << ann << "\n"
           end
         end
 
+        str << Crygen::Utils::Indentation.generate
         str << "@@" << name << " : " << type
         str << " = " << value unless value.nil?
         str << "\n"

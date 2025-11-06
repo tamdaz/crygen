@@ -70,7 +70,7 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
 
       [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
         step.each_line do |line|
-          str << Crygen::Utils::Indentation.generate << line << "\n"
+          str << line << "\n"
         end
       end
 
@@ -87,8 +87,20 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
         generate_normal_methods(str, grouped_methods[:normal], whitespace)
       end
 
+      can_add_whitespace = false
+
       @classes.each do |the_class|
+        if can_add_whitespace == true
+          Crygen::Utils::Indentation.reset
+          str << Crygen::Utils::Indentation.add_indent << "\n"
+          Crygen::Utils::Indentation.restore
+        end
+
         str << the_class << "\n"
+
+        if can_add_whitespace == false
+          can_add_whitespace = true
+        end
       end
 
       Crygen::Utils::Indentation.remove_indent
