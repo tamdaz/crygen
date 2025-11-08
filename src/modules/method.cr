@@ -23,10 +23,6 @@ module Crygen::Modules::Method
       end
 
       str << method << "\n"
-
-      if whitespace == false && @type == :normal
-        whitespace = true
-      end
     end
   end
 end
