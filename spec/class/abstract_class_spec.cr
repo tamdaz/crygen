@@ -66,6 +66,69 @@ describe Crygen::Types::Class do
       class_type.to_s.should eq(expected)
     end
 
+    it "creates an abstract class with a few abstract and normal methods" do
+      expected = <<-CRYSTAL
+      abstract class Person
+        abstract def first_name : String
+        abstract def last_name : String
+        abstract def full_name : String
+
+        def majority : Int32
+        end
+
+        def date_birth : Time
+        end
+      end
+      CRYSTAL
+
+      class_type = test_person_class()
+      class_type.as_abstract
+      class_type.add_methods(
+        CGT::Method.new("first_name", "String").as_abstract,
+        CGT::Method.new("last_name", "String").as_abstract,
+        CGT::Method.new("full_name", "String").as_abstract,
+        CGT::Method.new("majority", "Int32"),
+        CGT::Method.new("date_birth", "Time")
+      )
+      class_type.generate.should eq(expected)
+      class_type.to_s.should eq(expected)
+    end
+
+    it "creates an abstract class with a few abstract and normal methods (with comments)" do
+      expected = <<-CRYSTAL
+      abstract class Person
+        # Returns the first name
+        abstract def first_name : String
+
+        # Returns the last name
+        abstract def last_name : String
+
+        # Returns the full name
+        abstract def full_name : String
+
+        # Returns the age majority
+        def majority : Int32
+        end
+
+        # Returns the date birth
+        def date_birth : Time
+        end
+      end
+      CRYSTAL
+
+      class_type = test_person_class()
+      class_type.as_abstract
+      class_type.add_methods(
+        CGT::Method.new("first_name", "String").add_comment("Returns the first name").as_abstract,
+        CGT::Method.new("last_name", "String").add_comment("Returns the last name").as_abstract,
+        CGT::Method.new("full_name", "String").add_comment("Returns the full name").as_abstract,
+        CGT::Method.new("majority", "Int32").add_comment("Returns the age majority"),
+        CGT::Method.new("date_birth", "Time").add_comment("Returns the date birth")
+      )
+      class_type.generate.should eq(expected)
+      class_type.to_s.should eq(expected)
+    end
+
     it "creates an abstract class with many abstract methods (comment for each abstract method)" do
       expected = <<-CRYSTAL
       abstract class Person
