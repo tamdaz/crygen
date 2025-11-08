@@ -74,33 +74,30 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
         end
       end
 
-      whitespace = false
-
       grouped_methods = @methods.group_by(&.type)
 
       if grouped_methods[:abstract]?
-        generate_abstract_methods(str, grouped_methods[:abstract], whitespace)
-        str << "\n" if grouped_methods[:normal]?
+        generate_methods(str, grouped_methods[:abstract])
+      end
+
+      # Add the blank line between abstract methods and normal methods.
+      if grouped_methods[:abstract]? && grouped_methods[:normal]?
+        str << "\n"
       end
 
       if grouped_methods[:normal]?
-        generate_normal_methods(str, grouped_methods[:normal], whitespace)
+        generate_methods(str, grouped_methods[:normal])
       end
 
-      can_add_whitespace = false
-
-      @classes.each do |the_class|
-        if can_add_whitespace == true
+      # Generate nested classes.
+      @classes.each_with_index do |the_class, index|
+        if index != 0
           Crygen::Utils::Indentation.reset
           str << Crygen::Utils::Indentation.add_indent << "\n"
           Crygen::Utils::Indentation.restore
         end
 
         str << the_class << "\n"
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
-        end
       end
 
       Crygen::Utils::Indentation.remove_indent
