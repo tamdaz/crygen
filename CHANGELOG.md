@@ -1,6 +1,17 @@
 # Changelog
 
-# [v1.2.0](https://github.com/tamdaz/cruml/releases/tag/v1.2.0) - 2025-10-30
+# [v1.2.1](https://github.com/tamdaz/crygen/releases/tag/v1.2.1) - 2025-11-08
+
+## Fixed
+- Make `comments` property protected (#87)(@tamdaz)
+- Delete `can_add_whitespaces` vars. Use `#each_with_index` instead. (#86)(@tamdaz)
+- Add blank lines for code readability (#83)(@tamdaz)
+
+## Documentation
+- Add `:ditto:`s (#85)(@tamdaz)
+- Write the documentation to `CGG::*` static classes (#84)(@tamdaz)
+
+# [v1.2.0](https://github.com/tamdaz/crygen/releases/tag/v1.2.0) - 2025-10-30
 
 ## Added
 
@@ -12,13 +23,13 @@
 
 - Control the indentations (@tamdaz)(#76)
 
-## [v1.1.0](https://github.com/tamdaz/cruml/releases/tag/v1.1.0) - 2025-10-14
+## [v1.1.0](https://github.com/tamdaz/crygen/releases/tag/v1.1.0) - 2025-10-14
 
 ## Added
 
 * Possibility to add annotations to instance vars and class vars (@tamdaz)(#64)
 
-## [v1.0.0](https://github.com/tamdaz/cruml/releases/tag/v1.0.0) - 2025-08-21
+## [v1.0.0](https://github.com/tamdaz/crygen/releases/tag/v1.0.0) - 2025-08-21
 
 ## Added
 
@@ -38,7 +49,7 @@
 
 - Breaking change: Remove the `ObjectType` alias (@tamdaz)(#62)
 
-## [v0.6.0](https://github.com/tamdaz/cruml/releases/tag/v0.6.0) - 2025-08-06
+## [v0.6.0](https://github.com/tamdaz/crygen/releases/tag/v0.6.0) - 2025-08-06
 
 ## Added
 
@@ -55,14 +66,14 @@
 
 * Breaking change: Annotation helpers (@tamdaz)(#35)
 
-## [v0.5.1](https://github.com/tamdaz/cruml/releases/tag/v0.5.1) - 2025-04-22
+## [v0.5.1](https://github.com/tamdaz/crygen/releases/tag/v0.5.1) - 2025-04-22
 
 ## Fixed
 
 * Rename interface to `Crygen::Interfaces::GeneratorInterface` (@tamdaz)(#31)
 * Refactor the code (@tamdaz)(#32)
 
-## [v0.5.0](https://github.com/tamdaz/cruml/releases/tag/v0.5.0) - 2025-04-21
+## [v0.5.0](https://github.com/tamdaz/crygen/releases/tag/v0.5.0) - 2025-04-21
 
 ## Added
 
@@ -77,12 +88,12 @@
 
 * `Crygen::Types::Enum` implments Crygen::Abstract::GeneratorInterface (@tamdaz)(#27)
 
-## [v0.4.0](https://github.com/tamdaz/cruml/releases/tag/v0.4.0) - 2025-03-12
+## [v0.4.0](https://github.com/tamdaz/crygen/releases/tag/v0.4.0) - 2025-03-12
 
 ## Added
 
 * Add aliases, mixins, simplify `add_property`, fix bugs. (@nobodywasishere)(#19)
-* Add `pull` cmd and `cruml` dependency. Ignore `/out` directory. (@tamdaz)(#21)
+* Add `pull` cmd and `crygen` dependency. Ignore `/out` directory. (@tamdaz)(#21)
 * Add docs and example for alias. (@tamdaz)(#24)
 * Setup helpers for annotations. (@tamdaz)(#25)
 * Test helpers for annotations. (@tamdaz)(#26)
@@ -96,7 +107,7 @@
 * Delete redudant params and returns. (@tamdaz)(#20)
 * Delete the `build` step. (@tamdaz)(#23)
 
-## [v0.3.1](https://github.com/tamdaz/cruml/releases/tag/v0.3.1) - 2025-02-15
+## [v0.3.1](https://github.com/tamdaz/crygen/releases/tag/v0.3.1) - 2025-02-15
 
 ## Fixed
 
@@ -104,7 +115,7 @@
 - Add the `Crygen::Modules::Annotation` module. by (@tamdaz)(#17)
 - Format the hashes by (@tamdaz)(#18)
 
-## [v0.3.0](https://github.com/tamdaz/cruml/releases/tag/v0.3.0) - 2025-02-15
+## [v0.3.0](https://github.com/tamdaz/crygen/releases/tag/v0.3.0) - 2025-02-15
 
 ## Added
 - Add nullable properties by (@tamdaz)(#15)
@@ -114,7 +125,7 @@
 - Update documentation by (@tamdaz)(#13)
 - Improve the README by (@tamdaz)(#14)
 
-## [v0.2.0](https://github.com/tamdaz/cruml/releases/tag/v0.2.0) - 2025-02-04
+## [v0.2.0](https://github.com/tamdaz/crygen/releases/tag/v0.2.0) - 2025-02-04
 
 ### Added
 
@@ -136,6 +147,6 @@
 - Change the return type for methods ([312d34](https://github.com/tamdaz/crygen/pull/8/commits/312d34de9b9fce2ba3d4594d9a8eb381dda3d6c4))(@tamdaz)
 - An `scope` optional argument is added to `Crygen::Modules::Property#add_property` overloaded methods. ([543eb6](https://github.com/tamdaz/crygen/pull/10/commits/543eb6b37111788e3ccca0c89ebc0cad28c09894))(@tamdaz)
 
-## [v0.1.0](https://github.com/tamdaz/cruml/releases/tag/v0.1.0) - 2025-01-24
+## [v0.1.0](https://github.com/tamdaz/crygen/releases/tag/v0.1.0) - 2025-01-24
 
 This is an initial release 🧭

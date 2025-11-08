@@ -8,7 +8,7 @@ To install this shard, add it to your `shard.yml` file:
 dependencies:
   crygen:
     github: tamdaz/crygen
-    version: ~> 1.2.0
+    version: ~> 1.2.1
 ```
 
 Then run `shards install`.

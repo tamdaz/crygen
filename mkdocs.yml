@@ -23,6 +23,7 @@ nav:
 - Releases:
   - releases/v1.1.0.md
   - releases/v1.2.0.md
+  - releases/v1.2.1.md
 - Guide:
   - guide/alias.md
   - guide/annotation.md
