@@ -69,6 +69,11 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
     end
   end
 
+  # :ditto:
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
+
   # Generates the normal (non-abstract) method.
   protected def generate_normal_method : String
     String.build do |str|
@@ -105,10 +110,5 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
       str << @scope << ' ' unless @scope == :public
       str << "abstract def " << @name << generate_args << " : " << @return_type
     end
-  end
-
-  # Generate a method thanks to #to_s method.
-  def to_s(io : IO) : Nil
-    io << self.generate
   end
 end
