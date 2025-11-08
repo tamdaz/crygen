@@ -30,12 +30,10 @@ module Crygen::Modules::InstanceVar
   # Generate the instance vars.
   def generate_instance_vars : String
     String.build do |str|
-      can_add_whitespace = false
-
-      @instance_vars.each do |instance_var|
+      @instance_vars.each_with_index do |instance_var, index|
         name, type, value, annotations = instance_var
 
-        if can_add_whitespace && annotations
+        if index != 0 && annotations
           str << "\n"
         end
 
@@ -49,10 +47,6 @@ module Crygen::Modules::InstanceVar
         str << '@' << name << " : " << type
         str << " = " << value unless value.nil?
         str << "\n"
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
-        end
       end
     end
   end

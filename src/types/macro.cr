@@ -184,9 +184,9 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   private def generate_args : String
     String.build do |str|
       str << '(' unless @args.empty?
-      @args.each_with_index do |arg, i|
+      @args.each_with_index do |arg, index|
         str << arg
-        str << ", " if i != @args.size - 1
+        str << ", " if index != @args.size - 1
       end
       str << ')' unless @args.empty?
     end

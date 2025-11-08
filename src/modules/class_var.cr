@@ -30,12 +30,10 @@ module Crygen::Modules::ClassVar
   # Generate the class_vars.
   def generate_class_vars : String
     String.build do |str|
-      can_add_whitespace = false
-
-      @class_vars.each do |class_var|
+      @class_vars.each_with_index do |class_var, index|
         name, type, value, annotations = class_var
 
-        if can_add_whitespace && annotations
+        if index != 0 && annotations
           str << "\n"
         end
 
@@ -49,10 +47,6 @@ module Crygen::Modules::ClassVar
         str << "@@" << name << " : " << type
         str << " = " << value unless value.nil?
         str << "\n"
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
-        end
       end
     end
   end

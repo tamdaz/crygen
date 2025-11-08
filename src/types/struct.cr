@@ -55,15 +55,9 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
         str << step
       end
 
-      can_add_whitespace = false
-
-      @methods.each do |method|
-        str << "\n" if can_add_whitespace == true
+      @methods.each do |method, index|
+        str << "\n" if index != 0
         str << method << "\n"
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
-        end
       end
 
       if !@methods.empty? && !@structs.empty?
