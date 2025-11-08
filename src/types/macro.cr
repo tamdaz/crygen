@@ -175,6 +175,11 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
     end
   end
 
+  # :ditto:
+  def to_s(io : IO) : Nil
+    io << self.generate
+  end
+
   # Generate the args.
   private def generate_args : String
     String.build do |str|
@@ -185,10 +190,5 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
       end
       str << ')' unless @args.empty?
     end
-  end
-
-  # Generate a macro thanks to #to_s method.
-  def to_s(io : IO) : Nil
-    io << self.generate
   end
 end
