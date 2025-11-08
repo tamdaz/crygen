@@ -92,6 +92,10 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
         generate_methods(str, grouped_methods[:normal])
       end
 
+      if !@methods.empty? && !@classes.empty?
+        str << "\n"
+      end
+
       # Generate nested classes.
       @classes.each_with_index do |the_class, index|
         if index != 0
