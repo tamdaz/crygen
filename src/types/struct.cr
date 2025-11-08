@@ -38,7 +38,10 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
   # Generates a struct.
   def generate : String
     String.build do |str|
-      str << CGG::Comment.generate(@comments)
+      @comments.each do |line|
+        str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
+      end
+
       str << CGG::Annotation.generate(@annotations)
 
       str << Crygen::Utils::Indentation.generate
@@ -49,12 +52,11 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
       Crygen::Utils::Indentation.add_indent
 
       [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
-        step.each_line do |line|
-          str << Crygen::Utils::Indentation.generate << line << "\n"
-        end
+        str << step
       end
 
       can_add_whitespace = false
+
       @methods.each do |method|
         str << "\n" if can_add_whitespace == true
         str << method << "\n"
@@ -64,7 +66,17 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
         end
       end
 
-      @structs.each do |the_struct|
+      if !@methods.empty? && !@structs.empty?
+        str << "\n"
+      end
+
+      @structs.each_with_index do |the_struct, index|
+        if index != 0
+          Crygen::Utils::Indentation.reset
+          str << Crygen::Utils::Indentation.add_indent << "\n"
+          Crygen::Utils::Indentation.restore
+        end
+
         str << the_struct << "\n"
       end
 

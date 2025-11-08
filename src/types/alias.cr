@@ -20,7 +20,9 @@ class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
   # Generates an alias.
   def generate : String
     String.build do |str|
-      str << CGG::Comment.generate(@comments)
+      @comments.each do |line|
+        str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
+      end
 
       str << "alias " << @name << " = "
 

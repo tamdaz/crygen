@@ -57,7 +57,10 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   # Generates a Crystal code.
   def generate : String
     String.build do |str|
-      str << CGG::Comment.generate(@comments)
+      @comments.each do |line|
+        str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
+      end
+
       str << CGG::Annotation.generate(@annotations)
 
       str << Crygen::Utils::Indentation.generate
@@ -70,24 +73,37 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
 
       [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
         step.each_line do |line|
-          str << Crygen::Utils::Indentation.generate << line << "\n"
+          str << line << "\n"
         end
       end
-
-      whitespace = false
 
       grouped_methods = @methods.group_by(&.type)
 
       if grouped_methods[:abstract]?
-        generate_abstract_methods(str, grouped_methods[:abstract], whitespace)
-        str << "\n" if grouped_methods[:normal]?
+        generate_methods(str, grouped_methods[:abstract])
+      end
+
+      # Add the blank line between abstract methods and normal methods.
+      if grouped_methods[:abstract]? && grouped_methods[:normal]?
+        str << "\n"
       end
 
       if grouped_methods[:normal]?
-        generate_normal_methods(str, grouped_methods[:normal], whitespace)
+        generate_methods(str, grouped_methods[:normal])
       end
 
-      @classes.each do |the_class|
+      if !@methods.empty? && !@classes.empty?
+        str << "\n"
+      end
+
+      # Generate nested classes.
+      @classes.each_with_index do |the_class, index|
+        if index != 0
+          Crygen::Utils::Indentation.reset
+          str << Crygen::Utils::Indentation.add_indent << "\n"
+          Crygen::Utils::Indentation.restore
+        end
+
         str << the_class << "\n"
       end
 

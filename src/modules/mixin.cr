@@ -30,8 +30,8 @@ module Crygen::Modules::Mixin
   # Generate the mixins.
   protected def generate_mixins : String
     String.build do |str|
-      @includes.each { |inc| str << "include " << inc << "\n" }
-      @extends.each { |ext| str << "extend " << ext << "\n" }
+      @includes.each { |inc| str << Crygen::Utils::Indentation.generate << "include " << inc << "\n" }
+      @extends.each { |ext| str << Crygen::Utils::Indentation.generate << "extend " << ext << "\n" }
     end
   end
 end

@@ -21,6 +21,7 @@ describe Crygen::Modules::Property do
     struct Point
       @[JSON::Field(key: "x_coord")]
       property x : Int32
+
       @[JSON::Field(key: "y_coord")]
       property y : Int32
     end
@@ -60,6 +61,7 @@ describe Crygen::Modules::Property do
     struct Point
       @[Internal]
       private property x : Int32
+
       @[Public]
       protected getter y : Int32
     end
@@ -80,6 +82,7 @@ describe Crygen::Modules::Property do
     struct Point
       @[ThreadLocal]
       class_getter x : Int32 = 0
+
       @[Atomic]
       class_property? y : Int32
     end

@@ -40,20 +40,35 @@ module Crygen::Modules::Property
   # Generates the properties.
   protected def generate_properties : String
     String.build do |str|
+      can_add_whitespace = false
+
       @properties.each do |prop|
+        if can_add_whitespace == true && (prop[:comment] || prop[:annotations])
+          str << "\n"
+        end
+
         if comment = prop[:comment]
+          str << Crygen::Utils::Indentation.generate
           str << CGG::Comment.generate(comment.lines)
         end
 
         if annotations = prop[:annotations]
-          annotations.each { |ann| str << ann.generate << "\n" }
+          annotations.each do |ann|
+            str << Crygen::Utils::Indentation.generate
+            str << ann.generate << "\n"
+          end
         end
 
+        str << Crygen::Utils::Indentation.generate
         str << prop[:scope] << ' ' unless prop[:scope] == "public"
         str << prop[:visibility] << ' ' << prop[:name]
         str << " : " << prop[:type] if prop[:type]
         str << " = " << prop[:value] if prop[:value]
         str << "\n"
+
+        if can_add_whitespace == false
+          can_add_whitespace = true
+        end
       end
     end
   end

@@ -88,7 +88,9 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   # Generates a module.
   def generate : String
     String.build do |str|
-      str << CGG::Comment.generate(@comments)
+      @comments.each do |line|
+        str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
+      end
 
       str << Crygen::Utils::Indentation.generate
       str << "module "

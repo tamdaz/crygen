@@ -15,25 +15,14 @@ module Crygen::Modules::Method
     self
   end
 
-  protected def generate_abstract_methods(str : IO, methods : Array(CGT::Method), whitespace : Bool)
-    methods.each do |method|
-      str << "\n" if whitespace == true
-      str << method << "\n"
-
-      if whitespace == false && @type == :normal
-        whitespace = true
+  # Generate the abstract and normal methods
+  protected def generate_methods(str : IO, methods : Array(CGT::Method))
+    methods.each_with_index do |method, index|
+      if index != 0 && (method.comments.size != 0 || method.type != :abstract)
+        str << "\n"
       end
-    end
-  end
 
-  protected def generate_normal_methods(str : IO, methods : Array(CGT::Method), whitespace : Bool)
-    methods.each do |method|
-      str << "\n" if whitespace == true
       str << method << "\n"
-
-      if whitespace == false && @type == :normal
-        whitespace = true
-      end
     end
   end
 end

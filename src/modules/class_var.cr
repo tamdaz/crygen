@@ -30,18 +30,29 @@ module Crygen::Modules::ClassVar
   # Generate the class_vars.
   def generate_class_vars : String
     String.build do |str|
+      can_add_whitespace = false
+
       @class_vars.each do |class_var|
         name, type, value, annotations = class_var
 
+        if can_add_whitespace && annotations
+          str << "\n"
+        end
+
         if annotations
           annotations.each do |ann|
-            str << ann << "\n"
+            str << Crygen::Utils::Indentation.generate << ann << "\n"
           end
         end
 
+        str << Crygen::Utils::Indentation.generate
         str << "@@" << name << " : " << type
         str << " = " << value unless value.nil?
         str << "\n"
+
+        if can_add_whitespace == false
+          can_add_whitespace = true
+        end
       end
     end
   end

@@ -200,4 +200,75 @@ describe Crygen::Types::Enum do
     enum_type.generate.should eq(expected)
     enum_type.to_s.should eq(expected)
   end
+
+  it "creates an enum with `#as_flags` annotation helper and the comment" do
+    enum_type = Crygen::Types::Enum.new("Person")
+    enum_type.add_constant("Employee")
+    enum_type.add_constant("Student")
+    enum_type.add_constant("Intern")
+    enum_type.add_comment("This is my Person enum.")
+    enum_type.flags
+
+    expected = <<-CRYSTAL
+    # This is my Person enum.
+    @[Flags]
+    enum Person
+      Employee
+      Student
+      Intern
+    end
+    CRYSTAL
+
+    enum_type.generate.should eq(expected)
+    enum_type.to_s.should eq(expected)
+  end
+
+  it "creates an enum with a comment for each method" do
+    method_is_student = Crygen::Types::Method.new("student?", "Bool")
+    method_is_student.add_body("self == Person::Student")
+    method_is_student.add_comment("Comment")
+
+    method_is_employee = Crygen::Types::Method.new("employee?", "Bool")
+    method_is_employee.add_body("self == Person::Employee")
+    method_is_employee.add_comment("Comment")
+
+    method_is_intern = Crygen::Types::Method.new("intern?", "Bool")
+    method_is_intern.add_body("self == Person::Intern")
+    method_is_intern.add_comment("Comment")
+
+    enum_type = Crygen::Types::Enum.new("Person")
+    enum_type.add_constant("Employee")
+    enum_type.add_constant("Student")
+    enum_type.add_constant("Intern")
+
+    enum_type.add_methods(method_is_student, method_is_employee, method_is_intern)
+    enum_type.add_comment("Comment")
+
+    expected = <<-CRYSTAL
+    # Comment
+    enum Person
+      Employee
+      Student
+      Intern
+
+      # Comment
+      def student? : Bool
+        self == Person::Student
+      end
+
+      # Comment
+      def employee? : Bool
+        self == Person::Employee
+      end
+
+      # Comment
+      def intern? : Bool
+        self == Person::Intern
+      end
+    end
+    CRYSTAL
+
+    enum_type.generate.should eq(expected)
+    enum_type.to_s.should eq(expected)
+  end
 end

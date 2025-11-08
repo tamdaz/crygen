@@ -72,7 +72,10 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # Generates the normal (non-abstract) method.
   protected def generate_normal_method : String
     String.build do |str|
-      str << CGG::Comment.generate(@comments)
+      @comments.each do |line|
+        str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
+      end
+
       str << CGG::Annotation.generate(@annotations)
       str << Crygen::Utils::Indentation.generate
       str << @scope << ' ' unless @scope == :public
@@ -93,10 +96,13 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # Generates the abstract method.
   protected def generate_abstract_method : String
     String.build do |str|
-      str << CGG::Comment.generate(@comments)
+      @comments.each do |line|
+        str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
+      end
+
       str << CGG::Annotation.generate(@annotations)
-      str << @scope << ' ' unless @scope == :public
       str << Crygen::Utils::Indentation.generate
+      str << @scope << ' ' unless @scope == :public
       str << "abstract def " << @name << generate_args << " : " << @return_type
     end
   end

@@ -271,6 +271,7 @@ describe Crygen::Types::Class do
     class Person
       # My comment
       private property? last_name : String
+
       # My other comment
       protected getter? first_name : String
     end
@@ -421,7 +422,7 @@ describe Crygen::Types::Class do
   end
 
   it "adds several #initialize methods" do
-    # watch out to spaces between two initializers.
+    # watch out to the number of spaces characters between two initializers.
     expected = <<-CRYSTAL
     class Person
       def initialize : Nil
