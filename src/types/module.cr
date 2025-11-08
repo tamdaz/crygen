@@ -98,7 +98,7 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
       Crygen::Utils::Indentation.add_indent
 
       # All classes from `Crygen::Types` module have the `generate` method.
-      @objects.each do |object, index|
+      @objects.each_with_index do |object, index|
         if index != 0
           str << "\n"
         end

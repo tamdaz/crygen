@@ -103,7 +103,7 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
 
       str << "\n" if !@methods.empty?
 
-      @methods.each do |method, index|
+      @methods.each_with_index do |method, index|
         if index != 0
           str << "\n"
         end

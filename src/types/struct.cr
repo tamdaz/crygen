@@ -55,7 +55,7 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
         str << step
       end
 
-      @methods.each do |method, index|
+      @methods.each_with_index do |method, index|
         str << "\n" if index != 0
         str << method << "\n"
       end

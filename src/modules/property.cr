@@ -40,7 +40,7 @@ module Crygen::Modules::Property
   # Generates the properties.
   protected def generate_properties : String
     String.build do |str|
-      @properties.each do |prop, index|
+      @properties.each_with_index do |prop, index|
         if index != 0 && (prop[:comment] || prop[:annotations])
           str << "\n"
         end
