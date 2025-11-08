@@ -1,6 +1,6 @@
 # Module that is used to store and add the comments.
 module Crygen::Modules::Comment
-  getter comments = [] of String
+  protected getter comments = [] of String
 
   # Add a line or multiline comments.
   def add_comment(value : String) : self
