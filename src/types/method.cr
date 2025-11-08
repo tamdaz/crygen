@@ -75,7 +75,7 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
       @comments.each do |line|
         str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
       end
-      
+
       str << CGG::Annotation.generate(@annotations)
       str << Crygen::Utils::Indentation.generate
       str << @scope << ' ' unless @scope == :public
