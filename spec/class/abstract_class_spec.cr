@@ -27,6 +27,25 @@ describe Crygen::Types::Class do
       class_type.to_s.should eq(expected)
     end
 
+    it "creates an abstract class with one abstract method with comment" do
+      expected = <<-CRYSTAL
+      abstract class Person
+        # Returns the full name
+        abstract def full_name : String
+      end
+      CRYSTAL
+
+      method_full_name = CGT::Method.new("full_name", "String")
+      method_full_name.add_comment("Returns the full name")
+      method_full_name.as_abstract
+
+      class_type = test_person_class()
+      class_type.as_abstract
+      class_type.add_method(method_full_name)
+      class_type.generate.should eq(expected)
+      class_type.to_s.should eq(expected)
+    end
+
     it "creates an abstract class with many abstract methods" do
       expected = <<-CRYSTAL
       abstract class Person
@@ -42,6 +61,31 @@ describe Crygen::Types::Class do
         CGT::Method.new("first_name", "String").as_abstract,
         CGT::Method.new("last_name", "String").as_abstract,
         CGT::Method.new("full_name", "String").as_abstract
+      )
+      class_type.generate.should eq(expected)
+      class_type.to_s.should eq(expected)
+    end
+
+    it "creates an abstract class with many abstract methods (comment for each abstract method)" do
+      expected = <<-CRYSTAL
+      abstract class Person
+        # Returns the first name
+        abstract def first_name : String
+
+        # Returns the last name
+        abstract def last_name : String
+
+        # Returns the full name
+        abstract def full_name : String
+      end
+      CRYSTAL
+
+      class_type = test_person_class()
+      class_type.as_abstract
+      class_type.add_methods(
+        CGT::Method.new("first_name", "String").add_comment("Returns the first name").as_abstract,
+        CGT::Method.new("last_name", "String").add_comment("Returns the last name").as_abstract,
+        CGT::Method.new("full_name", "String").add_comment("Returns the full name").as_abstract
       )
       class_type.generate.should eq(expected)
       class_type.to_s.should eq(expected)
