@@ -93,23 +93,18 @@ class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
       end
 
       str << Crygen::Utils::Indentation.generate
-      str << "module "
-      str << @name << "\n"
-
-      can_add_whitespace = false
+      str << "module " << @name << "\n"
 
       Crygen::Utils::Indentation.add_indent
 
       # All classes from `Crygen::Types` module have the `generate` method.
-      @objects.each do |object|
-        str << "\n" if can_add_whitespace == true
+      @objects.each_with_index do |object, index|
+        if index != 0
+          str << "\n"
+        end
 
         object.generate.each_line do |line|
           str << line << "\n"
-        end
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
         end
       end
 

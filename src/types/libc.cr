@@ -94,10 +94,11 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
 
       Crygen::Utils::Indentation.add_indent
 
-      can_add_whitespace = false
+      @objects.each_with_index do |object, index|
+        if index != 0
+          str << "\n"
+        end
 
-      @objects.each do |object|
-        str << "\n" if can_add_whitespace == true
         str << Crygen::Utils::Indentation.generate
         str << object[1] << ' ' << object[0] << "\n"
 
@@ -112,10 +113,12 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
 
         str << Crygen::Utils::Indentation.generate
         str << "end\n"
-        can_add_whitespace = true
       end
 
-      str << "\n" if !@objects.empty? && !@functions.empty?
+      # Add a blank line between the objects and functions.
+      if !@objects.empty? && !@functions.empty?
+        str << "\n"
+      end
 
       @functions.each do |function|
         str << Crygen::Utils::Indentation.generate

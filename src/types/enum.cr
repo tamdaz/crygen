@@ -103,15 +103,12 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
 
       str << "\n" if !@methods.empty?
 
-      can_add_whitespace = false
-
-      @methods.each do |method|
-        str << "\n" if can_add_whitespace == true
-        str << method << "\n"
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
+      @methods.each_with_index do |method, index|
+        if index != 0
+          str << "\n"
         end
+
+        str << method << "\n"
       end
 
       Crygen::Utils::Indentation.remove_indent

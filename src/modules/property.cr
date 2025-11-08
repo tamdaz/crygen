@@ -40,10 +40,8 @@ module Crygen::Modules::Property
   # Generates the properties.
   protected def generate_properties : String
     String.build do |str|
-      can_add_whitespace = false
-
-      @properties.each do |prop|
-        if can_add_whitespace == true && (prop[:comment] || prop[:annotations])
+      @properties.each_with_index do |prop, index|
+        if index != 0 && (prop[:comment] || prop[:annotations])
           str << "\n"
         end
 
@@ -65,10 +63,6 @@ module Crygen::Modules::Property
         str << " : " << prop[:type] if prop[:type]
         str << " = " << prop[:value] if prop[:value]
         str << "\n"
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
-        end
       end
     end
   end

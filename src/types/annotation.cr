@@ -78,12 +78,12 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
     String.build do |str|
       str << '(' unless @args.empty?
 
-      @args.each_with_index do |arg, i|
+      @args.each_with_index do |arg, index|
         name, value = arg
 
         str << name << ": " unless name.nil?
         str << value
-        str << ", " if i != @args.size - 1
+        str << ", " if index != @args.size - 1
       end
 
       str << ')' unless @args.empty?
