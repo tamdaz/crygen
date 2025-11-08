@@ -80,7 +80,10 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   # Generates an enum.
   def generate : String
     String.build do |str|
-      str << CGG::Comment.generate(@comments)
+      @comments.each do |line|
+        str << Crygen::Utils::Indentation.generate << "# " << line << "\n"
+      end
+
       str << CGG::Annotation.generate(@annotations)
 
       str << Crygen::Utils::Indentation.generate
