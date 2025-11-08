@@ -3,13 +3,13 @@
 # [v1.2.1](https://github.com/tamdaz/crygen/releases/tag/v1.2.1) - 2025-11-08
 
 ## Fixed
-- Make `comments` property protected (#87)(@tamdaz)
-- Delete `can_add_whitespaces` vars. Use `#each_with_index` instead. (#86)(@tamdaz)
-- Add blank lines for code readability (#83)(@tamdaz)
+- Make `comments` property protected (@tamdaz)(#87)
+- Delete `can_add_whitespaces` vars. Use `#each_with_index` instead. (@tamdaz)(#86)
+- Add blank lines for code readability (@tamdaz)(#83)
 
 ## Documentation
-- Add `:ditto:`s (#85)(@tamdaz)
-- Write the documentation to `CGG::*` static classes (#84)(@tamdaz)
+- Add `:ditto:`s (@tamdaz)(#85)
+- Write the documentation to `CGG::*` static classes (@tamdaz)(#84)
 
 # [v1.2.0](https://github.com/tamdaz/crygen/releases/tag/v1.2.0) - 2025-10-30
 
