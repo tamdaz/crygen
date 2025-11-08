@@ -66,20 +66,18 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
         end
       end
 
-      can_add_whitespace = false
+      if !@methods.empty? && !@structs.empty?
+        str << "\n"
+      end
 
-      @structs.each do |the_struct|
-        if can_add_whitespace == true
+      @structs.each_with_index do |the_struct, index|
+        if index != 0
           Crygen::Utils::Indentation.reset
           str << Crygen::Utils::Indentation.add_indent << "\n"
           Crygen::Utils::Indentation.restore
         end
 
         str << the_struct << "\n"
-
-        if can_add_whitespace == false
-          can_add_whitespace = true
-        end
       end
 
       Crygen::Utils::Indentation.remove_indent
