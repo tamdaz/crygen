@@ -30,8 +30,8 @@ module Crygen::Modules::InstanceVar
   # Generate the instance vars.
   def generate_instance_vars : String
     String.build do |str|
-      @instance_vars.each_with_index do |instance_var, index|
-        name, type, value, annotations = instance_var
+      @instance_vars.each_with_index do |ivar, index|
+        name, type, value, annotations = ivar
 
         if index != 0 && annotations
           str << "\n"
@@ -45,7 +45,11 @@ module Crygen::Modules::InstanceVar
 
         str << Crygen::Utils::Indentation.generate
         str << '@' << name << " : " << type
-        str << " = " << value unless value.nil?
+
+        unless value.nil?
+          str << " = " << value
+        end
+
         str << "\n"
       end
     end

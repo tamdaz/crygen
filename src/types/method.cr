@@ -83,7 +83,11 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
 
       str << CGG::Annotation.generate(@annotations)
       str << Crygen::Utils::Indentation.generate
-      str << @scope << ' ' unless @scope == :public
+
+      unless @scope == :public
+        str << @scope << ' '
+      end
+
       str << "def " << @name << generate_args << " : " << @return_type << "\n"
 
       Crygen::Utils::Indentation.add_indent
