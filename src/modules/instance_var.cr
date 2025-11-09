@@ -9,13 +9,13 @@ module Crygen::Modules::InstanceVar
     name : String, type : String, value : String? = nil,
     annotations : Array(Crygen::Types::Annotation)? = nil,
   ) : self
-    output_value = if type == "String" && !value.nil?
-                     value.dump
-                   else
-                     value
-                   end
+    the_value = if type == "String" && value
+                  value.dump
+                else
+                  value
+                end
 
-    @instance_vars << {name, type, output_value, annotations}
+    @instance_vars << {name, type, the_value, annotations}
     self
   end
 
