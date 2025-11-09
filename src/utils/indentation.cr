@@ -19,7 +19,7 @@ class Crygen::Utils::Indentation
   # Removes the indentation with the defined size.
   def self.remove_indent(size : Number = 2) : Void
     if size < 0
-      raise "You can't use the positive number for removing the indentation."
+      raise "You can't use the negative number for removing the indentation."
     end
 
     if @@number_of_spaces - size >= 0
