@@ -9,12 +9,24 @@ class Crygen::Utils::Indentation
 
   # Adds the indentation with the defined size.
   def self.add_indent(size : Number = 2) : Void
+    if size < 0
+      raise "You can't use the negative number for adding the indentation."
+    end
+
     @@number_of_spaces += size
   end
 
   # Removes the indentation with the defined size.
   def self.remove_indent(size : Number = 2) : Void
-    @@number_of_spaces -= size
+    if size < 0
+      raise "You can't use the positive number for removing the indentation."
+    end
+
+    if @@number_of_spaces - size >= 0
+      @@number_of_spaces -= size
+    else
+      @@number_of_spaces = 0
+    end
   end
 
   # Resets temporarily the indentation to zero but keep the number for restoring.
