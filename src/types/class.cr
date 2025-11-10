@@ -79,6 +79,12 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
 
       grouped_methods = @methods.group_by(&.type)
 
+      if !@includes.empty? || !@extends.empty? || !@instance_vars.empty? || !@class_vars.empty? || !@properties.empty?
+        if !@methods.empty?
+          str << "\n"
+        end
+      end
+
       if grouped_methods[:abstract]?
         generate_methods(str, grouped_methods[:abstract])
       end
