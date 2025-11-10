@@ -6,11 +6,6 @@ description: A library that allows to generate the Crystal code
 authors:
   - tamdaz <tamda.zohir.pro@gmail.com>
 
-development_dependencies:
-  cruml:
-    github: tamdaz/cruml
-    version: ~> 0.7.0
-
 targets:
   console:
     main: src/console.cr
