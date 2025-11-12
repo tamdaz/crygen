@@ -96,6 +96,7 @@ describe "(class vars only)" do
     struct Point
       @first_name : String
       @last_name : String
+
       @@another_first_name : String
       @@another_last_name : String
     end

@@ -102,4 +102,50 @@ describe Crygen::Types::Class do
     class_type.generate.should eq(expected)
     class_type.to_s.should eq(expected)
   end
+
+  it "adds the spaces (includes, props and nested classes)" do
+    expected = <<-CRYSTAL
+    class Foo
+      include JSON::Serializable
+
+      getter int : Int64
+      getter string : String
+      getter time : Time
+      getter nested : Nested
+      getter list : Array(List)
+
+      class Nested
+        include JSON::Serializable
+
+        getter bool : Bool
+      end
+
+      class List
+        include JSON::Serializable
+
+        getter int : Int64
+      end
+    end
+    CRYSTAL
+
+    nested_class = CGT::Class.new("Nested")
+    nested_class.add_include("JSON::Serializable")
+    nested_class.add_property(:getter, "bool", "Bool")
+
+    list_class = CGT::Class.new("List")
+    list_class.add_include("JSON::Serializable")
+    list_class.add_property(:getter, "int", "Int64")
+
+    class_type = CGT::Class.new("Foo")
+    class_type.add_include("JSON::Serializable")
+    class_type.add_property(:getter, "int", "Int64")
+    class_type.add_property(:getter, "string", "String")
+    class_type.add_property(:getter, "time", "Time")
+    class_type.add_property(:getter, "nested", "Nested")
+    class_type.add_property(:getter, "list", "Array(List)")
+    class_type.add_class(nested_class, list_class)
+
+    class_type.generate.should eq(expected)
+    class_type.to_s.should eq(expected)
+  end
 end
