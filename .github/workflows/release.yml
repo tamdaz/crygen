@@ -1,0 +1,113 @@
+name: create release
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  create-release:
+    if: |
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'release/') &&
+      github.event.pull_request.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract version from branch name
+        id: version
+        run: |
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          VERSION=$(echo "$BRANCH_NAME" | sed 's/release\///')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "milestone=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+      - name: Generate release notes
+        id: release_notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          MILESTONE: ${{ steps.version.outputs.milestone }}
+        run: |
+          # Get milestone number
+          MILESTONE_NUMBER=$(gh api -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/milestones" \
+            --jq ".[] | select(.title == \"$MILESTONE\") | .number")
+
+          if [ -z "$MILESTONE_NUMBER" ]; then
+            echo "Warning: No milestone found for $MILESTONE"
+            MILESTONE_FILTER=""
+          else
+            echo "Found milestone #$MILESTONE_NUMBER"
+            MILESTONE_FILTER="--search milestone:$MILESTONE"
+          fi
+
+          # Initialize release notes
+          NOTES="# $VERSION\n\n"
+
+          # Function to get PRs by label
+          get_prs_by_label() {
+            local label=$1
+            gh pr list --state merged --label "$label" $MILESTONE_FILTER \
+              --json number,title,url \
+              --jq '.[] | "- \(.title) (#\(.number))"'
+          }
+
+          ADDED=$(get_prs_by_label "added")
+          if [ -n "$ADDED" ]; then
+            NOTES="${NOTES}## Added\n\n${ADDED}\n\n"
+          fi
+
+          FIXED=$(get_prs_by_label "fixed")
+          if [ -n "$FIXED" ]; then
+            NOTES="${NOTES}## Fixed\n\n${FIXED}\n\n"
+          fi
+
+          CHANGED=$(get_prs_by_label "changed")
+          if [ -n "$CHANGED" ]; then
+            NOTES="${NOTES}## Changed\n\n${CHANGED}\n\n"
+          fi
+
+          DEPRECATED=$(get_prs_by_label "deprecated")
+          if [ -n "$DEPRECATED" ]; then
+            NOTES="${NOTES}## Deprecated\n\n${DEPRECATED}\n\n"
+          fi
+
+          REMOVED=$(get_prs_by_label "removed")
+          if [ -n "$REMOVED" ]; then
+            NOTES="${NOTES}## Removed\n\n${REMOVED}\n\n"
+          fi
+
+          # Add milestone link if exists
+          if [ -n "$MILESTONE_NUMBER" ]; then
+            NOTES="${NOTES}https://tamdaz.github.io/crygen/releases/${VERSION}"
+          fi
+
+          # Save to file
+          echo -e "$NOTES" > release_notes.md
+          cat release_notes.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          gh release create "$VERSION" \
+            --title "$VERSION" \
+            --notes-file release_notes.md \
+            --verify-tag=false
+
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${{ steps.version.outputs.version }}" -m "Release ${{ steps.version.outputs.version }}"
+          git push origin "${{ steps.version.outputs.version }}"
