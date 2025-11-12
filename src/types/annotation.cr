@@ -68,7 +68,11 @@ class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   def generate : String
     String.build do |str|
       str << "@[" << @name
-      str << generate_args unless @args.empty?
+
+      unless @args.empty?
+        str << generate_args
+      end
+
       str << "]"
     end
   end

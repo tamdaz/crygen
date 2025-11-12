@@ -25,8 +25,14 @@ module Crygen::Modules::Arg
         name, type, value = arg
 
         str << name << " : " << type
-        str << " = " << value unless value.nil?
-        str << ", " if index != @args.size - 1
+
+        if value
+          str << " = " << value
+        end
+
+        if index != (@args.size - 1)
+          str << ", "
+        end
       end
 
       str << ')' unless @args.empty?

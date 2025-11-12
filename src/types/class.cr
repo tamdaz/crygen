@@ -109,8 +109,7 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
 
       Crygen::Utils::Indentation.remove_indent
 
-      str << Crygen::Utils::Indentation.generate
-      str << "end"
+      str << Crygen::Utils::Indentation.generate << "end"
     end
   end
 

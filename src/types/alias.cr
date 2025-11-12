@@ -28,7 +28,10 @@ class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
 
       @types.each_with_index do |type, index|
         str << type
-        str << " | " unless index == @types.size - 1
+
+        unless index == @types.size - 1
+          str << " | "
+        end
       end
     end
   end

@@ -5,6 +5,7 @@ module Crygen::Helpers::Initialize
   def add_initialize : self
     method = Crygen::Types::Method.new("initialize", "Nil")
     @methods << method
+
     self
   end
 
@@ -14,6 +15,7 @@ module Crygen::Helpers::Initialize
     method = Crygen::Types::Method.new("initialize", "Nil")
     yield method
     @methods << method
+
     self
   end
 end

@@ -129,8 +129,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
 
       Crygen::Utils::Indentation.remove_indent
 
-      str << Crygen::Utils::Indentation.generate
-      str << "end"
+      str << Crygen::Utils::Indentation.generate << "end"
     end
   end
 
@@ -138,10 +137,15 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   private def generate_args(args : Array(Tuple(String, String))) : String
     String.build do |str|
       str << '('
-      args.each_with_index do |arg, i|
+
+      args.each_with_index do |arg, index|
         str << arg[0] << " : " << arg[1]
-        str << ", " if i != args.size - 1
+
+        if index != args.size - 1
+          str << ", "
+        end
       end
+
       str << ')'
     end
   end

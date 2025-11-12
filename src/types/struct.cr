@@ -56,7 +56,10 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
       end
 
       @methods.each_with_index do |method, index|
-        str << "\n" if index != 0
+        if index != 0
+          str << "\n"
+        end
+
         str << method << "\n"
       end
 
@@ -76,8 +79,7 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
 
       Crygen::Utils::Indentation.remove_indent
 
-      str << Crygen::Utils::Indentation.generate
-      str << "end"
+      str << Crygen::Utils::Indentation.generate << "end"
     end
   end
 

@@ -18,7 +18,7 @@ module Crygen::Modules::Method
   # Generate the abstract and normal methods
   protected def generate_methods(str : IO, methods : Array(CGT::Method))
     methods.each_with_index do |method, index|
-      if index != 0 && (method.comments.size != 0 || method.type != :abstract)
+      if index != 0 && (!method.comments.empty? || method.type != :abstract)
         str << "\n"
       end
 
