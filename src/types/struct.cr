@@ -65,10 +65,10 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
         str << step
       end
 
-      if !@includes.empty? || !@extends.empty? || !@instance_vars.empty? || !@class_vars.empty? || !@properties.empty?
-        if !@methods.empty?
-          str << "\n"
-        end
+      is_top_level_empty = [@includes, @extends, @instance_vars, @class_vars, @properties].any?(&.empty?.!)
+
+      if is_top_level_empty && !@methods.empty?
+        str << "\n"
       end
 
       @methods.each_with_index do |method, index|
@@ -76,7 +76,7 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
         str << method << "\n"
       end
 
-      if !@methods.empty? && !@structs.empty?
+      if (is_top_level_empty || !@methods.empty?) && !@structs.empty?
         str << "\n"
       end
 
