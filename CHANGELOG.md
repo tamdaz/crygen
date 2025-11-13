@@ -1,13 +1,23 @@
 # Changelog
 
+## [v1.2.2](https://github.com/tamdaz/crygen/releases/tag/v1.2.2) - 2025-11-13
+
+## Fixed
+
+- Add the blank line between the code above and methods (@tamdaz)(#92)
+- Change the argument type to `UInt8` for adding/removing the indents. (@tamdaz)(#90)
+- Refactor the code (@tamdaz)(#89)
+
 ## [v1.2.1](https://github.com/tamdaz/crygen/releases/tag/v1.2.1) - 2025-11-08
 
 ## Fixed
+
 - Make `comments` property protected (@tamdaz)(#87)
 - Delete `can_add_whitespaces` vars. Use `#each_with_index` instead. (@tamdaz)(#86)
 - Add blank lines for code readability (@tamdaz)(#83)
 
 ## Documentation
+
 - Add `:ditto:`s (@tamdaz)(#85)
 - Write the documentation to `CGG::*` static classes (@tamdaz)(#84)
 
