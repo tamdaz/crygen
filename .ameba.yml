@@ -1,2 +1,5 @@
 Documentation/DocumentationAdmonition:
   Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false

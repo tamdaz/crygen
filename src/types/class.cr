@@ -71,13 +71,27 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
 
       Crygen::Utils::Indentation.add_indent
 
-      [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars].each do |step|
-        step.each_line do |line|
-          str << line << "\n"
+      generators = [generate_mixins, generate_properties, generate_instance_vars, generate_class_vars]
+
+      generators.each_with_index do |step, index|
+        if index > 0
+          previous_step = generators[index - 1]
+
+          if previous_step != "" && step != ""
+            str << "\n"
+          end
         end
+
+        str << step
       end
 
       grouped_methods = @methods.group_by(&.type)
+
+      is_top_level_empty = [@includes, @extends, @instance_vars, @class_vars, @properties].any?(&.empty?.!)
+
+      if is_top_level_empty && !@methods.empty?
+        str << "\n"
+      end
 
       if grouped_methods[:abstract]?
         generate_methods(str, grouped_methods[:abstract])
@@ -92,7 +106,7 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
         generate_methods(str, grouped_methods[:normal])
       end
 
-      if !@methods.empty? && !@classes.empty?
+      if (is_top_level_empty || !@methods.empty?) && !@classes.empty?
         str << "\n"
       end
 
