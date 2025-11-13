@@ -8,13 +8,17 @@ class Crygen::Utils::Indentation
   @@saved_number : Int32 = 0
 
   # Adds the indentation with the defined size.
-  def self.add_indent(size : Number = 2) : Void
+  def self.add_indent(size : UInt8 = 2) : Void
     @@number_of_spaces += size
   end
 
   # Removes the indentation with the defined size.
-  def self.remove_indent(size : Number = 2) : Void
+  def self.remove_indent(size : UInt8 = 2) : Void
     @@number_of_spaces -= size
+
+    if @@number_of_spaces < 0
+      @@number_of_spaces = 0
+    end
   end
 
   # Resets temporarily the indentation to zero but keep the number for restoring.
