@@ -1,9 +1,14 @@
 name: docs
 on:
   pull_request:
-    branches: [ "docs/**", "docs/release/**" ]
+    branches:
+      - 'docs/**'
+    paths:
+      - "docs/**"
   push:
     branches: [ "main" ]
+    paths:
+      - "docs/**"
 
 permissions:
   contents: write
