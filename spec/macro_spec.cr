@@ -9,8 +9,7 @@ describe Crygen::Types::Macro do
 
     macro_type = Crygen::Types::Macro.new("example")
 
-    macro_type.generate.should eq(expected)
-    macro_type.to_s.should eq(expected)
+    assert_is_expected(macro_type, expected)
   end
 
   it "creates a macro with one arg" do
@@ -20,8 +19,8 @@ describe Crygen::Types::Macro do
     CRYSTAL
 
     macro_type = Crygen::Types::Macro.new("example").add_arg("name")
-    macro_type.generate.should eq(expected)
-    macro_type.to_s.should eq(expected)
+
+    assert_is_expected(macro_type, expected)
   end
 
   it "creates a macro with many args" do
@@ -31,10 +30,10 @@ describe Crygen::Types::Macro do
     CRYSTAL
 
     macro_type = Crygen::Types::Macro.new("example")
-    macro_type.add_arg("name")
-    macro_type.add_arg("value")
-    macro_type.generate.should eq(expected)
-    macro_type.to_s.should eq(expected)
+      .add_arg("name")
+      .add_arg("value")
+
+    assert_is_expected(macro_type, expected)
   end
 
   it "creates a macro with body (one line)" do
@@ -47,13 +46,13 @@ describe Crygen::Types::Macro do
     CRYSTAL
 
     macro_type = Crygen::Types::Macro.new("example")
-    macro_type.add_arg("name")
-    macro_type.add_arg("value")
-    macro_type.add_body("puts {{ name }}")
-    macro_type.add_body("puts {{ value }}")
-    macro_type.add_body("puts {{ \"Hello world\" }}")
-    macro_type.generate.should eq(expected)
-    macro_type.to_s.should eq(expected)
+      .add_arg("name")
+      .add_arg("value")
+      .add_body("puts {{ name }}")
+      .add_body("puts {{ value }}")
+      .add_body("puts {{ \"Hello world\" }}")
+
+    assert_is_expected(macro_type, expected)
   end
 
   it "creates a macro with body (multi line)" do
@@ -68,18 +67,17 @@ describe Crygen::Types::Macro do
     CRYSTAL
 
     macro_type = Crygen::Types::Macro.new("example")
-    macro_type.add_arg("name")
-    macro_type.add_arg("value")
-    macro_type.body = <<-CRYSTAL
-    {% for i in 1..10 %}
-      puts {{ name }}
-      puts {{ value }}
-      puts {{ "Hello world" }}
-    {% end %}
-    CRYSTAL
+      .add_arg("name")
+      .add_arg("value")
+      .body = <<-CRYSTAL
+      {% for i in 1..10 %}
+        puts {{ name }}
+        puts {{ value }}
+        puts {{ "Hello world" }}
+      {% end %}
+      CRYSTAL
 
-    macro_type.generate.should eq(expected)
-    macro_type.to_s.should eq(expected)
+    assert_is_expected(macro_type, expected)
   end
 
   it "generates a for loop" do
@@ -93,7 +91,7 @@ describe Crygen::Types::Macro do
       str << indent << "puts {{ item }}\n"
     end
 
-    result.should eq expected
+    assert_is_expected(result, expected)
   end
 
   it "generates an if condition" do
@@ -107,7 +105,7 @@ describe Crygen::Types::Macro do
       str << indent << "puts \"positive\"\n"
     end
 
-    result.should eq expected
+    assert_is_expected(result, expected)
   end
 
   it "generates an unless condition" do
@@ -120,7 +118,8 @@ describe Crygen::Types::Macro do
     result = Crygen::Types::Macro.unless("x > 0") do |str, indent|
       str << indent << "puts \"negative or zero\"\n"
     end
-    result.should eq expected
+
+    assert_is_expected(result, expected)
   end
 
   it "generates a verbatim block" do
@@ -133,7 +132,8 @@ describe Crygen::Types::Macro do
     result = Crygen::Types::Macro.verbatim do |str, indent|
       str << indent << "\"example code\"\n"
     end
-    result.should eq expected
+
+    assert_is_expected(result, expected)
   end
 
   it "generates a recursive verbatim block" do
@@ -154,7 +154,7 @@ describe Crygen::Types::Macro do
       str << "\n"
     end
 
-    result.should eq expected
+    assert_is_expected(result, expected)
   end
 
   it "generates a recursive if condition" do
@@ -174,7 +174,7 @@ describe Crygen::Types::Macro do
       str << "\n"
     end
 
-    result.should eq expected
+    assert_is_expected(result, expected)
   end
 
   it "generates a recursive unless condition" do
@@ -194,7 +194,7 @@ describe Crygen::Types::Macro do
       str << "\n"
     end
 
-    result.should eq expected
+    assert_is_expected(result, expected)
   end
 
   it "generates a verbatim block with nested if and unless conditions" do
@@ -220,6 +220,6 @@ describe Crygen::Types::Macro do
       str << "\n"
     end
 
-    result.should eq expected
+    assert_is_expected(result, expected)
   end
 end

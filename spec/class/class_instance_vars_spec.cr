@@ -9,9 +9,10 @@ describe Crygen::Types::Class do
       end
       CRYSTAL
 
-      class_type = test_person_class().add_instance_var("full_name", "String")
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+      class_type = test_person_class()
+        .add_instance_var("full_name", "String")
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates a class with one instance var with the default value" do
@@ -21,9 +22,10 @@ describe Crygen::Types::Class do
       end
       CRYSTAL
 
-      class_type = test_person_class().add_instance_var("full_name", "String", "John Doe")
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+      class_type = test_person_class()
+        .add_instance_var("full_name", "String", "John Doe")
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates a class with many instance vars" do
@@ -35,10 +37,10 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.add_instance_var("first_name", "String")
-      class_type.add_instance_var("last_name", "String")
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_instance_var("first_name", "String")
+        .add_instance_var("last_name", "String")
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates a class with many instance vars" do
@@ -55,10 +57,10 @@ describe Crygen::Types::Class do
       the_annotation = CGT::Annotation.new("Information")
 
       class_type = test_person_class()
-      class_type.add_instance_var("first_name", "String", annotations: [the_annotation])
-      class_type.add_instance_var("last_name", "String", annotations: [the_annotation])
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_instance_var("first_name", "String", annotations: [the_annotation])
+        .add_instance_var("last_name", "String", annotations: [the_annotation])
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates a class with many instance vars" do
@@ -75,11 +77,11 @@ describe Crygen::Types::Class do
       the_annotation = CGT::Annotation.new("Information")
 
       class_type = test_person_class()
-      class_type.add_instance_var("age", "Int32")
-      class_type.add_instance_var("first_name", "String")
-      class_type.add_instance_var("last_name", "String", annotations: [the_annotation])
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_instance_var("age", "Int32")
+        .add_instance_var("first_name", "String")
+        .add_instance_var("last_name", "String", annotations: [the_annotation])
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates a class with many instance vars with one default value" do
@@ -91,10 +93,10 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.add_instance_var("first_name", "String", "John")
-      class_type.add_instance_var("last_name", "String")
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_instance_var("first_name", "String", "John")
+        .add_instance_var("last_name", "String")
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates a class with many instance vars with default values" do
@@ -106,10 +108,10 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.add_instance_var("first_name", "String", "John")
-      class_type.add_instance_var("last_name", "String", "Doe")
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_instance_var("first_name", "String", "John")
+        .add_instance_var("last_name", "String", "Doe")
+
+      assert_is_expected(class_type, expected)
     end
   end
 end

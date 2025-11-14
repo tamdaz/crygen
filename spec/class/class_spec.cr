@@ -7,8 +7,7 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().generate.should eq(expected)
-    test_person_class().to_s.should eq(expected)
+    assert_is_expected(test_person_class(), expected)
   end
 
   it "creates a child class with an inherited class" do
@@ -17,8 +16,7 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    CGT::Class.new("Person", "LivingBeing").generate.should eq(expected)
-    CGT::Class.new("Person", "LivingBeing").to_s.should eq(expected)
+    assert_is_expected(CGT::Class.new("Person", "LivingBeing"), expected)
   end
 
   it "creates a class with one annotation" do
@@ -28,10 +26,9 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    class_type = test_person_class()
-    class_type.add_annotation(CGT::Annotation.new("Experimental"))
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    class_type = test_person_class().add_annotation(CGT::Annotation.new("Experimental"))
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with helpers" do
@@ -42,8 +39,8 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class().deprecated("This class is deprecated.")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+
+    assert_is_expected(class_type, expected)
 
     expected = <<-CRYSTAL
     @[Experimental("This class is experimental.")]
@@ -52,8 +49,8 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class().experimental("This class is experimental.")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many annotations" do
@@ -64,13 +61,12 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    class_type = test_person_class()
-    class_type.add_annotations(
+    class_type = test_person_class().add_annotations(
       CGT::Annotation.new("Experimental"),
       CGT::Annotation.new("MyAnnotation")
     )
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with one line comment" do
@@ -80,10 +76,9 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    class_type = test_person_class()
-    class_type.add_comment("This is an example class concerning a person.")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    class_type = test_person_class().add_comment("This is an example class concerning a person.")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with multiple lines comment" do
@@ -94,13 +89,12 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    class_type = test_person_class()
-    class_type.add_comment(<<-STR)
+    class_type = test_person_class().add_comment(<<-STR)
     This is a multiline comment.
     The name class is Person.
     STR
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with one method" do
@@ -113,11 +107,12 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     method_type = CGT::Method.new("full_name", "String")
-    method_type.add_body("John Doe".dump)
+      .add_body("John Doe".dump)
+
     class_type = test_person_class()
-    class_type.add_method(method_type)
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_method(method_type)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many methods" do
@@ -133,17 +128,14 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    method_first_name = CGT::Method.new("first_name", "String")
-    method_first_name.add_body("John".dump)
-
-    method_last_name = CGT::Method.new("last_name", "String")
-    method_last_name.add_body("Doe".dump)
+    method_first_name = CGT::Method.new("first_name", "String").add_body("John".dump)
+    method_last_name = CGT::Method.new("last_name", "String").add_body("Doe".dump)
 
     class_type = test_person_class()
-    class_type.add_method(method_first_name)
-    class_type.add_method(method_last_name)
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_method(method_first_name)
+      .add_method(method_last_name)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with properties" do
@@ -156,26 +148,18 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_property(CGE::PropVisibility::Property, "full_name", "String")
-    class_type.add_property(CGE::PropVisibility::Getter, "first_name", "String")
-    class_type.add_property(CGE::PropVisibility::Setter, "last_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(CGE::PropVisibility::Property, "full_name", "String")
+      .add_property(CGE::PropVisibility::Getter, "first_name", "String")
+      .add_property(CGE::PropVisibility::Setter, "last_name", "String")
 
-    expected = <<-CRYSTAL
-    class Person
-      property full_name : String
-      getter first_name : String
-      setter last_name : String
-    end
-    CRYSTAL
+    assert_is_expected(class_type, expected)
 
     class_type = test_person_class()
-    class_type.add_property(:property, "full_name", "String")
-    class_type.add_property(:getter, "first_name", "String")
-    class_type.add_property(:setter, "last_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(:property, "full_name", "String")
+      .add_property(:getter, "first_name", "String")
+      .add_property(:setter, "last_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with static properties" do
@@ -188,26 +172,18 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_property(CGE::PropVisibility::ClassProperty, "full_name", "String")
-    class_type.add_property(CGE::PropVisibility::ClassGetter, "first_name", "String")
-    class_type.add_property(CGE::PropVisibility::ClassSetter, "last_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(CGE::PropVisibility::ClassProperty, "full_name", "String")
+      .add_property(CGE::PropVisibility::ClassGetter, "first_name", "String")
+      .add_property(CGE::PropVisibility::ClassSetter, "last_name", "String")
 
-    expected = <<-CRYSTAL
-    class Person
-      class_property full_name : String
-      class_getter first_name : String
-      class_setter last_name : String
-    end
-    CRYSTAL
+    assert_is_expected(class_type, expected)
 
     class_type = test_person_class()
-    class_type.add_property(:class_property, "full_name", "String")
-    class_type.add_property(:class_getter, "first_name", "String")
-    class_type.add_property(:class_setter, "last_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(:class_property, "full_name", "String")
+      .add_property(:class_getter, "first_name", "String")
+      .add_property(:class_setter, "last_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with nilable properties" do
@@ -219,23 +195,16 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_property(CGE::PropVisibility::NilProperty, "last_name", "String")
-    class_type.add_property(CGE::PropVisibility::NilGetter, "first_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(CGE::PropVisibility::NilProperty, "last_name", "String")
+      .add_property(CGE::PropVisibility::NilGetter, "first_name", "String")
 
-    expected = <<-CRYSTAL
-    class Person
-      property? last_name : String
-      getter? first_name : String
-    end
-    CRYSTAL
+    assert_is_expected(class_type, expected)
 
     class_type = test_person_class()
-    class_type.add_property(:nil_property, "last_name", "String")
-    class_type.add_property(:nil_getter, "first_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(:nil_property, "last_name", "String")
+      .add_property(:nil_getter, "first_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with nilable properties" do
@@ -247,23 +216,16 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_property(CGE::PropVisibility::NilClassProperty, "last_name", "String")
-    class_type.add_property(CGE::PropVisibility::NilClassGetter, "first_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(CGE::PropVisibility::NilClassProperty, "last_name", "String")
+      .add_property(CGE::PropVisibility::NilClassGetter, "first_name", "String")
 
-    expected = <<-CRYSTAL
-    class Person
-      class_property? last_name : String
-      class_getter? first_name : String
-    end
-    CRYSTAL
+    assert_is_expected(class_type, expected)
 
     class_type = test_person_class()
-    class_type.add_property(:nil_class_property, "last_name", "String")
-    class_type.add_property(:nil_class_getter, "first_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(:nil_class_property, "last_name", "String")
+      .add_property(:nil_class_getter, "first_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with nilable scoped properties" do
@@ -278,10 +240,10 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_property(:nil_property, "last_name", "String", comment: "My comment", scope: :private)
-    class_type.add_property(:nil_getter, "first_name", "String", comment: "My other comment", scope: :protected)
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_property(:nil_property, "last_name", "String", comment: "My comment", scope: :private)
+      .add_property(:nil_getter, "first_name", "String", comment: "My other comment", scope: :protected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with mixins" do
@@ -292,9 +254,9 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_include("MyMixin")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_include("MyMixin")
+
+    assert_is_expected(class_type, expected)
 
     expected = <<-CRYSTAL
     class Person
@@ -304,9 +266,9 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_includes(%w[MyMixin AnotherMixin])
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_includes(%w[MyMixin AnotherMixin])
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with extensions" do
@@ -317,9 +279,9 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_extend("MyExtension")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_extend("MyExtension")
+
+    assert_is_expected(class_type, expected)
 
     expected = <<-CRYSTAL
     class Person
@@ -329,9 +291,9 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_extends(%w[MyExtension AnotherExtension])
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_extends(%w[MyExtension AnotherExtension])
+
+    assert_is_expected(class_type, expected)
   end
 
   it "adds annotations to the instance var" do
@@ -348,7 +310,10 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().add_instance_var("name", "String", "value", annotations).to_s.should eq(expected)
+    class_type = test_person_class()
+      .add_instance_var("name", "String", "value", annotations)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "adds one annotation to the instance var" do
@@ -361,7 +326,10 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().add_instance_var("name", "String", "value", the_annotation).to_s.should eq(expected)
+    class_type = test_person_class()
+      .add_instance_var("name", "String", "value", the_annotation)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "adds annotations to the class var" do
@@ -378,7 +346,10 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().add_class_var("name", "String", "value", annotations).to_s.should eq(expected)
+    class_type = test_person_class()
+      .add_class_var("name", "String", "value", annotations)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "adds one annotation to the class var" do
@@ -391,7 +362,10 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().add_class_var("name", "String", "value", the_annotation).to_s.should eq(expected)
+    class_type = test_person_class()
+      .add_class_var("name", "String", "value", the_annotation)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "adds the #initialize method" do
@@ -402,7 +376,7 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().add_initialize.to_s.should eq(expected)
+    assert_is_expected(test_person_class().add_initialize, expected)
   end
 
   it "adds the #initialize method (with block)" do
@@ -415,10 +389,10 @@ describe Crygen::Types::Class do
 
     person_class = test_person_class().add_initialize do |method|
       method.add_arg("@name", "String")
-      method.add_arg("@age", "UInt8")
+        .add_arg("@age", "UInt8")
     end
 
-    person_class.to_s.should eq(expected)
+    assert_is_expected(person_class, expected)
   end
 
   it "adds several #initialize methods" do
@@ -434,11 +408,11 @@ describe Crygen::Types::Class do
     CRYSTAL
 
     person_class = test_person_class()
-    person_class.add_initialize
-    person_class.add_initialize do |method|
-      method.add_arg("@name", "String")
-      method.add_arg("@age", "UInt8")
-    end
-    person_class.to_s.should eq(expected)
+      .add_initialize
+      .add_initialize do |method|
+        method.add_arg("@name", "String").add_arg("@age", "UInt8")
+      end
+
+    assert_is_expected(person_class, expected)
   end
 end
