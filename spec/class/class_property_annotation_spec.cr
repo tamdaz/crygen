@@ -9,12 +9,12 @@ describe Crygen::Modules::Property do
     end
     CRYSTAL
 
-    class_type = test_person_class()
-    class_type.add_property(
+    class_type = test_person_class().add_property(
       :property, "name", "String", annotations: [
       CGT::Annotation.new("JSON::Field").add_arg("key", "full_name".dump),
     ])
-    class_type.generate.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with multiple annotated properties" do
@@ -40,7 +40,7 @@ describe Crygen::Modules::Property do
     class_type.add_property(:getter, "age", "Int32", annotations: [annotation2])
     class_type.add_property(:setter, "old_field", "String", annotations: [annotation3])
 
-    class_type.generate.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with a property having multiple annotations" do
@@ -54,15 +54,14 @@ describe Crygen::Modules::Property do
 
     class_type = test_person_class()
 
-    annotation1 = CGT::Annotation.new("JSON::Field")
-    annotation1.add_arg("key", "full_name".dump)
-
+    annotation1 = CGT::Annotation.new("JSON::Field").add_arg("key", "full_name".dump)
     annotation2 = CGT::Annotation.new("Deprecated")
 
     class_type.add_property(
       :property, "name", "String", annotations: [annotation1, annotation2]
     )
-    class_type.generate.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with annotated property with default value" do
@@ -74,13 +73,13 @@ describe Crygen::Modules::Property do
     CRYSTAL
 
     the_annotation = CGT::Annotation.new("JSON::Field")
-    the_annotation.add_arg("emit_null", "true")
+      .add_arg("emit_null", "true")
 
-    class_type = test_person_class()
-    class_type.add_property(
+    class_type = test_person_class().add_property(
       :property, "name", "String?", value: "nil", annotations: [the_annotation]
     )
-    class_type.generate.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with annotated nilable property" do
@@ -92,11 +91,12 @@ describe Crygen::Modules::Property do
     CRYSTAL
 
     the_annotation = CGT::Annotation.new("JSON::Field")
-    the_annotation.add_arg("key", "is_active".dump)
+      .add_arg("key", "is_active".dump)
 
     class_type = test_person_class()
-    class_type.add_property(:nil_property, "active", "Bool", annotations: [the_annotation])
-    class_type.generate.should eq(expected)
+      .add_property(:nil_property, "active", "Bool", annotations: [the_annotation])
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with annotated scoped properties" do
@@ -111,16 +111,15 @@ describe Crygen::Modules::Property do
     CRYSTAL
 
     annotation1 = CGT::Annotation.new("JSON::Field")
-    annotation1.add_arg("key", "id".dump)
+      .add_arg("key", "id".dump)
 
     annotation2 = CGT::Annotation.new("Deprecated")
 
     class_type = test_person_class()
+      .add_property(:property, "id", "Int32", scope: :private, annotations: [annotation1])
+      .add_property(:getter, "name", "String", scope: :protected, annotations: [annotation2])
 
-    class_type.add_property(:property, "id", "Int32", scope: :private, annotations: [annotation1])
-    class_type.add_property(:getter, "name", "String", scope: :protected, annotations: [annotation2])
-
-    class_type.generate.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with annotated class properties" do
@@ -133,11 +132,11 @@ describe Crygen::Modules::Property do
 
     the_annotation = CGT::Annotation.new("ClassVar")
 
-    class_type = test_person_class()
-    class_type.add_property(
+    class_type = test_person_class().add_property(
       :class_property, "instances", "Int32", value: "0", annotations: [the_annotation]
     )
-    class_type.generate.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with annotated property and comment" do
@@ -150,13 +149,13 @@ describe Crygen::Modules::Property do
     CRYSTAL
 
     the_annotation = CGT::Annotation.new("JSON::Field")
-    the_annotation.add_arg("key", "full_name".dump)
+      .add_arg("key", "full_name".dump)
 
-    class_type = test_person_class()
-    class_type.add_property(
+    class_type = test_person_class().add_property(
       :property, "name", "String", comment: "The person's full name", annotations: [the_annotation]
     )
-    class_type.generate.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with multiple annotations and comment on property" do
@@ -172,19 +171,17 @@ describe Crygen::Modules::Property do
     class_type = test_person_class()
 
     annotation1 = CGT::Annotation.new("JSON::Field")
-    annotation1.add_arg("key", "id".dump)
+      .add_arg("key", "id".dump)
 
     annotation2 = CGT::Annotation.new("Deprecated")
-    annotation2.add_arg("Use uuid instead".dump)
+      .add_arg("Use uuid instead".dump)
 
     class_type.add_property(
-      :property,
-      "id",
-      "Int32",
-      comment: "The person's identifier",
+      :property, "id", "Int32", comment: "The person's identifier",
       annotations: [annotation1, annotation2]
     )
-    class_type.generate.should eq(expected)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with properties having complex annotations" do
@@ -203,24 +200,24 @@ describe Crygen::Modules::Property do
     CRYSTAL
 
     annotation1 = CGT::Annotation.new("JSON::Field")
-    annotation1.add_arg("key", "response_code".dump)
-    annotation1.add_arg("emit_null", "false")
+      .add_arg("key", "response_code".dump)
+      .add_arg("emit_null", "false")
 
     annotation2 = CGT::Annotation.new("JSON::Field")
-    annotation2.add_arg("converter", "Time::EpochConverter")
+      .add_arg("converter", "Time::EpochConverter")
 
     annotation3 = CGT::Annotation.new("JSON::Field")
-    annotation3.add_arg("ignore", "true")
+      .add_arg("ignore", "true")
 
     annotation4 = CGT::Annotation.new("Deprecated")
-    annotation4.add_arg("Use metadata instead".dump)
+      .add_arg("Use metadata instead".dump)
 
     class_type = CGT::Class.new("APIResponse")
-    class_type.add_property(:property, "code", "Int32", annotations: [annotation1])
-    class_type.add_property(:property, "timestamp", "Time", annotations: [annotation2])
-    class_type.add_property(:nil_getter, "legacy_data", "String?", annotations: [annotation3, annotation4])
+      .add_property(:property, "code", "Int32", annotations: [annotation1])
+      .add_property(:property, "timestamp", "Time", annotations: [annotation2])
+      .add_property(:nil_getter, "legacy_data", "String?", annotations: [annotation3, annotation4])
 
-    class_type.generate.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 
   it "works with all property visibility types and annotations" do
@@ -277,6 +274,6 @@ describe Crygen::Modules::Property do
       class_type.add_property(visibility, name, "Int32", annotations: [CGT::Annotation.new("Test")])
     end
 
-    class_type.generate.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 end

@@ -21,8 +21,7 @@ describe Crygen::Types::Class do
 
     class_type.add_method(method_type)
 
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 
   it "adds a space between the properties and the method" do
@@ -47,8 +46,7 @@ describe Crygen::Types::Class do
 
     class_type.add_method(method_type)
 
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 
   it "adds a space between instance vars and the method" do
@@ -73,8 +71,7 @@ describe Crygen::Types::Class do
 
     class_type.add_method(method_type)
 
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 
   it "adds a space between class vars and the method" do
@@ -99,8 +96,7 @@ describe Crygen::Types::Class do
 
     class_type.add_method(method_type)
 
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 
   it "adds the spaces (includes, props and nested classes)" do
@@ -145,7 +141,6 @@ describe Crygen::Types::Class do
     class_type.add_property(:getter, "list", "Array(List)")
     class_type.add_class(nested_class, list_class)
 
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    assert_is_expected(class_type, expected)
   end
 end

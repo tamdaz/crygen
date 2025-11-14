@@ -9,7 +9,9 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().add_class(test_person_class()).to_s.should eq(expected)
+    person_class = test_person_class().add_class(test_person_class())
+
+    assert_is_expected(person_class, expected)
   end
 
   it "create 3 classes in the class" do
@@ -26,11 +28,12 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class()
+    person_class = test_person_class()
       .add_class(test_person_class())
       .add_class(test_person_class())
       .add_class(test_person_class())
-      .to_s.should eq(expected)
+
+    assert_is_expected(person_class, expected)
   end
 
   it "create 3 classes in 2 classes in the class" do
@@ -60,7 +63,7 @@ describe Crygen::Types::Class do
     end
     CRYSTAL
 
-    test_person_class().add_class(
+    person_class = test_person_class().add_class(
       test_person_class()
         .add_class(test_person_class())
         .add_class(test_person_class())
@@ -70,7 +73,9 @@ describe Crygen::Types::Class do
         .add_class(test_person_class())
         .add_class(test_person_class())
         .add_class(test_person_class())
-    ).to_s.should eq(expected)
+    )
+
+    assert_is_expected(person_class, expected)
   end
 
   it "create a recursive class with a method & comments." do
@@ -104,5 +109,7 @@ describe Crygen::Types::Class do
     node_class.add_class(nested_node)
 
     node_class.to_s.should eq(expected)
+
+    assert_is_expected(node_class, expected)
   end
 end

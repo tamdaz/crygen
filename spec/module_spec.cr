@@ -8,8 +8,8 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder")
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with long name" do
@@ -19,8 +19,8 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with one method" do
@@ -32,9 +32,9 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(Crygen::Types::Method.new("file_name", "String"))
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(Crygen::Types::Method.new("file_name", "String"))
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with many methods" do
@@ -49,10 +49,10 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(Crygen::Types::Method.new("name", "String"))
-    module_type.add_object(Crygen::Types::Method.new("size", "String"))
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(Crygen::Types::Method.new("name", "String"))
+      .add_object(Crygen::Types::Method.new("size", "String"))
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with one class" do
@@ -64,9 +64,9 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(Crygen::Types::Class.new("File"))
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(Crygen::Types::Class.new("File"))
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with many class" do
@@ -81,12 +81,12 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_objects(
-      Crygen::Types::Class.new("File"),
-      Crygen::Types::Class.new("Symlink")
-    )
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_objects(
+        Crygen::Types::Class.new("File"),
+        Crygen::Types::Class.new("Symlink")
+      )
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with one enum" do
@@ -101,14 +101,14 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     enum_type = Crygen::Types::Enum.new("Role", "Int8")
-    enum_type.add_constant("Member", "1")
-    enum_type.add_constant("Moderator", "2")
-    enum_type.add_constant("Administrator", "3")
+      .add_constant("Member", "1")
+      .add_constant("Moderator", "2")
+      .add_constant("Administrator", "3")
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(enum_type)
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(enum_type)
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with many enums" do
@@ -129,20 +129,20 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     first_enum_type = Crygen::Types::Enum.new("Role", "Int8")
-    first_enum_type.add_constant("Member", "1")
-    first_enum_type.add_constant("Moderator", "2")
-    first_enum_type.add_constant("Administrator", "3")
+      .add_constant("Member", "1")
+      .add_constant("Moderator", "2")
+      .add_constant("Administrator", "3")
 
     second_enum_type = Crygen::Types::Enum.new("Permission", "Int8")
-    second_enum_type.add_constant("Read", "4")
-    second_enum_type.add_constant("Write", "2")
-    second_enum_type.add_constant("Execute", "1")
+      .add_constant("Read", "4")
+      .add_constant("Write", "2")
+      .add_constant("Execute", "1")
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(first_enum_type)
-    module_type.add_object(second_enum_type)
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(first_enum_type)
+      .add_object(second_enum_type)
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with one struct" do
@@ -154,9 +154,9 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(Crygen::Types::Struct.new("File"))
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(Crygen::Types::Struct.new("File"))
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with many structs" do
@@ -171,10 +171,10 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder::Sub::Folder")
-    module_type.add_object(Crygen::Types::Struct.new("File"))
-    module_type.add_object(Crygen::Types::Struct.new("Symlink"))
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(Crygen::Types::Struct.new("File"))
+      .add_object(Crygen::Types::Struct.new("Symlink"))
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with one module (recursive)" do
@@ -186,9 +186,9 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder")
-    module_type.add_object(Crygen::Types::Module.new("File"))
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(Crygen::Types::Module.new("File"))
+
+    assert_is_expected(module_type, expected)
   end
 
   it "creates a module with many modules (recursive)" do
@@ -203,9 +203,9 @@ describe Crygen::Types::Module do
     CRYSTAL
 
     module_type = Crygen::Types::Module.new("Folder")
-    module_type.add_object(Crygen::Types::Module.new("File"))
-    module_type.add_object(Crygen::Types::Module.new("Symlink"))
-    module_type.generate.should eq(expected)
-    module_type.to_s.should eq(expected)
+      .add_object(Crygen::Types::Module.new("File"))
+      .add_object(Crygen::Types::Module.new("Symlink"))
+
+    assert_is_expected(module_type, expected)
   end
 end

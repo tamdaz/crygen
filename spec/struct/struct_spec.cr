@@ -1,14 +1,13 @@
 require "./../spec_helper"
 
 describe Crygen::Types::Struct do
-  it "creates a class" do
+  it "creates a struct" do
     expected = <<-CRYSTAL
     struct Point
     end
     CRYSTAL
 
-    test_point_struct().generate.should eq(expected)
-    test_point_struct().to_s.should eq(expected)
+    assert_is_expected(test_point_struct(), expected)
   end
 
   it "creates a child struct with an inherited abstract struct" do
@@ -17,23 +16,23 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
 
-    CGT::Struct.new("Point", "Geometry").generate.should eq(expected)
-    CGT::Struct.new("Point", "Geometry").to_s.should eq(expected)
+    assert_is_expected(CGT::Struct.new("Point", "Geometry"), expected)
   end
 
-  it "creates a class with one annotation" do
+  it "creates a struct with one annotation" do
     expected = <<-CRYSTAL
     @[Experimental]
     struct Point
     end
     CRYSTAL
 
-    struct_type = test_point_struct().add_annotation(CGT::Annotation.new("Experimental"))
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+    struct_type = test_point_struct()
+      .add_annotation(CGT::Annotation.new("Experimental"))
+
+    assert_is_expected(struct_type, expected)
   end
 
-  it "creates a class with many annotations" do
+  it "creates a struct with many annotations" do
     expected = <<-CRYSTAL
     @[Experimental]
     @[MyAnnotation]
@@ -41,46 +40,45 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
 
-    struct_type = test_point_struct()
-    struct_type.add_annotations(
+    struct_type = test_point_struct().add_annotations(
       CGT::Annotation.new("Experimental"),
       CGT::Annotation.new("MyAnnotation")
     )
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+
+    assert_is_expected(struct_type, expected)
   end
 
-  it "creates a class with one line comment" do
+  it "creates a struct with one line comment" do
     expected = <<-CRYSTAL
-    # This is an example class concerning a person.
-    struct Point
-    end
-    CRYSTAL
-
-    struct_type = test_point_struct().add_comment("This is an example class concerning a person.")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
-  end
-
-  it "creates a class with multiple lines comment" do
-    expected = <<-CRYSTAL
-    # This is a multiline comment.
-    # The name class is Person.
+    # This is an example struct concerning a point.
     struct Point
     end
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_comment(<<-STR)
-    This is a multiline comment.
-    The name class is Person.
-    STR
+      .add_comment("This is an example struct concerning a point.")
 
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+    assert_is_expected(struct_type, expected)
   end
 
-  it "creates a class with one method" do
+  it "creates a struct with multiple lines comment" do
+    expected = <<-CRYSTAL
+    # This is a multiline comment.
+    # The name struct is Point.
+    struct Point
+    end
+    CRYSTAL
+
+    struct_type = test_point_struct()
+      .add_comment(<<-STR)
+      This is a multiline comment.
+      The name struct is Point.
+      STR
+
+    assert_is_expected(struct_type, expected)
+  end
+
+  it "creates a struct with one method" do
     expected = <<-CRYSTAL
     struct Point
       def full_name : String
@@ -90,14 +88,15 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     method_type = CGT::Method.new("full_name", "String")
-    method_type.add_body("John Doe".dump)
+      .add_body("John Doe".dump)
+
     struct_type = test_point_struct()
-    struct_type.add_method(method_type)
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_method(method_type)
+
+    assert_is_expected(struct_type, expected)
   end
 
-  it "creates a class with many methods" do
+  it "creates a struct with many methods" do
     expected = <<-CRYSTAL
     struct Point
       def first_name : String
@@ -111,12 +110,12 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_methods(
-      CGT::Method.new("first_name", "String").add_body("John".dump),
-      CGT::Method.new("last_name", "String").add_body("Doe".dump)
-    )
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_methods(
+        CGT::Method.new("first_name", "String").add_body("John".dump),
+        CGT::Method.new("last_name", "String").add_body("Doe".dump)
+      )
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with properties" do
@@ -129,18 +128,18 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_property(CGE::PropVisibility::Property, "x", "Int32")
-    struct_type.add_property(CGE::PropVisibility::Getter, "y", "Int32")
-    struct_type.add_property(CGE::PropVisibility::Setter, "z", "Int32")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_property(CGE::PropVisibility::Property, "x", "Int32")
+      .add_property(CGE::PropVisibility::Getter, "y", "Int32")
+      .add_property(CGE::PropVisibility::Setter, "z", "Int32")
+
+    assert_is_expected(struct_type, expected)
 
     struct_type = test_point_struct()
-    struct_type.add_property(:property, "x", "Int32")
-    struct_type.add_property(:getter, "y", "Int32")
-    struct_type.add_property(:setter, "z", "Int32")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_property(:property, "x", "Int32")
+      .add_property(:getter, "y", "Int32")
+      .add_property(:setter, "z", "Int32")
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with nilable properties" do
@@ -152,10 +151,10 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_property(CGE::PropVisibility::NilProperty, "x", "Int32")
-    struct_type.add_property(CGE::PropVisibility::NilGetter, "y", "Int32")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_property(CGE::PropVisibility::NilProperty, "x", "Int32")
+      .add_property(CGE::PropVisibility::NilGetter, "y", "Int32")
+
+    assert_is_expected(struct_type, expected)
 
     expected = <<-CRYSTAL
     struct Point
@@ -165,10 +164,10 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_property(:nil_property, "x", "Int32")
-    struct_type.add_property(:nil_getter, "y", "Int32")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_property(:nil_property, "x", "Int32")
+      .add_property(:nil_getter, "y", "Int32")
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with scoped properties" do
@@ -181,11 +180,11 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_property(:property, "x", "Int32")
-    struct_type.add_property(:getter, "y", "Int32", scope: :protected)
-    struct_type.add_property(:setter, "z", "Int32", scope: :private)
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_property(:property, "x", "Int32")
+      .add_property(:getter, "y", "Int32", scope: :protected)
+      .add_property(:setter, "z", "Int32", scope: :private)
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with nilable scoped properties" do
@@ -197,10 +196,10 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_property(:nil_property, "x", "Int32", scope: :private)
-    struct_type.add_property(:nil_getter, "y", "Int32", scope: :protected)
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_property(:nil_property, "x", "Int32", scope: :private)
+      .add_property(:nil_getter, "y", "Int32", scope: :protected)
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with mixins" do
@@ -211,9 +210,9 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_include("MyMixin")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_include("MyMixin")
+
+    assert_is_expected(struct_type, expected)
 
     expected = <<-CRYSTAL
     struct Point
@@ -223,9 +222,9 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_includes(%w[MyMixin AnotherMixin])
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_includes(%w[MyMixin AnotherMixin])
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with extensions" do
@@ -236,9 +235,9 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_extend("MyExtension")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_extend("MyExtension")
+
+    assert_is_expected(struct_type, expected)
 
     expected = <<-CRYSTAL
     struct Point
@@ -248,9 +247,9 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_extends(%w[MyExtension AnotherExtension])
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_extends(%w[MyExtension AnotherExtension])
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "adds annotations to the instance var (struct)" do
@@ -267,7 +266,10 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
 
-    test_point_struct().add_instance_var("x", "Int32", "32", annotations).to_s.should eq(expected)
+    struct_type = test_point_struct()
+      .add_instance_var("x", "Int32", "32", annotations)
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "adds one annotation to the instance var (struct)" do
@@ -280,7 +282,10 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
 
-    test_point_struct().add_instance_var("x", "Int32", "32", the_annotation).to_s.should eq(expected)
+    struct_type = test_point_struct()
+      .add_instance_var("x", "Int32", "32", the_annotation)
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "adds the #initialize method" do
@@ -291,7 +296,9 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
 
-    test_point_struct().add_initialize.to_s.should eq(expected)
+    struct_type = test_point_struct().add_initialize
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "adds the #initialize method (with block)" do
@@ -302,12 +309,12 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
 
-    person_class = test_point_struct().add_initialize do |method|
+    point_struct = test_point_struct().add_initialize do |method|
       method.add_arg("@x", "Int32")
-      method.add_arg("@y", "Int32")
+        .add_arg("@y", "Int32")
     end
 
-    person_class.to_s.should eq(expected)
+    assert_is_expected(point_struct, expected)
   end
 
   it "adds several #initialize methods" do
@@ -322,16 +329,17 @@ describe Crygen::Types::Struct do
     end
     CRYSTAL
 
-    person_class = test_point_struct()
-    person_class.add_initialize
-    person_class.add_initialize do |method|
-      method.add_arg("@x", "Int32")
-      method.add_arg("@y", "Int32")
-    end
-    person_class.to_s.should eq(expected)
+    point_struct = test_point_struct()
+      .add_initialize
+      .add_initialize do |method|
+        method.add_arg("@x", "Int32")
+          .add_arg("@y", "Int32")
+      end
+
+    assert_is_expected(point_struct, expected)
   end
 
-  it "adds the spaces (includes, props and nested classes)" do
+  it "adds the spaces (includes, props and nested structes)" do
     expected = <<-CRYSTAL
     struct Foo
       include JSON::Serializable
@@ -357,23 +365,22 @@ describe Crygen::Types::Struct do
     CRYSTAL
 
     nested_struct = CGT::Struct.new("Nested")
-    nested_struct.add_include("JSON::Serializable")
-    nested_struct.add_property(:getter, "bool", "Bool")
+      .add_include("JSON::Serializable")
+      .add_property(:getter, "bool", "Bool")
 
     list_struct = CGT::Struct.new("List")
-    list_struct.add_include("JSON::Serializable")
-    list_struct.add_property(:getter, "int", "Int64")
+      .add_include("JSON::Serializable")
+      .add_property(:getter, "int", "Int64")
 
-    class_type = CGT::Struct.new("Foo")
-    class_type.add_include("JSON::Serializable")
-    class_type.add_property(:getter, "int", "Int64")
-    class_type.add_property(:getter, "string", "String")
-    class_type.add_property(:getter, "time", "Time")
-    class_type.add_property(:getter, "nested", "Nested")
-    class_type.add_property(:getter, "list", "Array(List)")
-    class_type.add_struct(nested_struct, list_struct)
+    struct_type = CGT::Struct.new("Foo")
+      .add_include("JSON::Serializable")
+      .add_property(:getter, "int", "Int64")
+      .add_property(:getter, "string", "String")
+      .add_property(:getter, "time", "Time")
+      .add_property(:getter, "nested", "Nested")
+      .add_property(:getter, "list", "Array(List)")
+      .add_struct(nested_struct, list_struct)
 
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    assert_is_expected(struct_type, expected)
   end
 end

@@ -8,9 +8,10 @@ describe "(class vars only)" do
     end
     CRYSTAL
 
-    class_type = test_person_class().add_class_var("full_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    class_type = test_person_class()
+      .add_class_var("full_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with one class var with the default value" do
@@ -20,9 +21,10 @@ describe "(class vars only)" do
     end
     CRYSTAL
 
-    class_type = test_person_class().add_class_var("full_name", "String", "John Doe")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+    class_type = test_person_class()
+      .add_class_var("full_name", "String", "John Doe")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many class vars" do
@@ -34,10 +36,10 @@ describe "(class vars only)" do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_class_var("first_name", "String")
-    class_type.add_class_var("last_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_class_var("first_name", "String")
+      .add_class_var("last_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many class vars (annotations only)" do
@@ -54,10 +56,10 @@ describe "(class vars only)" do
     the_annotation = CGT::Annotation.new("Information")
 
     class_type = test_person_class()
-    class_type.add_class_var("first_name", "String", the_annotation: the_annotation)
-    class_type.add_class_var("last_name", "String", the_annotation: the_annotation)
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_class_var("first_name", "String", the_annotation: the_annotation)
+      .add_class_var("last_name", "String", the_annotation: the_annotation)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many class vars (one annotation)" do
@@ -74,11 +76,11 @@ describe "(class vars only)" do
     the_annotation = CGT::Annotation.new("Information")
 
     class_type = test_person_class()
-    class_type.add_class_var("age", "Int32")
-    class_type.add_class_var("first_name", "String")
-    class_type.add_class_var("last_name", "String", the_annotation: the_annotation)
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_class_var("age", "Int32")
+      .add_class_var("first_name", "String")
+      .add_class_var("last_name", "String", the_annotation: the_annotation)
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many class vars with one default value" do
@@ -90,10 +92,10 @@ describe "(class vars only)" do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_class_var("first_name", "String", "John")
-    class_type.add_class_var("last_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_class_var("first_name", "String", "John")
+      .add_class_var("last_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many class vars with default values" do
@@ -105,10 +107,10 @@ describe "(class vars only)" do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_class_var("first_name", "String", "John")
-    class_type.add_class_var("last_name", "String", "Doe")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_class_var("first_name", "String", "John")
+      .add_class_var("last_name", "String", "Doe")
+
+    assert_is_expected(class_type, expected)
   end
 
   it "creates a class with many class and instance vars" do
@@ -123,11 +125,11 @@ describe "(class vars only)" do
     CRYSTAL
 
     class_type = test_person_class()
-    class_type.add_instance_var("first_name", "String")
-    class_type.add_instance_var("last_name", "String")
-    class_type.add_class_var("another_first_name", "String")
-    class_type.add_class_var("another_last_name", "String")
-    class_type.generate.should eq(expected)
-    class_type.to_s.should eq(expected)
+      .add_instance_var("first_name", "String")
+      .add_instance_var("last_name", "String")
+      .add_class_var("another_first_name", "String")
+      .add_class_var("another_last_name", "String")
+
+    assert_is_expected(class_type, expected)
   end
 end

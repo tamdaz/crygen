@@ -9,8 +9,8 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class().as_abstract
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with one abstract method" do
@@ -21,10 +21,10 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.as_abstract
-      class_type.add_method(CGT::Method.new("full_name", "String").as_abstract)
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_method(CGT::Method.new("full_name", "String").as_abstract)
+        .as_abstract
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with one abstract method with comment" do
@@ -36,14 +36,14 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       method_full_name = CGT::Method.new("full_name", "String")
-      method_full_name.add_comment("Returns the full name")
-      method_full_name.as_abstract
+        .add_comment("Returns the full name")
+        .as_abstract
 
       class_type = test_person_class()
-      class_type.as_abstract
-      class_type.add_method(method_full_name)
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_method(method_full_name)
+        .as_abstract
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with many abstract methods" do
@@ -55,15 +55,14 @@ describe Crygen::Types::Class do
       end
       CRYSTAL
 
-      class_type = test_person_class()
-      class_type.as_abstract
+      class_type = test_person_class().as_abstract
       class_type.add_methods(
         CGT::Method.new("first_name", "String").as_abstract,
         CGT::Method.new("last_name", "String").as_abstract,
         CGT::Method.new("full_name", "String").as_abstract
       )
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with a few abstract and normal methods" do
@@ -81,8 +80,7 @@ describe Crygen::Types::Class do
       end
       CRYSTAL
 
-      class_type = test_person_class()
-      class_type.as_abstract
+      class_type = test_person_class().as_abstract
       class_type.add_methods(
         CGT::Method.new("first_name", "String").as_abstract,
         CGT::Method.new("last_name", "String").as_abstract,
@@ -90,8 +88,8 @@ describe Crygen::Types::Class do
         CGT::Method.new("majority", "Int32"),
         CGT::Method.new("date_birth", "Time")
       )
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with a few abstract and normal methods (with comments)" do
@@ -117,16 +115,16 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.as_abstract
-      class_type.add_methods(
-        CGT::Method.new("first_name", "String").add_comment("Returns the first name").as_abstract,
-        CGT::Method.new("last_name", "String").add_comment("Returns the last name").as_abstract,
-        CGT::Method.new("full_name", "String").add_comment("Returns the full name").as_abstract,
-        CGT::Method.new("majority", "Int32").add_comment("Returns the age majority"),
-        CGT::Method.new("date_birth", "Time").add_comment("Returns the date birth")
-      )
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_methods(
+          CGT::Method.new("first_name", "String").add_comment("Returns the first name").as_abstract,
+          CGT::Method.new("last_name", "String").add_comment("Returns the last name").as_abstract,
+          CGT::Method.new("full_name", "String").add_comment("Returns the full name").as_abstract,
+          CGT::Method.new("majority", "Int32").add_comment("Returns the age majority"),
+          CGT::Method.new("date_birth", "Time").add_comment("Returns the date birth")
+        )
+        .as_abstract
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with many abstract methods (comment for each abstract method)" do
@@ -144,14 +142,14 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.as_abstract
-      class_type.add_methods(
-        CGT::Method.new("first_name", "String").add_comment("Returns the first name").as_abstract,
-        CGT::Method.new("last_name", "String").add_comment("Returns the last name").as_abstract,
-        CGT::Method.new("full_name", "String").add_comment("Returns the full name").as_abstract
-      )
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_methods(
+          CGT::Method.new("first_name", "String").add_comment("Returns the first name").as_abstract,
+          CGT::Method.new("last_name", "String").add_comment("Returns the last name").as_abstract,
+          CGT::Method.new("full_name", "String").add_comment("Returns the full name").as_abstract
+        )
+        .as_abstract
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with abstract and non-abstract methods" do
@@ -166,13 +164,12 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.as_abstract
-      class_type.add_methods(
-        CGT::Method.new("abstract_method", "String").as_abstract,
-        CGT::Method.new("non_abstract_method", "String").add_body("Hello world".dump)
-      )
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_methods(
+          CGT::Method.new("abstract_method", "String").as_abstract,
+          CGT::Method.new("non_abstract_method", "String").add_body("Hello world".dump)
+        ).as_abstract
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with one line comment" do
@@ -183,18 +180,13 @@ describe Crygen::Types::Class do
       CRYSTAL
 
       class_type = test_person_class()
-      class_type.as_abstract
-      class_type.add_comment("This is an example class concerning a person.")
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+        .add_comment("This is an example class concerning a person.")
+        .as_abstract
+
+      assert_is_expected(class_type, expected)
     end
 
     it "creates an abstract class with multiple lines comment" do
-      class_type = test_person_class().as_abstract.add_comment(<<-STR)
-      This is a multiline comment.
-      The name class is Person.
-      STR
-
       expected = <<-CRYSTAL
       # This is a multiline comment.
       # The name class is Person.
@@ -202,8 +194,12 @@ describe Crygen::Types::Class do
       end
       CRYSTAL
 
-      class_type.generate.should eq(expected)
-      class_type.to_s.should eq(expected)
+      class_type = test_person_class().as_abstract.add_comment(<<-STR)
+      This is a multiline comment.
+      The name class is Person.
+      STR
+
+      assert_is_expected(class_type, expected)
     end
   end
 end

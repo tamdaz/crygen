@@ -1,16 +1,17 @@
 require "./../spec_helper"
 
-describe "(class vars only)" do
+describe Crygen::Types::Struct do
   it "creates a struct with one class var" do
     expected = <<-CRYSTAL
-    struct Point
-      @@full_name : String
-    end
-    CRYSTAL
+      struct Point
+        @@full_name : String
+      end
+      CRYSTAL
 
-    struct_type = test_point_struct().add_class_var("full_name", "String")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+    struct_type = test_point_struct()
+      .add_class_var("full_name", "String")
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with one class var with the default value" do
@@ -20,9 +21,10 @@ describe "(class vars only)" do
     end
     CRYSTAL
 
-    struct_type = test_point_struct().add_class_var("full_name", "String", "John Doe")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+    struct_type = test_point_struct()
+      .add_class_var("full_name", "String", "John Doe")
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with many class vars" do
@@ -34,10 +36,10 @@ describe "(class vars only)" do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_class_var("first_name", "String")
-    struct_type.add_class_var("last_name", "String")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_class_var("first_name", "String")
+      .add_class_var("last_name", "String")
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with many class vars (annotations only)" do
@@ -54,11 +56,11 @@ describe "(class vars only)" do
     the_annotation = CGT::Annotation.new("Information")
 
     struct_type = test_point_struct()
-    struct_type.add_class_var("age", "Int32")
-    struct_type.add_class_var("first_name", "String")
-    struct_type.add_class_var("last_name", "String", the_annotation: the_annotation)
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_class_var("age", "Int32")
+      .add_class_var("first_name", "String")
+      .add_class_var("last_name", "String", the_annotation: the_annotation)
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with many class vars with one default value" do
@@ -70,10 +72,10 @@ describe "(class vars only)" do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_class_var("first_name", "String", "John")
-    struct_type.add_class_var("last_name", "String")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_class_var("first_name", "String", "John")
+      .add_class_var("last_name", "String")
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with many class vars with default values" do
@@ -85,10 +87,10 @@ describe "(class vars only)" do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_class_var("first_name", "String", "John")
-    struct_type.add_class_var("last_name", "String", "Doe")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_class_var("first_name", "String", "John")
+      .add_class_var("last_name", "String", "Doe")
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with many class and instance vars" do
@@ -103,11 +105,11 @@ describe "(class vars only)" do
     CRYSTAL
 
     struct_type = test_point_struct()
-    struct_type.add_instance_var("first_name", "String")
-    struct_type.add_instance_var("last_name", "String")
-    struct_type.add_class_var("another_first_name", "String")
-    struct_type.add_class_var("another_last_name", "String")
-    struct_type.generate.should eq(expected)
-    struct_type.to_s.should eq(expected)
+      .add_instance_var("first_name", "String")
+      .add_instance_var("last_name", "String")
+      .add_class_var("another_first_name", "String")
+      .add_class_var("another_last_name", "String")
+
+    assert_is_expected(struct_type, expected)
   end
 end

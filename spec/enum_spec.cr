@@ -3,9 +3,9 @@ require "./spec_helper"
 describe Crygen::Types::Enum do
   it "creates an enum" do
     enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
 
     expected = <<-CRYSTAL
     enum Person
@@ -15,16 +15,15 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with the comment" do
     enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
-    enum_type.add_comment("Hello world")
+      .add_comment("Hello world")
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
 
     expected = <<-CRYSTAL
     # Hello world
@@ -35,17 +34,12 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum (with #add_constants method)" do
     enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constants(
-      {"Employee", nil},
-      {"Student", nil},
-      {"Intern", nil},
-    )
+      .add_constants({"Employee", nil}, {"Student", nil}, {"Intern", nil})
 
     expected = <<-CRYSTAL
     enum Person
@@ -55,17 +49,12 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with the value of constants (with #add_constants method)" do
     enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constants(
-      {"Employee", "1"},
-      {"Student", "2"},
-      {"Intern", "3"},
-    )
+      .add_constants({"Employee", "1"}, {"Student", "2"}, {"Intern", "3"})
 
     expected = <<-CRYSTAL
     enum Person
@@ -75,19 +64,18 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with one method" do
     method_is_student = Crygen::Types::Method.new("student?", "Bool")
-    method_is_student.add_body("self == Person::Student")
+      .add_body("self == Person::Student")
 
     enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
-    enum_type.add_method(method_is_student)
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
+      .add_method(method_is_student)
 
     expected = <<-CRYSTAL
     enum Person
@@ -101,25 +89,24 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with many methods" do
     method_is_student = Crygen::Types::Method.new("student?", "Bool")
-    method_is_student.add_body("self == Person::Student")
+      .add_body("self == Person::Student")
 
     method_is_employee = Crygen::Types::Method.new("employee?", "Bool")
-    method_is_employee.add_body("self == Person::Employee")
+      .add_body("self == Person::Employee")
 
     method_is_intern = Crygen::Types::Method.new("intern?", "Bool")
-    method_is_intern.add_body("self == Person::Intern")
+      .add_body("self == Person::Intern")
 
     enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
-    enum_type.add_methods(method_is_student, method_is_employee, method_is_intern)
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
+      .add_methods(method_is_student, method_is_employee, method_is_intern)
 
     expected = <<-CRYSTAL
     enum Person
@@ -141,15 +128,14 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with a type" do
     enum_type = Crygen::Types::Enum.new("Person", "Int8")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
 
     expected = <<-CRYSTAL
     enum Person : Int8
@@ -159,15 +145,14 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with a type and default values" do
     enum_type = Crygen::Types::Enum.new("Person", "Int8")
-    enum_type.add_constant("Employee", "1")
-    enum_type.add_constant("Student", "2")
-    enum_type.add_constant("Intern", "3")
+      .add_constant("Employee", "1")
+      .add_constant("Student", "2")
+      .add_constant("Intern", "3")
 
     expected = <<-CRYSTAL
     enum Person : Int8
@@ -177,16 +162,14 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with `#as_flags` annotation helper" do
-    enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
-    enum_type.flags
+    enum_type = Crygen::Types::Enum.new("Person").flags
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
 
     expected = <<-CRYSTAL
     @[Flags]
@@ -197,17 +180,15 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with `#as_flags` annotation helper and the comment" do
-    enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
-    enum_type.add_comment("This is my Person enum.")
-    enum_type.flags
+    enum_type = Crygen::Types::Enum.new("Person").flags
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
+      .add_comment("This is my Person enum.")
 
     expected = <<-CRYSTAL
     # This is my Person enum.
@@ -219,30 +200,28 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 
   it "creates an enum with a comment for each method" do
     method_is_student = Crygen::Types::Method.new("student?", "Bool")
-    method_is_student.add_body("self == Person::Student")
-    method_is_student.add_comment("Comment")
+      .add_body("self == Person::Student")
+      .add_comment("Comment")
 
     method_is_employee = Crygen::Types::Method.new("employee?", "Bool")
-    method_is_employee.add_body("self == Person::Employee")
-    method_is_employee.add_comment("Comment")
+      .add_body("self == Person::Employee")
+      .add_comment("Comment")
 
     method_is_intern = Crygen::Types::Method.new("intern?", "Bool")
-    method_is_intern.add_body("self == Person::Intern")
-    method_is_intern.add_comment("Comment")
+      .add_body("self == Person::Intern")
+      .add_comment("Comment")
 
     enum_type = Crygen::Types::Enum.new("Person")
-    enum_type.add_constant("Employee")
-    enum_type.add_constant("Student")
-    enum_type.add_constant("Intern")
-
-    enum_type.add_methods(method_is_student, method_is_employee, method_is_intern)
-    enum_type.add_comment("Comment")
+      .add_constant("Employee")
+      .add_constant("Student")
+      .add_constant("Intern")
+      .add_methods(method_is_student, method_is_employee, method_is_intern)
+      .add_comment("Comment")
 
     expected = <<-CRYSTAL
     # Comment
@@ -268,7 +247,6 @@ describe Crygen::Types::Enum do
     end
     CRYSTAL
 
-    enum_type.generate.should eq(expected)
-    enum_type.to_s.should eq(expected)
+    assert_is_expected(enum_type, expected)
   end
 end

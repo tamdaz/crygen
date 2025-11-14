@@ -9,11 +9,13 @@ describe Crygen::Modules::Property do
     end
     CRYSTAL
 
-    struct_type = test_point_struct()
     the_annotation = CGT::Annotation.new("JSON::Field")
-    the_annotation.add_arg("key", "x_coord".dump)
-    struct_type.add_property(:property, "x", "Int32", annotations: [the_annotation])
-    struct_type.generate.should eq(expected)
+      .add_arg("key", "x_coord".dump)
+
+    struct_type = test_point_struct()
+      .add_property(:property, "x", "Int32", annotations: [the_annotation])
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with multiple annotated properties" do
@@ -28,16 +30,16 @@ describe Crygen::Modules::Property do
     CRYSTAL
 
     annotation1 = CGT::Annotation.new("JSON::Field")
-    annotation1.add_arg("key", "x_coord".dump)
+      .add_arg("key", "x_coord".dump)
 
     annotation2 = CGT::Annotation.new("JSON::Field")
-    annotation2.add_arg("key", "y_coord".dump)
+      .add_arg("key", "y_coord".dump)
 
     struct_type = test_point_struct()
-    struct_type.add_property(:property, "x", "Int32", annotations: [annotation1])
-    struct_type.add_property(:property, "y", "Int32", annotations: [annotation2])
+      .add_property(:property, "x", "Int32", annotations: [annotation1])
+      .add_property(:property, "y", "Int32", annotations: [annotation2])
 
-    struct_type.generate.should eq(expected)
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with annotated nilable property" do
@@ -49,11 +51,12 @@ describe Crygen::Modules::Property do
     CRYSTAL
 
     the_annotation = CGT::Annotation.new("JSON::Field")
-    the_annotation.add_arg("emit_null", "true")
+      .add_arg("emit_null", "true")
 
     struct_type = test_point_struct()
-    struct_type.add_property(:nil_property, "z", "Int32", annotations: [the_annotation])
-    struct_type.generate.should eq(expected)
+      .add_property(:nil_property, "z", "Int32", annotations: [the_annotation])
+
+    assert_is_expected(struct_type, expected)
   end
 
   it "creates a struct with annotated scoped properties" do
@@ -71,8 +74,8 @@ describe Crygen::Modules::Property do
     annotation2 = CGT::Annotation.new("Public")
 
     struct_type = test_point_struct()
-    struct_type.add_property(:property, "x", "Int32", scope: :private, annotations: [annotation1])
-    struct_type.add_property(:getter, "y", "Int32", scope: :protected, annotations: [annotation2])
+      .add_property(:property, "x", "Int32", scope: :private, annotations: [annotation1])
+      .add_property(:getter, "y", "Int32", scope: :protected, annotations: [annotation2])
 
     struct_type.generate.should eq(expected)
   end
@@ -92,8 +95,9 @@ describe Crygen::Modules::Property do
     annotation2 = CGT::Annotation.new("Atomic")
 
     struct_type = test_point_struct()
-    struct_type.add_property(:class_getter, "x", "Int32", value: "0", annotations: [annotation1])
-    struct_type.add_property(:nil_class_property, "y", "Int32", annotations: [annotation2])
-    struct_type.generate.should eq(expected)
+      .add_property(:class_getter, "x", "Int32", value: "0", annotations: [annotation1])
+      .add_property(:nil_class_property, "y", "Int32", annotations: [annotation2])
+
+    assert_is_expected(struct_type, expected)
   end
 end
