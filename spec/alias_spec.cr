@@ -7,8 +7,8 @@ describe Crygen::Types::Alias do
     CRYSTAL
 
     alias_type = Crygen::Types::Alias.new("MyAlias", ["Foo"])
-    alias_type.generate.should eq(expected)
-    alias_type.to_s.should eq(expected)
+
+    assert_is_expected(alias_type, expected)
   end
 
   it "creates an alias with unions" do
@@ -16,17 +16,17 @@ describe Crygen::Types::Alias do
     alias MyAlias = Foo | Bar
     CRYSTAL
 
-    alias_type_generate = Crygen::Types::Alias.new("MyAlias", %w[Foo Bar])
-    alias_type_generate.generate.should eq(expected)
-    alias_type_generate.to_s.should eq(expected)
+    alias_type = Crygen::Types::Alias.new("MyAlias", %w[Foo Bar])
+
+    assert_is_expected(alias_type, expected)
 
     expected = <<-CRYSTAL
     alias MyAlias = A::Foo | B::Foo | C::Bar | D::Bar
     CRYSTAL
 
-    alias_type_union = Crygen::Types::Alias.new("MyAlias", %w[A::Foo B::Foo C::Bar D::Bar])
-    alias_type_union.generate.should eq(expected)
-    alias_type_union.to_s.should eq(expected)
+    alias_type = Crygen::Types::Alias.new("MyAlias", %w[A::Foo B::Foo C::Bar D::Bar])
+
+    assert_is_expected(alias_type, expected)
   end
 
   it "creates an alias with comment" do
@@ -36,8 +36,8 @@ describe Crygen::Types::Alias do
     CRYSTAL
 
     alias_type = Crygen::Types::Alias.new("MyAlias", ["Foo"])
-    alias_type.add_comment("This is my alias")
-    alias_type.generate.should eq(expected)
-    alias_type.to_s.should eq(expected)
+      .add_comment("This is my alias")
+
+    assert_is_expected(alias_type, expected)
   end
 end

@@ -8,8 +8,8 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     lib_c = Crygen::Types::LibC.new("C")
-    lib_c.generate.should eq(expected)
-    lib_c.to_s.should eq(expected)
+
+    assert_is_expected(lib_c, expected)
   end
 
   it "creates a C library with one function" do
@@ -19,9 +19,10 @@ describe Crygen::Types::LibC do
     end
     CRYSTAL
 
-    lib_c = Crygen::Types::LibC.new("C").add_function("getch", "Int32")
-    lib_c.generate.should eq(expected)
-    lib_c.to_s.should eq(expected)
+    lib_c = Crygen::Types::LibC.new("C")
+      .add_function("getch", "Int32")
+
+    assert_is_expected(lib_c, expected)
   end
 
   it "creates a C library with one function and a parameter" do
@@ -31,9 +32,10 @@ describe Crygen::Types::LibC do
     end
     CRYSTAL
 
-    lib_c = Crygen::Types::LibC.new("C").add_function("getch", "Int32", [{"arg", "String"}])
-    lib_c.generate.should eq(expected)
-    lib_c.to_s.should eq(expected)
+    lib_c = Crygen::Types::LibC.new("C")
+      .add_function("getch", "Int32", [{"arg", "String"}])
+
+    assert_is_expected(lib_c, expected)
   end
 
   it "creates a C library with one function and more parameters" do
@@ -49,9 +51,9 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_function("getch", "Int32", args)
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+      .add_function("getch", "Int32", args)
+
+    assert_is_expected(libc_type, expected)
   end
 
   it "creates a C library with many functions" do
@@ -64,11 +66,11 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_function("getch", "Int32")
-    libc_type.add_function("time", "Int32")
-    libc_type.add_function("getpid", "Int32")
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+      .add_function("getch", "Int32")
+      .add_function("time", "Int32")
+      .add_function("getpid", "Int32")
+
+    assert_is_expected(libc_type, expected)
   end
 
   it "creates a C library with one struct" do
@@ -82,13 +84,12 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_struct("TimeZone", [
-      {"field_one", "Int32"},
-      {"field_two", "Int32"},
-    ])
+      .add_struct("TimeZone", [
+        {"field_one", "Int32"},
+        {"field_two", "Int32"},
+      ])
 
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+    assert_is_expected(libc_type, expected)
   end
 
   it "creates a C library with many structs" do
@@ -106,17 +107,16 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_struct("TimeZone", [
-      {"field_one", "Int32"},
-      {"field_two", "Int32"},
-    ])
+      .add_struct("TimeZone", [
+        {"field_one", "Int32"},
+        {"field_two", "Int32"},
+      ])
 
-    libc_type.add_struct("DateTime", [
-      {"timestamp", "Int64"},
-    ])
+      .add_struct("DateTime", [
+        {"timestamp", "Int64"},
+      ])
 
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+    assert_is_expected(libc_type, expected)
   end
 
   it "creates a C library with one union" do
@@ -130,12 +130,12 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_union("IntOrFloat", [
-      {"some_int", "Int32"},
-      {"some_float", "Float64"},
-    ])
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+      .add_union("IntOrFloat", [
+        {"some_int", "Int32"},
+        {"some_float", "Float64"},
+      ])
+
+    assert_is_expected(libc_type, expected)
   end
 
   it "creates a C library with many unions" do
@@ -154,16 +154,16 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_union("IntOrFloat", [
-      {"some_int", "Int32"},
-      {"some_float", "Float64"},
-    ])
-    libc_type.add_union("CharOrString", [
-      {"some_char", "Char"},
-      {"some_string", "String"},
-    ])
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+      .add_union("IntOrFloat", [
+        {"some_int", "Int32"},
+        {"some_float", "Float64"},
+      ])
+      .add_union("CharOrString", [
+        {"some_char", "Char"},
+        {"some_string", "String"},
+      ])
+
+    assert_is_expected(libc_type, expected)
   end
 
   it "creates a C library with functions, structs and unions" do
@@ -195,27 +195,26 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_function("getch", "Int32")
-    libc_type.add_function("time", "Int32")
-    libc_type.add_function("getpid", "Int32")
-    libc_type.add_struct("TimeZone", [
-      {"field_one", "Int32"},
-      {"field_two", "Int32"},
-    ])
-    libc_type.add_struct("DateTime", [
-      {"timestamp", "Int64"},
-    ])
-    libc_type.add_union("IntOrFloat", [
-      {"some_int", "Int32"},
-      {"some_float", "Float64"},
-    ])
-    libc_type.add_union("CharOrString", [
-      {"some_char", "Char"},
-      {"some_string", "String"},
-    ])
+      .add_function("getch", "Int32")
+      .add_function("time", "Int32")
+      .add_function("getpid", "Int32")
+      .add_struct("TimeZone", [
+        {"field_one", "Int32"},
+        {"field_two", "Int32"},
+      ])
+      .add_struct("DateTime", [
+        {"timestamp", "Int64"},
+      ])
+      .add_union("IntOrFloat", [
+        {"some_int", "Int32"},
+        {"some_float", "Float64"},
+      ])
+      .add_union("CharOrString", [
+        {"some_char", "Char"},
+        {"some_string", "String"},
+      ])
 
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+    assert_is_expected(libc_type, expected)
   end
 
   it "creates a C library with `#as_link` helper" do
@@ -232,10 +231,9 @@ describe Crygen::Types::LibC do
     CRYSTAL
 
     libc_type = Crygen::Types::LibC.new("C")
-    libc_type.add_function("getch", "Int32", args)
-    libc_type.link("mylink")
+      .add_function("getch", "Int32", args)
+      .link("mylink")
 
-    libc_type.generate.should eq(expected)
-    libc_type.to_s.should eq(expected)
+    assert_is_expected(libc_type, expected)
   end
 end

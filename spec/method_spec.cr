@@ -8,8 +8,8 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("full_name", "String")
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a method with an annotation" do
@@ -20,9 +20,9 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("full_name", "String")
-    method_type.add_annotation(CGT::Annotation.new("Experimental"))
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_annotation(CGT::Annotation.new("Experimental"))
+
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a method with more annotations" do
@@ -34,12 +34,12 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("full_name", "String")
-    method_type.add_annotations(
-      CGT::Annotation.new("Experimental"),
-      CGT::Annotation.new("MyAnnotation")
-    )
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_annotations(
+        CGT::Annotation.new("Experimental"),
+        CGT::Annotation.new("MyAnnotation")
+      )
+
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a method with body" do
@@ -51,13 +51,12 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("full_name", "String")
-    method_type.add_body(<<-CRYSTAL)
-    # This comment is in method body
-    "John Doe"
-    CRYSTAL
+      .add_body(<<-CRYSTAL)
+      # This comment is in method body
+      "John Doe"
+      CRYSTAL
 
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a protected method" do
@@ -66,8 +65,7 @@ describe Crygen::Types::Method do
     end
     CRYSTAL
 
-    CGT::Method.new("date_birth", "String").as_protected.generate.should eq(expected)
-    CGT::Method.new("date_birth", "String").as_protected.to_s.should eq(expected)
+    assert_is_expected(CGT::Method.new("date_birth", "String").as_protected, expected)
   end
 
   it "creates a private method" do
@@ -76,8 +74,7 @@ describe Crygen::Types::Method do
     end
     CRYSTAL
 
-    CGT::Method.new("date_birth", "String").as_private.generate.should eq(expected)
-    CGT::Method.new("date_birth", "String").as_private.to_s.should eq(expected)
+    assert_is_expected(CGT::Method.new("date_birth", "String").as_private, expected)
   end
 
   it "creates a method with one arg" do
@@ -86,8 +83,7 @@ describe Crygen::Types::Method do
     end
     CRYSTAL
 
-    CGT::Method.new("major?", "Bool").add_arg("age", "Int8").generate.should eq(expected)
-    CGT::Method.new("major?", "Bool").add_arg("age", "Int8").to_s.should eq(expected)
+    assert_is_expected(CGT::Method.new("major?", "Bool").add_arg("age", "Int8"), expected)
   end
 
   it "creates a method with one default value arg" do
@@ -96,8 +92,7 @@ describe Crygen::Types::Method do
     end
     CRYSTAL
 
-    CGT::Method.new("major?", "Bool").add_arg("age", "Int8", "22").generate.should eq(expected)
-    CGT::Method.new("major?", "Bool").add_arg("age", "Int8", "22").to_s.should eq(expected)
+    assert_is_expected(CGT::Method.new("major?", "Bool").add_arg("age", "Int8", "22"), expected)
   end
 
   it "creates a method with many args" do
@@ -107,10 +102,10 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("major?", "Bool")
-    method_type.add_arg("age", "Int8")
-    method_type.add_arg("min_majority", "Int8")
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_arg("age", "Int8")
+      .add_arg("min_majority", "Int8")
+
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a method with one default arg on many args" do
@@ -120,10 +115,10 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("major?", "Bool")
-    method_type.add_arg("age", "Int8")
-    method_type.add_arg("min_majority", "Int8", "22")
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_arg("age", "Int8")
+      .add_arg("min_majority", "Int8", "22")
+
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a method with many args" do
@@ -133,10 +128,10 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("major?", "Bool")
-    method_type.add_arg("age", "Int8", "18")
-    method_type.add_arg("min_majority", "Int8", "22")
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_arg("age", "Int8", "18")
+      .add_arg("min_majority", "Int8", "22")
+
+    assert_is_expected(method_type, expected)
   end
 
   it "adds several arguments with #add_args" do
@@ -146,14 +141,13 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("foo", "Nil")
-    method_type.add_args(
-      {"bar", "String", nil},
-      {"age", "Int32", "42"},
-      {"flag", "Bool", nil}
-    )
+      .add_args(
+        {"bar", "String", nil},
+        {"age", "Int32", "42"},
+        {"flag", "Bool", nil}
+      )
 
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+    assert_is_expected(method_type, expected)
   end
 
   it "creates an abstract method" do
@@ -162,11 +156,11 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("major?", "Bool")
-    method_type.add_arg("age", "Int8", "18")
-    method_type.add_arg("min_majority", "Int8", "22")
-    method_type.as_abstract
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_arg("age", "Int8", "18")
+      .add_arg("min_majority", "Int8", "22")
+      .as_abstract
+
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a protected abstract method" do
@@ -175,12 +169,12 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("major?", "Bool")
-    method_type.add_arg("age", "Int8", "18")
-    method_type.add_arg("min_majority", "Int8", "22")
-    method_type.as_protected
-    method_type.as_abstract
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_arg("age", "Int8", "18")
+      .add_arg("min_majority", "Int8", "22")
+      .as_protected
+      .as_abstract
+
+    assert_is_expected(method_type, expected)
   end
 
   it "creates a private abstract method" do
@@ -189,11 +183,11 @@ describe Crygen::Types::Method do
     CRYSTAL
 
     method_type = CGT::Method.new("major?", "Bool")
-    method_type.add_arg("age", "Int8", "18")
-    method_type.add_arg("min_majority", "Int8", "22")
-    method_type.as_private
-    method_type.as_abstract
-    method_type.generate.should eq(expected)
-    method_type.to_s.should eq(expected)
+      .add_arg("age", "Int8", "18")
+      .add_arg("min_majority", "Int8", "22")
+      .as_private
+      .as_abstract
+
+    assert_is_expected(method_type, expected)
   end
 end
