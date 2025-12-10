@@ -1,5 +1,5 @@
 module Crygen::Modules::Struct
-  @structs = [] of Crygen::Types::Struct
+  protected getter structs = [] of Crygen::Types::Struct
 
   # Adds the nested struct(s).
   def add_struct(*structs : Crygen::Types::Struct) : self

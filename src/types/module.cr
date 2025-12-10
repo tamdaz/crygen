@@ -27,9 +27,22 @@ require "./../interfaces/generator_interface"
 class Crygen::Types::Module < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Comment
 
-  @objects = [] of Crygen::Interfaces::GeneratorInterface
+  protected getter name = String
+  protected getter objects = [] of Crygen::Interfaces::GeneratorInterface
 
   def initialize(@name : String); end
+
+  # Equality. Returns `true` if each value in `self` is equal to each
+  # corresponding value in *other*.
+  def ==(other : Crygen::Types::Module) : Bool
+    {% begin %}
+      equalities = [] of Bool
+      {% for instance_var in @type.instance_vars.map(&.name) %}
+      equalities << (@{{ instance_var }} == other.{{ instance_var }})
+      {% end %}
+      equalities.all?
+    {% end %}
+  end
 
   # Adds an object into the module.
   # ```

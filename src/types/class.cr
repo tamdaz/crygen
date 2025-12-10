@@ -34,7 +34,9 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   # Used for adding nested classes.
   include Crygen::Modules::Class
 
-  @type : Symbol = :normal
+  protected getter name : String
+  protected getter inherited_class_name : String?
+  protected getter type : Symbol = :normal
 
   def initialize(@name : String, @inherited_class_name : String? = nil); end
 
@@ -52,6 +54,18 @@ class Crygen::Types::Class < Crygen::Interfaces::GeneratorInterface
   def as_abstract : self
     @type = :abstract
     self
+  end
+
+  # Equality. Returns `true` if each value in `self` is equal to each
+  # corresponding value in *other*.
+  def ==(other : Crygen::Types::Class) : Bool
+    {% begin %}
+      equalities = [] of Bool
+      {% for instance_var in @type.instance_vars.map(&.name) %}
+      equalities << (@{{ instance_var }} == other.{{ instance_var }})
+      {% end %}
+      equalities.all?
+    {% end %}
   end
 
   # Generates a Crystal code.

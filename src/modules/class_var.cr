@@ -2,7 +2,7 @@ require "./../types/annotation"
 
 # Module that is used to store class variables.
 module Crygen::Modules::ClassVar
-  @class_vars = [] of Tuple(String, String, String?, Array(Crygen::Types::Annotation)?)
+  protected getter class_vars = [] of Tuple(String, String, String?, Array(Crygen::Types::Annotation)?)
 
   # Adds a class var with default value.
   def add_class_var(
