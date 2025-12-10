@@ -51,7 +51,7 @@ jobs:
           fi
 
           # Initialize release notes
-          NOTES="# $VERSION\n\n"
+          NOTES=""
 
           # Function to get PRs by label
           get_prs_by_label() {
