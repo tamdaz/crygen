@@ -5,7 +5,7 @@ require "./../helpers/annotation"
 module Crygen::Modules::Annotation
   include Crygen::Helpers::Annotation
 
-  @annotations = [] of Crygen::Types::Annotation
+  protected getter annotations = [] of Crygen::Types::Annotation
 
   # Adds the annotation onto object.
   # Example:

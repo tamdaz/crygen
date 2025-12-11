@@ -33,7 +33,22 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
   # Used for adding nested structs.
   include Crygen::Modules::Struct
 
+  protected getter name : String
+  protected getter inherited_abstract_struct_name : String?
+
   def initialize(@name : String, @inherited_abstract_struct_name : String? = nil); end
+
+  # Equality. Returns `true` if each value in `self` is equal to each
+  # corresponding value in *other*.
+  def ==(other : Crygen::Types::Struct) : Bool
+    {% begin %}
+      equalities = [] of Bool
+      {% for instance_var in @type.instance_vars.map(&.name) %}
+      equalities << (@{{ instance_var }} == other.{{ instance_var }})
+      {% end %}
+      equalities.all?
+    {% end %}
+  end
 
   # Generates a struct.
   def generate : String

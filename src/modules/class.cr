@@ -1,5 +1,5 @@
 module Crygen::Modules::Class
-  @classes = [] of Crygen::Types::Class
+  protected getter classes = [] of Crygen::Types::Class
 
   # Adds the nested class(es).
   def add_class(*classes : Crygen::Types::Class) : self

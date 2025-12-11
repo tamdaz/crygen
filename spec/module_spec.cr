@@ -208,4 +208,34 @@ describe Crygen::Types::Module do
 
     assert_is_expected(module_type, expected)
   end
+
+  it "determines equality" do
+    method_first_name = CGT::Method.new("first_name", "String")
+    method_first_name.add_body("John")
+    method_last_name = CGT::Method.new("last_name", "String")
+    method_last_name.add_body("Doe".dump)
+
+    class1 = CGT::Class.new("Person")
+    class1.add_instance_var("name", "String", "value")
+    class1.add_method(method_first_name)
+    class2 = CGT::Class.new("Person")
+    class2.add_instance_var("name", "String", "value")
+    class2.add_method(method_first_name)
+    struct1 = CGT::Struct.new("Person")
+    struct1.add_instance_var("name", "String", "value")
+    struct1.add_method(method_last_name)
+
+    module1 = CGT::Module.new("Folder")
+    module1.add_object(class1)
+    module2 = CGT::Module.new("Folder")
+    module2.add_object(class2)
+    module3 = CGT::Module.new("Folder")
+    module3.add_object(struct1)
+    module4 = CGT::Module.new("Directory")
+    module4.add_object(class1)
+
+    module1.should eq(module2)
+    module1.should_not eq(module3)
+    module1.should_not eq(module4)
+  end
 end

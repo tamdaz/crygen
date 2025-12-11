@@ -2,7 +2,7 @@ require "./../types/annotation"
 
 # Module that is used to store and add the instance variables.
 module Crygen::Modules::InstanceVar
-  @instance_vars = [] of Tuple(String, String, String?, Array(Crygen::Types::Annotation)?)
+  protected getter instance_vars = [] of Tuple(String, String, String?, Array(Crygen::Types::Annotation)?)
 
   # Adds an argument with default value.
   def add_instance_var(
