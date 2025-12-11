@@ -386,22 +386,26 @@ describe Crygen::Types::Struct do
 
   it "determines equality" do
     method_first_name = CGT::Method.new("first_name", "String")
-    method_first_name.add_body("John")
+      .add_body("John")
+    
     method_last_name = CGT::Method.new("last_name", "String")
-    method_last_name.add_body("Doe".dump)
+      .add_body("Doe".dump)
 
     struct1 = CGT::Struct.new("Person")
-    struct1.add_instance_var("name", "String", "value")
-    struct1.add_method(method_first_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_first_name)
+    
     struct2 = CGT::Struct.new("Person")
-    struct2.add_instance_var("name", "String", "value")
-    struct2.add_method(method_first_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_first_name)
+
     struct3 = CGT::Struct.new("OtherPerson")
-    struct3.add_instance_var("name", "String", "value")
-    struct3.add_method(method_first_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_first_name)
+    
     struct4 = CGT::Struct.new("Person")
-    struct4.add_instance_var("name", "String", "value")
-    struct4.add_method(method_last_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_last_name)
 
     struct1.should eq(struct2)
     struct1.should_not eq(struct3)

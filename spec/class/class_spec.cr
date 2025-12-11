@@ -418,22 +418,26 @@ describe Crygen::Types::Class do
 
   it "determines equality" do
     method_first_name = CGT::Method.new("first_name", "String")
-    method_first_name.add_body("John")
+      .add_body("John")
+    
     method_last_name = CGT::Method.new("last_name", "String")
-    method_last_name.add_body("Doe".dump)
+      .add_body("Doe".dump)
 
     class1 = CGT::Class.new("Person")
-    class1.add_instance_var("name", "String", "value")
-    class1.add_method(method_first_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_first_name)
+      
     class2 = CGT::Class.new("Person")
-    class2.add_instance_var("name", "String", "value")
-    class2.add_method(method_first_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_first_name)
+
     class3 = CGT::Class.new("OtherPerson")
-    class3.add_instance_var("name", "String", "value")
-    class3.add_method(method_first_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_first_name)
+
     class4 = CGT::Class.new("Person")
-    class4.add_instance_var("name", "String", "value")
-    class4.add_method(method_last_name)
+      .add_instance_var("name", "String", "value")
+      .add_method(method_last_name)
 
     class1.should eq(class2)
     class1.should_not eq(class3)
