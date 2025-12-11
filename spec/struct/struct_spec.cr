@@ -387,14 +387,14 @@ describe Crygen::Types::Struct do
   it "determines equality" do
     method_first_name = CGT::Method.new("first_name", "String")
       .add_body("John")
-    
+
     method_last_name = CGT::Method.new("last_name", "String")
       .add_body("Doe".dump)
 
     struct1 = CGT::Struct.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_first_name)
-    
+
     struct2 = CGT::Struct.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_first_name)
@@ -402,7 +402,7 @@ describe Crygen::Types::Struct do
     struct3 = CGT::Struct.new("OtherPerson")
       .add_instance_var("name", "String", "value")
       .add_method(method_first_name)
-    
+
     struct4 = CGT::Struct.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_last_name)

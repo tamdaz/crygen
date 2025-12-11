@@ -419,14 +419,14 @@ describe Crygen::Types::Class do
   it "determines equality" do
     method_first_name = CGT::Method.new("first_name", "String")
       .add_body("John")
-    
+
     method_last_name = CGT::Method.new("last_name", "String")
       .add_body("Doe".dump)
 
     class1 = CGT::Class.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_first_name)
-      
+
     class2 = CGT::Class.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_first_name)

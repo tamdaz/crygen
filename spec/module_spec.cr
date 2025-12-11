@@ -219,11 +219,11 @@ describe Crygen::Types::Module do
     class1 = CGT::Class.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_first_name)
-    
-      class2 = CGT::Class.new("Person")
+
+    class2 = CGT::Class.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_first_name)
-    
+
     struct1 = CGT::Struct.new("Person")
       .add_instance_var("name", "String", "value")
       .add_method(method_last_name)
