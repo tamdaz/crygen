@@ -25,6 +25,7 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
   # Body content.
   @body : String = ""
 
+  # The method name and return type to pass into the constructor.
   def initialize(@name : String, @return_type : String); end
 
   # Set as an abstract method.

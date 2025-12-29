@@ -1,3 +1,4 @@
+# Module that configures the scope of an object.
 module Crygen::Modules::Scope
   @scope : Symbol = :public
 

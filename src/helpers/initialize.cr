@@ -1,4 +1,5 @@
-# This module provides helper methods for adding constructors (initializers) to classes and structures.
+# This module provides helper methods for adding constructors
+# (or initializers) to classes and structures.
 module Crygen::Helpers::Initialize
   # Adds `#initialize` method.
   # Returns: an object itself.

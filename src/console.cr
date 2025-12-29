@@ -18,6 +18,7 @@ rescue IndexError
   exit 1
 end
 
+# Generates the module and saves to the `src/modules` directory.
 def make_module(module_name : String) : Nil
   module_type = CGT::Module.new("Crygen::Types::#{module_name}")
   module_type.add_comment("TODO : Write the documentation about the `#{module_name}` class.")
@@ -27,6 +28,7 @@ def make_module(module_name : String) : Nil
   File.write(path, module_type.generate)
 end
 
+# Generates the types and saves to the `src/types` directory.
 def make_type(class_name : String) : Nil
   method_generate = CGT::Method.new("generate", "String")
   method_generate.add_body("# Put the code...")

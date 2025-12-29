@@ -1,3 +1,4 @@
+# Module that stores an array of structs.
 module Crygen::Modules::Struct
   protected getter structs = [] of Crygen::Types::Struct
 

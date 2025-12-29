@@ -26,6 +26,7 @@ class Crygen::Types::Enum < Crygen::Interfaces::GeneratorInterface
   # Array of constants (name and value).
   @constants = [] of Tuple(String, String?)
 
+  # The enum name and type to define to the constructor.
   def initialize(@name : String, @type : String? = nil); end
 
   # Adds a constant into enum (name and value).

@@ -1,5 +1,6 @@
 require "./../types/method"
 
+# Module that stores an array of methods.
 module Crygen::Modules::Method
   protected getter methods = [] of Crygen::Types::Method
 

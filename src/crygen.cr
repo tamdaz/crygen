@@ -7,7 +7,6 @@ require "./utils/string_indented_builder"
 # **crygen** is a library that allows to generate a Crystal file. It is inspired by the PHP
 # library : [nette/php-generator](https://github.com/nette/php-generator).
 module Crygen
-  # Library version
   VERSION = "1.2.2"
 
   # CGT is an alias of "**C**ry**G**en **T**ypes".

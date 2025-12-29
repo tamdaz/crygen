@@ -15,6 +15,7 @@ require "./../interfaces/generator_interface"
 class Crygen::Types::Alias < Crygen::Interfaces::GeneratorInterface
   include Crygen::Modules::Comment
 
+  # The alias name and types to pass to the constructor.
   def initialize(@name : String, @types : Array(String)); end
 
   # Generates an alias.

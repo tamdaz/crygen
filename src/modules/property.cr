@@ -2,6 +2,7 @@ require "./../enums/prop_visibility"
 require "./../enums/prop_scope"
 require "./scope"
 
+# Module that stores an array of properties, getters and setters (even those static).
 module Crygen::Modules::Property
   alias PropertyType = NamedTuple(
     visibility: String,

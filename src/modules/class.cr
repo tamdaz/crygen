@@ -1,3 +1,4 @@
+# Module that stores an array of classes.
 module Crygen::Modules::Class
   protected getter classes = [] of Crygen::Types::Class
 

@@ -18,6 +18,7 @@ class Crygen::Types::Macro < Crygen::Interfaces::GeneratorInterface
   @args = [] of String
   @body = ""
 
+  # The macro name to pass to the constructor.
   def initialize(@name : String); end
 
   # Adds an argument to the macro.
