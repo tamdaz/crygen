@@ -1,5 +1,25 @@
 Documentation/DocumentationAdmonition:
   Enabled: false
 
+Documentation/Documentation:
+  Enabled: true
+  IgnoreDefs: false
+  IgnoreModules: false
+  Excluded:
+    - spec/**/*.cr
+
+Layout/LineLength:
+  Enabled: true
+  MaxLength: 110
+
+Lint/VoidOutsideLib:
+  Enabled: true
+
+Style/HeredocIndent:
+  Enabled: true
+
+Style/RedundantSelf:
+  Enabled: true
+
 Metrics/CyclomaticComplexity:
   Enabled: false
