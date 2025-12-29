@@ -17,4 +17,7 @@ module Crygen
 
   # CGG is an alias of "**C**ry**G**en **G**enerators".
   alias ::CGG = Crygen::Generators
+
+  # CGG is an alias of "**C**ry**G**en **I**nterfaces".
+  alias ::CGI = Crygen::Interfaces
 end
