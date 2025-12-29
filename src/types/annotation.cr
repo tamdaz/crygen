@@ -17,6 +17,7 @@ require "./../interfaces/generator_interface"
 class Crygen::Types::Annotation < Crygen::Interfaces::GeneratorInterface
   @args = [] of Tuple(String?, String)
 
+  # The annotation name to pass to the constructor.
   def initialize(@name : String); end
 
   # Adds only a value into the argument.

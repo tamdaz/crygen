@@ -22,6 +22,7 @@ class Crygen::Types::LibC < Crygen::Interfaces::GeneratorInterface
   @functions = [] of Hash(Symbol, String)
   @objects = [] of Tuple(String, Symbol, FieldArray)
 
+  # Library name to pass into the constructor.
   def initialize(@name : String); end
 
   # Adds a C function (name, return type, and optional arguments).

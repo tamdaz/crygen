@@ -12,12 +12,12 @@ def test_point_struct : CGT::Struct
 end
 
 # Assert that the generated code is equal to the expected code.
-def assert_is_expected(generated_code : Crygen::Interfaces::GeneratorInterface, expected : String) : Void
+def assert_is_expected(generated_code : Crygen::Interfaces::GeneratorInterface, expected : String) : Nil
   generated_code.to_s.should eq(expected)
   generated_code.generate.should eq(expected)
 end
 
 # :ditto:
-def assert_is_expected(generated_code : String, expected : String) : Void
+def assert_is_expected(generated_code : String, expected : String) : Nil
   generated_code.should eq(expected)
 end
