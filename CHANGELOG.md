@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.3.0](https://github.com/tamdaz/crygen/releases/tag/v1.3.0) - 2025-12-30
+
+## Added
+
+- Add equality method (@HCLarsen)(#99)
+
+## Fixed
+
+- Rewrite the Ameba configuration. Add `CGI` alias. (@tamdaz)(#101)
+- Use the fluent design pattern for better readability of equality tests. (@tamdaz)(#100)
+- Change the sentences (@tamdaz)(#98)
+- Refactor the specs (@tamdaz)(#97)
+
 ## [v1.2.2](https://github.com/tamdaz/crygen/releases/tag/v1.2.2) - 2025-11-13
 
 ## Fixed
