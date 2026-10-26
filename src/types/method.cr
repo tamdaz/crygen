@@ -94,7 +94,11 @@ class Crygen::Types::Method < Crygen::Interfaces::GeneratorInterface
       Crygen::Utils::Indentation.add_indent
 
       @body.each_line do |line|
-        str << Crygen::Utils::Indentation.generate << line << "\n"
+        unless line.empty?
+          str << Crygen::Utils::Indentation.generate << line
+        end
+
+        str << "\n"
       end
 
       Crygen::Utils::Indentation.remove_indent

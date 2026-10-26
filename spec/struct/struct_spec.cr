@@ -411,4 +411,22 @@ describe Crygen::Types::Struct do
     struct1.should_not eq(struct3)
     struct1.should_not eq(struct4)
   end
+
+  it "generates a simple struct with properties" do
+    point = Crygen::Types::Struct.new("Point")
+    point.add_property(:property, "x", "Int32", value: "0", comment: "X coordinate")
+    point.add_property(:property, "y", "Int32", value: "0", comment: "Y coordinate")
+
+    expected = <<-CRYSTAL
+    struct Point
+      # X coordinate
+      property x : Int32 = 0
+
+      # Y coordinate
+      property y : Int32 = 0
+    end
+    CRYSTAL
+
+    assert_is_expected(point, expected)
+  end
 end

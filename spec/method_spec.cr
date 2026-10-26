@@ -59,6 +59,29 @@ describe Crygen::Types::Method do
     assert_is_expected(method_type, expected)
   end
 
+  it "creates a method with body with no indented blank lines" do
+    expected = <<-CRYSTAL
+    def full_name : String
+      if condition
+        "Jane Doe"
+      end
+
+      "John Doe"
+    end
+    CRYSTAL
+
+    method_type = CGT::Method.new("full_name", "String")
+      .add_body(<<-CRYSTAL)
+      if condition
+        "Jane Doe"
+      end
+
+      "John Doe"
+      CRYSTAL
+
+    assert_is_expected(method_type, expected)
+  end
+
   it "creates a protected method" do
     expected = <<-CRYSTAL
     protected def date_birth : String
@@ -189,5 +212,21 @@ describe Crygen::Types::Method do
       .as_abstract
 
     assert_is_expected(method_type, expected)
+  end
+
+  it "generates a method with an argument and a body" do
+    method = CGT::Method.new("greet", "String")
+    method.add_arg "name", "String", "\"World\""
+    method.add_body <<-CRYSTAL
+    "Hello world"
+    CRYSTAL
+
+    expected = <<-CRYSTAL
+    def greet(name : String = "World") : String
+      "Hello world"
+    end
+    CRYSTAL
+
+    assert_is_expected(method, expected)
   end
 end
