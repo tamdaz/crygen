@@ -101,7 +101,7 @@ class Crygen::Types::Struct < Crygen::Interfaces::GeneratorInterface
       @structs.each_with_index do |the_struct, index|
         if index != 0
           Crygen::Utils::Indentation.reset
-          str << Crygen::Utils::Indentation.add_indent << "\n"
+          str << "\n"
           Crygen::Utils::Indentation.restore
         end
 
